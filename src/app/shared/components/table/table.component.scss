@@ -1,0 +1,10 @@
+::ng-deep {
+    .ant-table-column-sorter{
+        color: white;
+    }
+}
+
+td{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

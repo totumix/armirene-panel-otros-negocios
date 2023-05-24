@@ -1,0 +1,56 @@
+<form class="pdd-20" nz-form nzLayout="vertical">
+    <nz-form-item>
+        <nz-form-label>Ciudad:</nz-form-label>
+        <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+            <nz-select id="city" nzPlaceHolder="Ciudad" (ngModelChange)="changeCity($event)">
+                <nz-option nzValue="male" nzLabel="male"></nz-option>
+                <nz-option nzValue="female" nzLabel="female"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>Municipio:</nz-form-label>
+        <nz-form-control nzErrorTip="Porfavor ingrese el municipio!">
+            <nz-select id="city" nzPlaceHolder="Municipio" (ngModelChange)="changeMunicipality($event)">
+                <nz-option nzValue="male" nzLabel="male"></nz-option>
+                <nz-option nzValue="female" nzLabel="female"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>Dirección:</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
+            <input type="password" nz-input placeholder="Dirección">
+        </nz-form-control>
+    </nz-form-item>
+    <div class="mg-y-5">
+        <div class="map-container">
+            <div id="viewport-map"></div>
+        </div>
+    </div>
+    <nz-form-item>
+        <nz-form-label>Indicaciones de dirección:</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
+            <textarea nz-input placeholder="Autosize height with minimum and maximum number of lines"
+                [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label>Nombre sucursal:</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor ingresa el nombre!">
+            <input type="name" nz-input placeholder="Nombre">
+        </nz-form-control>
+    </nz-form-item>
+    <app-phone></app-phone>
+    <div class="add-img-container">
+        <label class="font-16 u-bold">Imagen de la fachada del negocio</label>
+        <img src="../../../../assets/svg/agregar-fachada.svg" alt="">
+    </div>
+</form>
+<div class="actions-container">
+    <a *ngIf="dataForm" (click)="deleteBranchOffice()">Eliminar sucursal</a>
+    <app-button [title]="'Atrás'"
+        [customClasses]="'negative-main-btn negative-main-btn--form main--h-40  font-16'"></app-button>
+    <app-button [title]="'Siguiente'" [customClasses]="'main main--form main--h-40  font-16'"
+        [isLoading]="false"></app-button>
+</div>

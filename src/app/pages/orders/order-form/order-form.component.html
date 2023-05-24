@@ -1,0 +1,152 @@
+<div class="order-form-container">
+    <span *ngIf="!fourthContent" class="order-form-container__title">CREAR PEDIDO</span>
+    <nz-steps [nzCurrent]="current" [ngStyle]=" {'width' : fourthContent ? '15%' : '30%'}">
+        <nz-step></nz-step>
+        <nz-step></nz-step>
+        <nz-step></nz-step>
+    </nz-steps>
+    <form nz-form nzLayout="vertical">
+        <div *ngIf="firstContent">
+            <span class="order-form-container__sub-title">Completa los datos del cliente:</span>
+            <div class="order-form-container__row">
+                <nz-form-item>
+                    <nz-form-label>Nombre * :</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor ingresa el nombre del cliente!">
+                        <input type="text" nz-input placeholder="Escribe aquí…">
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Apellido * :</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor ingresa el apellido del cliente!">
+                        <input type="text" nz-input placeholder="Escribe aquí…">
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <app-phone></app-phone>
+            <div class="order-form-container__row">
+                <nz-form-item>
+                    <nz-form-label>Ciudad * :</nz-form-label>
+                    <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+                        <nz-select id="city" nzPlaceHolder="Ciudad">
+                            <nz-option nzValue="male" nzLabel="male"></nz-option>
+                            <nz-option nzValue="female" nzLabel="female"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Municipio * :</nz-form-label>
+                    <nz-form-control nzErrorTip="Porfavor ingrese el municipio!">
+                        <nz-select id="city" nzPlaceHolder="Municipio">
+                            <nz-option nzValue="male" nzLabel="male"></nz-option>
+                            <nz-option nzValue="female" nzLabel="female"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <nz-form-item>
+                <nz-form-label>Dirección *:</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
+                    <input type="password" nz-input placeholder="Escribe aquí…">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>Detalle de la dirección *:</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor ingresa el detalle de tu dirección!">
+                    <input type="password" nz-input placeholder="Número de casa / apto / oficina">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>Indicaciones de dirección:</nz-form-label>
+                <nz-form-control>
+                    <textarea nz-input
+                        placeholder="Escribe aquí las instrucciones o comentarios para ayudar al domiciliario…"
+                        [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+            <span>*Campos obligatorios</span>
+        </div>
+        <div *ngIf="secondContent">
+            <span class="order-form-container__sub-title">Confirma tu ubicación en el mapa</span>
+
+        </div>
+        <div *ngIf="thirdContent">
+            <span class="order-form-container__sub-title mb-bottom-15">Selecciona la información de tu negocio</span>
+            <div class="justify-content-right p-relative">
+                <app-button [title]="'Añadir nueva sucursal'" [subfixIcon]="'plus'" class="p-absolute"
+                    [customClasses]="'negative-second-btn pdd-x-15 font-16 '" [isLoading]="false"></app-button>
+            </div>
+            <nz-form-item>
+                <nz-form-label class="mg-y-5">Selecciona la sucursal * :</nz-form-label>
+                <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+                    <nz-select id="city" nzPlaceHolder="Selecciona la surcusal">
+                        <nz-option nzValue="male" nzLabel="male"></nz-option>
+                        <nz-option nzValue="female" nzLabel="female"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>Tipo de vehículo</nz-form-label>
+                <nz-radio-group>
+                    <label nz-radio nzValue="A">
+                        <img src="assets/svg/bicycle-svgrepo-com.svg" alt="">
+                        Bicicleta</label>
+                    <label nz-radio nzValue="B">
+                        <img src="assets/svg/motorbike-bike-svgrepo-com.svg" alt="">
+                        Moto</label>
+                    <label nz-radio nzValue="C">
+                        <img src="assets/svg/automobile-svgrepo-com.svg" alt="">
+                        Carro</label>
+                </nz-radio-group>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>Forma de pago </nz-form-label>
+                <nz-radio-group>
+                    <label nz-radio nzValue="A">
+                        <img src="assets/svg/efectivo.svg" alt="">
+                        Efectivo</label>
+                    <label nz-radio nzValue="B">
+                        <img src="assets/svg/datafono.svg" alt="">
+                        Punto de venta</label>
+                    <label nz-radio nzValue="C">
+                        <img src="assets/svg/invoice-bill-svgrepo-com-1.svg" alt="">
+                        Prepagado</label>
+                </nz-radio-group>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>Total a cobrar al cliente:</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
+                    <input type="number" nz-input placeholder="Escribe aquí…">
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>Comentarios al mensajero</nz-form-label>
+                <nz-form-control>
+                    <textarea nz-input placeholder="Escribe los comentarios aquí…"
+                        [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+            <app-order-total></app-order-total>
+        </div>
+        <div *ngIf="fourthContent" class="fourth-content">
+            <div>
+                <div class="map-container">
+                    <div id="viewport-map"></div>
+                </div>
+            </div>
+            <div>
+                <span class="order-form-container__title"> RESUMEN DEL PEDIDO </span>
+                <app-order-summary></app-order-summary>
+                <app-order-total></app-order-total>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="actions-container" [ngClass]="current === 3 ? 'actions-container--order-summary' : ''">
+    <app-button [title]="'Atrás'" (click)="pre()"
+        [customClasses]="'negative-main-btn negative-main-btn--form main--h-40  font-16'"></app-button>
+    <app-button [title]="'Siguiente'" [customClasses]="'main main--form main--h-40  font-16'" (click)="next()"
+        [isLoading]="false" *ngIf="current !== 3"></app-button>
+    <app-button [title]="'Crear pedido'" [customClasses]="'main main--form main--h-40  font-16'" [isLoading]="false"
+        *ngIf="current === 3"></app-button>
+</div>

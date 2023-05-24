@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="enterprise-form col-lg-6 col-md-12 col-sm-12 col-xs-12 pdd-y-20">
+            <div class="enterprise-form__description">
+                <h1>INFORMACIÓN DE TU NEGOCIO</h1>
+                <p>La información que ingresas acá es para los domiciliarios y poder dar un soporte.
+                    Ingresa información detallada, explícita y sin errores. Esto servirá para que los domiciliarios
+                    encuentren fácilmente tus locales y podamos dar soporte de manera efectiva.</p>
+            </div>
+            <form class="pdd-20" nz-form nzLayout="vertical">
+                <nz-form-item>
+                    <nz-form-label>Nombre del negocio:</nz-form-label>
+                    <nz-form-control nzErrorTip="Por favor ingresa el nombre!">
+                        <input type="name" nz-input placeholder="Nombre">
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Tipo de negocio: </nz-form-label>
+                    <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+                        <nz-select id="city" nzPlaceHolder="Tipo de negocio">
+                            <nz-option nzValue="male" nzLabel="male"></nz-option>
+                            <nz-option nzValue="female" nzLabel="female"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>Cantidad de domicilios que haces en la semana (Estimado)</nz-form-label>
+                    <nz-form-control nzErrorTip="Porfavor ingrese la cantidad de domicilios!">
+                        <input type="number" nz-input placeholder="Cantidad de domicilios ">
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label>¿Cuántas sucursales tiene el negocio?</nz-form-label>
+                    <nz-form-control nzErrorTip="Porfavor ingrese la cantidad de sucursales!">
+                        <input type="number" nz-input placeholder="Cantidad de sucursales">
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+            <div class="justify-content-center">
+                <app-button [title]="'Guardar'" [customClasses]="'main main--form main--h-40  font-16'"
+                    [isLoading]="false"></app-button>
+            </div>
+        </div>
+    </div>
+</div>
