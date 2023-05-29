@@ -24,6 +24,14 @@
   &__trigger:hover {
     color: #1890ff;
   }
+
+  &__avatar {
+    float: right;
+
+    button {
+      border: none;
+    }
+  }
 }
 
 
@@ -42,6 +50,7 @@
     margin: 2rem 0;
     overflow: hidden;
     line-height: 2rem;
+
     &__logo {
       border-radius: 50%;
       height: 9rem;
@@ -61,6 +70,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       margin: 0;
+
       span {
         font-size: 1.6rem;
         color: #b3b3b3;

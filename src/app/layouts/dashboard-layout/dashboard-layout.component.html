@@ -4,6 +4,19 @@
     <span class="nz-header__trigger" (click)="isCollapsed = !isCollapsed">
       <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
     </span>
+    <div class="nz-header__avatar">
+      <nz-avatar nzSize="large" nzIcon="user"></nz-avatar>
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu" nzPlacement="bottomRight">
+        <span nz-icon [nzType]="'down'"></span>
+      </button>
+    </div>
+
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="logout()">Cerrar sesión</li>
+      </ul>
+    </nz-dropdown-menu>
+
   </nz-header>
   <nz-layout>
     <nz-sider class="menu-sidebar" nzCollapsible nzWidth="250px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"

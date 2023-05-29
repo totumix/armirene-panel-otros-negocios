@@ -15,7 +15,8 @@ import { ButtonModule } from '../shared/components/button/button.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
-
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
 
 
@@ -32,10 +33,12 @@ const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
     NzMenuModule,
     IconsProviderModule,
     NzButtonModule,
+    NzDropDownModule,
     NzPageHeaderModule,
     ButtonModule,
     RouterModule,
-    NzDrawerModule
+    NzDrawerModule,
+    NzAvatarModule
   ],
 })
 export class LayoutsModule { }

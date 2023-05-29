@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { AuthStore } from 'src/app/services/auth.store';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 @Component({
   selector: 'app-dashboard-layout',
@@ -15,7 +16,8 @@ export class DashboardLayoutComponent implements OnInit {
     { label: 'Clientes', icon: 'user', route: ['/clients/list'] },
   ]
   constructor(private drawerService: NzDrawerService,
-    private drawerEvent: DrawerEvent
+    private drawerEvent: DrawerEvent,
+    private auth: AuthStore,
   ) { }
 
   ngOnInit(): void {
@@ -42,5 +44,9 @@ export class DashboardLayoutComponent implements OnInit {
 
     this.drawerRef.afterClose.subscribe(data => {
     });
+  }
+
+  logout(){
+    this.auth.logout();
   }
 }
