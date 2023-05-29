@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthStore } from 'src/app/services/auth.store';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
