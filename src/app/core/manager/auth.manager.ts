@@ -28,8 +28,9 @@ export class AuthManager {
             }),
             switchMap(auth => this._authService.getInfo(formValue.username)),
             shareReplay()
-        ).subscribe(user => {
-            Storage.setAll(USER_DATA, user);
+        ).subscribe((user: AuthResponse) => {
+            let { data } = user;
+            Storage.setAll(USER_DATA, data);
             this._router.navigateByUrl("/start-view/list")
         })
     }
