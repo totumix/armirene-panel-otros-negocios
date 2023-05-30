@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
-import { AuthStore } from 'src/app/services/auth.store';
+import { DashboardLayoutVm } from 'src/app/core/view-model/dashboard-layout.vm';
+import { AuthService } from 'src/app/services/auth.service';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 @Component({
   selector: 'app-dashboard-layout',
@@ -17,7 +18,7 @@ export class DashboardLayoutComponent implements OnInit {
   ]
   constructor(private drawerService: NzDrawerService,
     private drawerEvent: DrawerEvent,
-    private auth: AuthStore,
+    private vm : DashboardLayoutVm
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +48,6 @@ export class DashboardLayoutComponent implements OnInit {
   }
 
   logout(){
-    this.auth.logout();
+    this.vm.logout();
   }
 }
