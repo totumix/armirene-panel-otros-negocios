@@ -6,5 +6,5 @@
         <span [ngStyle]="{'color': color }" class="title" *ngIf="!isLoading">{{ title }}</span>
         <span *ngIf="subfixIcon !== ''" class="mg-left-5" nz-icon nzType="{{subfixIcon}}" nzTheme="outline"></span>
     </ng-template>
-    <app-spinner [isLoading]="isLoading" [default]="spinnerBlack" [small]="true"></app-spinner>
+    <app-spinner [small]="true"></app-spinner>
 </button>

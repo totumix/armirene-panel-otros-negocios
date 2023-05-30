@@ -8,7 +8,7 @@ export class AuthVm {
     constructor(private _authManager: AuthManager) { }
 
     login(data) {
-        this._authManager.login(data)
+        return this._authManager.login(data)
     }
 
 }
