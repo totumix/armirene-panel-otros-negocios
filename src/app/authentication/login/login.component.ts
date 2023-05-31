@@ -50,9 +50,13 @@ export class LoginComponent implements OnInit {
         }),
       )
       .subscribe((user: AuthResponse) => {
-        let { data } = user;
+        let { data, data: { businessIds } } = user;
         Storage.setAll(USER_DATA, data);
-        this._router.navigateByUrl("/dashboard/start-view")
+        if (businessIds) {
+          this._router.navigateByUrl("/dashboard/start-view")
+        } else {
+          this._router.navigateByUrl("/authentication/enterprise-form")
+        }
       });
   }
 

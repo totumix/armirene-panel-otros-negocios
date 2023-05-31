@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ViewportMap } from 'src/app/shared/components/view-port-map/view-port-map';
-import { BranchOffice } from 'src/app/shared/interfaces/branch-office.type';
 import { selectDataMapInterface } from 'src/app/shared/interfaces/select-data-map.type';
 import { fromFetch } from 'rxjs/fetch';
 import { from, switchMap } from 'rxjs';
+import { BranchOffice } from 'src/app/core/models/branch-office.class';
 
 @Component({
   selector: 'app-branch-office-form',
