@@ -3,7 +3,7 @@ import { ClientsComponent } from 'src/app/pages/clients/clients.component';
 
 export const Clients_ROUTES: Routes = [
     {
-        path: 'list',
+        path: '',
         component: ClientsComponent,
         data: {
             title: 'Pedidos'

@@ -4,17 +4,24 @@ import { AuthenticationLayoutComponent } from './layouts/authentication-layout/a
 import { AuthenticationLayout_ROUTES } from './shared/routes/authentication-layout.routes';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard-layout.component';
 import { DashboardLayout_ROUTES } from './shared/routes/dashboard-layout.routes';
+import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardLayoutComponent,
-    children: DashboardLayout_ROUTES
+    redirectTo: 'authentication/login',
+    pathMatch: "full"
   },
   {
     path: 'authentication',
     component: AuthenticationLayoutComponent,
     children: AuthenticationLayout_ROUTES
+  },
+  {
+    path: 'dashboard',
+    canActivate: [AuthGuard],
+    component: DashboardLayoutComponent,
+    children: DashboardLayout_ROUTES
   }
 ];
 

@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       .subscribe((user: AuthResponse) => {
         let { data } = user;
         Storage.setAll(USER_DATA, data);
-        this._router.navigateByUrl("/start-view/list")
+        this._router.navigateByUrl("/dashboard/start-view")
       });
   }
 

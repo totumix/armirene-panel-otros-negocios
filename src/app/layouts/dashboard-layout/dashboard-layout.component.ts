@@ -12,9 +12,9 @@ export class DashboardLayoutComponent implements OnInit {
   isCollapsed = false;
   drawerRef;
   menuOptions = [
-    { label: 'Inicio', icon: 'home', route: ['/start-view/list'] },
-    { label: 'Pedidos', icon: 'file-done', route: ['/orders/list'] },
-    { label: 'Clientes', icon: 'user', route: ['/clients/list'] },
+    { label: 'Inicio', icon: 'home', route: ['start-view'] },
+    { label: 'Pedidos', icon: 'file-done', route: ['orders'] },
+    { label: 'Clientes', icon: 'user', route: ['clients'] },
   ]
   constructor(private drawerService: NzDrawerService,
     private drawerEvent: DrawerEvent,

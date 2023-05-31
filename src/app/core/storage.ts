@@ -29,7 +29,7 @@ export class Storage {
 	 * @param {string} key Nombre del valor a recuperar.
 	 * @return {string} Retorna un string con el valor.
 	 */
-	static getOne(key: string): string {
+	static getOne(key: string) {
 		return JSON.parse(this.decrypt(localStorage.getItem(`${prefix}_${key.toLowerCase()}`)) || "[]");
 	}
 

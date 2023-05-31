@@ -3,7 +3,7 @@ import { StartViewComponent } from 'src/app/pages/start-view/start-view.componen
 
 export const StartView_ROUTES: Routes = [
     {
-        path: 'list',
+        path: '',
         component: StartViewComponent,
         data: {
             title: 'Pedidos'

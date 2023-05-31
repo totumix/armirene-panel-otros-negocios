@@ -3,7 +3,7 @@ import { OrdersComponent } from 'src/app/pages/orders/orders.component';
 
 export const Orders_ROUTES: Routes = [
     {
-        path: 'list',
+        path: '',
         component: OrdersComponent,
         data: {
             title: 'Pedidos'
