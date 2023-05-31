@@ -11,6 +11,7 @@ import {  ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from '../shared/components/button/button.module';
 import { EnterpriseComponent } from './enterprise/enterprise.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { MessagesComponent } from '../shared/components/messages/messages.component';
 
 const antdModule= [
   NzFormModule,
@@ -25,6 +26,7 @@ const antdModule= [
   ],
   imports: [
     CommonModule,
+    MessagesComponent,
     AuthenticationRoutingModule,
     ReactiveFormsModule,
     ButtonModule,

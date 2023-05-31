@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize } from 'rxjs';
+import { catchError, finalize, throwError } from 'rxjs';
 import { AuthResponse } from 'src/app/core/models/auth-response.class';
 import { Storage } from 'src/app/core/storage';
 import { AuthVm } from 'src/app/core/view-model/auth.vm';
 import { LoadingService } from 'src/app/services/loading.service';
+import { MessagesService } from 'src/app/services/messages.service';
 import { environment } from 'src/environments/environment';
 const USER_DATA = 'user_data'
 
@@ -13,6 +14,9 @@ const USER_DATA = 'user_data'
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  providers: [
+    MessagesService
+  ],
 })
 export class LoginComponent implements OnInit {
   loginForm: UntypedFormGroup;
@@ -21,7 +25,8 @@ export class LoginComponent implements OnInit {
     private _fb: UntypedFormBuilder,
     private _vm: AuthVm,
     private _router: Router,
-    private _loadingService: LoadingService
+    private _loadingService: LoadingService,
+    private _messagesService: MessagesService
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +42,12 @@ export class LoginComponent implements OnInit {
     this._loadingService.loadingOn()
     this._vm.login(val)
       .pipe(
-        finalize(() => this._loadingService.loadingOff())
+        finalize(() => this._loadingService.loadingOff()),
+        catchError(err => {
+          let { error: { message } } = err;
+          this._messagesService.showErrors(message);
+          return throwError(() => err);
+        }),
       )
       .subscribe((user: AuthResponse) => {
         let { data } = user;
