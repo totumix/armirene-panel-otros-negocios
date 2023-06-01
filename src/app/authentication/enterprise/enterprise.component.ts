@@ -12,13 +12,13 @@ export class EnterpriseComponent implements OnInit {
 
   constructor(
     private _vm: EnterpriseVm,
-    public _baseForm : BaseFormBusinessService
+    public _businessForm : BaseFormBusinessService
     ) { }
 
   ngOnInit(): void {
   }
 
   submitForm(){
-    console.log(this._baseForm.baseForm.value)
+    console.log(this._businessForm.baseForm.value)
   }
 }

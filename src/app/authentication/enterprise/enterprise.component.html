@@ -7,7 +7,7 @@
                     Ingresa información detallada, explícita y sin errores. Esto servirá para que los domiciliarios
                     encuentren fácilmente tus locales y podamos dar soporte de manera efectiva.</p>
             </div>
-            <form [formGroup]="_baseForm.baseForm" class="pdd-20" nz-form nzLayout="vertical">
+            <form [formGroup]="_businessForm.baseForm" class="pdd-20" nz-form nzLayout="vertical">
                 <nz-form-item>
                     <nz-form-label>Nombre del negocio:</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el nombre!">
@@ -37,7 +37,7 @@
                 </nz-form-item>
                 <div formArrayName="branchOfficeList">
                     <div class="branch-office-form-container"
-                        *ngFor="let branchOffice of _baseForm.branchOfficeList.controls; let i = index">
+                        *ngFor="let branchOffice of _businessForm.branchOfficeList.controls; let i = index">
                         <div class="branch-office-form-container__title">
                             Sucursal #{{i + 1}}
                         </div>
@@ -47,10 +47,10 @@
                     </div>
                 </div>
             </form>
-            <button (click)="_baseForm.addBranchOffice()">click</button>
+            <button (click)="_businessForm.addBranchOffice()">click</button>
             <div class="justify-content-center">
                 <app-button [title]="'Guardar'" [customClasses]="'main main--form main--h-40  font-16'"
-                    (clicked)="submitForm()" [isLoading]="false" [isDisabled]="!_baseForm.baseForm.valid"></app-button>
+                    (clicked)="submitForm()" [isLoading]="false" [isDisabled]="!_businessForm.baseForm.valid"></app-button>
             </div>
         </div>
     </div>
