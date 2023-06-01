@@ -12,6 +12,7 @@ import { ButtonModule } from '../shared/components/button/button.module';
 import { EnterpriseComponent } from './enterprise/enterprise.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { MessagesComponent } from '../shared/components/messages/messages.component';
+import { BranchOfficeFormComponent } from '../shared/components/branch-office-form/branch-office-form.component';
 
 const antdModule= [
   NzFormModule,
@@ -29,6 +30,7 @@ const antdModule= [
     MessagesComponent,
     AuthenticationRoutingModule,
     ReactiveFormsModule,
+    BranchOfficeFormComponent,
     ButtonModule,
     ...antdModule
   ]

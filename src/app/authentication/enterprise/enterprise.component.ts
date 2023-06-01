@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseFormBusinessService } from 'src/app/core/baseForm/base-form-business.service';
+import { EnterpriseVm } from 'src/app/core/view-model/enterprise.vm';
 
 @Component({
   selector: 'app-enterprise',
   templateUrl: './enterprise.component.html',
-  styleUrls: ['./enterprise.component.scss']
+  styleUrls: ['./enterprise.component.scss'],
+  providers : [BaseFormBusinessService]
 })
 export class EnterpriseComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _vm: EnterpriseVm,
+    public _baseForm : BaseFormBusinessService
+    ) { }
 
   ngOnInit(): void {
   }
 
+  submitForm(){
+    console.log(this._baseForm.baseForm.value)
+  }
 }

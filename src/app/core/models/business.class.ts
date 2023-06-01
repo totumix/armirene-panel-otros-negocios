@@ -1,6 +1,6 @@
 import { BranchOffice } from "./branch-office.class";
 
-export class User {
+export class Business {
     name: string;
     type: string;
     ownerId: number;

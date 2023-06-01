@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
-import { BranchOfficeFormComponent } from './branch-office-form/branch-office-form.component';
+import { BranchOfficeFormComponent } from '../../shared/components/branch-office-form/branch-office-form.component';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
 
 @Component({

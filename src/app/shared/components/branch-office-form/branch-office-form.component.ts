@@ -5,32 +5,67 @@ import { selectDataMapInterface } from 'src/app/shared/interfaces/select-data-ma
 import { fromFetch } from 'rxjs/fetch';
 import { from, switchMap } from 'rxjs';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
+import { ButtonModule } from 'src/app/shared/components/button/button.module';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { PhoneModule } from 'src/app/shared/components/phone/phone.module';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { BaseFormBusinessService } from 'src/app/core/baseForm/base-form-business.service';
+import { BusinessService } from 'src/app/services/business.service';
+import { CommonModule } from '@angular/common';
 
+const MODULES = [
+  ButtonModule,
+  ReactiveFormsModule,
+  NzFormModule,
+  PhoneModule,
+  NzInputModule,
+  NzSelectModule,
+  CommonModule
+]
 @Component({
   selector: 'app-branch-office-form',
   templateUrl: './branch-office-form.component.html',
   styleUrls: ['./branch-office-form.component.scss'],
-  providers: [NzModalService]
+  standalone: true,
+  providers: [NzModalService, BaseFormBusinessService],
+  imports: [...MODULES]
 })
 export class BranchOfficeFormComponent implements OnInit, AfterViewInit {
 
+  @Input() form: FormGroup
   @Input() dataForm: BranchOffice;
   map = ViewportMap.getInstance();
   selectedData: selectDataMapInterface;
   onGPS = false;
+  showDrawerActions: boolean;
 
+  constructor(
+    private modal: NzModalService,
+    private _branchOfficeForm: BaseFormBusinessService
+  ) {
 
-  constructor(private modal: NzModalService) { }
+  }
 
   ngOnInit(): void {
+    this.initForm();
     this.map.callbackDrop = (data) => {
       this.selectedData.lat = data?.lat;
       this.selectedData.lng = data?.lng;
       this.resolveCoordinatesToAddress(this.selectedData);
     }
     setTimeout(() => { this.getCurrentLocation(); }, 5);
-
     // this.map.init({ lat: 4.68234, lng: -74.043835 })
+  }
+
+  initForm() {
+    if (!this.form) {
+      this.form = this._branchOfficeForm.getBranchOfficeFormGroup(new BranchOffice);
+      this.showDrawerActions = true;
+    } else {
+      this.showDrawerActions = false;
+    }
   }
 
   getCurrentLocation() {
@@ -84,7 +119,7 @@ export class BranchOfficeFormComponent implements OnInit, AfterViewInit {
       nzOnCancel: () => console.log('Cancel')
     });
   }
-  
+
   ngOnDestroy() {
     this.onGPS = false;
   }

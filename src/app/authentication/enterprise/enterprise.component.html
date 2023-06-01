@@ -7,26 +7,26 @@
                     Ingresa información detallada, explícita y sin errores. Esto servirá para que los domiciliarios
                     encuentren fácilmente tus locales y podamos dar soporte de manera efectiva.</p>
             </div>
-            <form class="pdd-20" nz-form nzLayout="vertical">
+            <form [formGroup]="_baseForm.baseForm" class="pdd-20" nz-form nzLayout="vertical">
                 <nz-form-item>
                     <nz-form-label>Nombre del negocio:</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el nombre!">
-                        <input type="name" nz-input placeholder="Nombre">
+                        <input formControlName="name" type="name" nz-input placeholder="Nombre">
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Tipo de negocio: </nz-form-label>
                     <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
-                        <nz-select id="city" nzPlaceHolder="Tipo de negocio">
-                            <nz-option nzValue="male" nzLabel="male"></nz-option>
-                            <nz-option nzValue="female" nzLabel="female"></nz-option>
+                        <nz-select formControlName="type" id="city" nzPlaceHolder="Tipo de negocio">
+                            <nz-option nzValue="restaurant" nzLabel="Restaurant"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Cantidad de domicilios que haces en la semana (Estimado)</nz-form-label>
                     <nz-form-control nzErrorTip="Porfavor ingrese la cantidad de domicilios!">
-                        <input type="number" nz-input placeholder="Cantidad de domicilios ">
+                        <input formControlName="deliveryPerWeek" type="number" nz-input
+                            placeholder="Cantidad de domicilios ">
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
@@ -35,10 +35,22 @@
                         <input type="number" nz-input placeholder="Cantidad de sucursales">
                     </nz-form-control>
                 </nz-form-item>
+                <div formArrayName="branchOfficeList">
+                    <div class="branch-office-form-container"
+                        *ngFor="let branchOffice of _baseForm.branchOfficeList.controls; let i = index">
+                        <div class="branch-office-form-container__title">
+                            Sucursal #{{i + 1}}
+                        </div>
+                        <div class="branch-office-form-container__border">
+                            <app-branch-office-form [form]="branchOffice"></app-branch-office-form>
+                        </div>
+                    </div>
+                </div>
             </form>
+            <button (click)="_baseForm.addBranchOffice()">click</button>
             <div class="justify-content-center">
                 <app-button [title]="'Guardar'" [customClasses]="'main main--form main--h-40  font-16'"
-                    [isLoading]="false"></app-button>
+                    (clicked)="submitForm()" [isLoading]="false" [isDisabled]="!_baseForm.baseForm.valid"></app-button>
             </div>
         </div>
     </div>
