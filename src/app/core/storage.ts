@@ -1,7 +1,9 @@
 import { environment } from '../../environments/environment';
 
 declare var require: any;
-
+export const AUTH_DATA = 'auth_data';
+export const USER_DATA = 'user_data'
+export const TEMPORAL_BUSINESS_TYPE = ['Restaurante', 'Drogueria', 'Ferreteria']
 /**
  * Constante con el nombre del prefijo que se asignara al Storage del navegador.
  * @type {String}

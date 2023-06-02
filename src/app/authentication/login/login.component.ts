@@ -3,12 +3,11 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { Router } from '@angular/router';
 import { catchError, finalize, throwError } from 'rxjs';
 import { AuthResponse } from 'src/app/core/models/auth-response.class';
-import { Storage } from 'src/app/core/storage';
+import { Storage, USER_DATA } from 'src/app/core/storage';
 import { AuthVm } from 'src/app/core/view-model/auth.vm';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { environment } from 'src/environments/environment';
-const USER_DATA = 'user_data'
 
 @Component({
   selector: 'app-login',

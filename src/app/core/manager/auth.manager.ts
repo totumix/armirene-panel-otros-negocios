@@ -2,12 +2,10 @@ import { Injectable } from "@angular/core";
 import { finalize, shareReplay, switchMap, tap } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 import { AuthResponse } from "../models/auth-response.class";
-import { Storage } from "../storage";
+import { AUTH_DATA, Storage } from "../storage";
 import { AuthEvent } from "../events/auth.event";
 import { Router } from "@angular/router";
 
-const AUTH_DATA = 'auth_data'
-const USER_DATA = 'user_data'
 @Injectable({
     providedIn: 'root'
 })

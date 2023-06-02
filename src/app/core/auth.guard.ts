@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Storage } from './storage';
+import { AUTH_DATA, Storage } from './storage';
 
-const AUTH_DATA = 'auth_data'
 @Injectable({
   providedIn: 'root'
 })

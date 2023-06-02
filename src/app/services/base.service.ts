@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Storage } from '../core/storage';
+import { AUTH_DATA, Storage } from '../core/storage';
 // import Swal from 'sweetalert2';
 // import { User } from '../core/interfaces';
 import { countryConfig } from 'src/country-config/country-config';
@@ -31,7 +31,7 @@ export class BaseService {
       // 'correoUsuario': this.getLocalUser().email,
       // 'employeeNumber':  this.getLocalUser().employeeNumber,
       'Accept': 'application/json',
-      'Authorization': `Bearer ${Storage.getAll('auth_data').token}`,
+      'Authorization': `Bearer ${Storage.getAll(AUTH_DATA).token}`,
       'Content-Type': 'application/json',
       'COUNTRY': environment.indicator
     };

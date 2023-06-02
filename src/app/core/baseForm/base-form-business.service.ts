@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Business } from "../models/business.class";
 import { BranchOffice } from "../models/branch-office.class";
+import { USER_DATA, Storage } from "../storage";
 
 @Injectable()
 export class BaseFormBusinessService {
@@ -12,7 +13,7 @@ export class BaseFormBusinessService {
             id: [],
             name: [null],
             type: [null],
-            ownerId: [null],
+            ownerId: [Storage.getOne(USER_DATA).id],
             deliveryPerWeek: [null],
             branchOfficeList: this.fb.array([]),
         });
