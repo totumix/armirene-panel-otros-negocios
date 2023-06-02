@@ -5,20 +5,20 @@
         <nz-step></nz-step>
         <nz-step></nz-step>
     </nz-steps>
-    <form nz-form nzLayout="vertical">
-        <div *ngIf="firstContent">
+    <form [formGroup]="_orderForm.baseForm" nz-form nzLayout="vertical">
+        <div formGroupName="client_info" *ngIf="firstContent">
             <span class="order-form-container__sub-title">Completa los datos del cliente:</span>
             <div class="order-form-container__row">
                 <nz-form-item>
                     <nz-form-label>Nombre * :</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el nombre del cliente!">
-                        <input type="text" nz-input placeholder="Escribe aquí…">
+                        <input formControlName="first_name" type="text" nz-input placeholder="Escribe aquí…">
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Apellido * :</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el apellido del cliente!">
-                        <input type="text" nz-input placeholder="Escribe aquí…">
+                        <input formControlName="last_name" type="text" nz-input placeholder="Escribe aquí…">
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -46,13 +46,13 @@
             <nz-form-item>
                 <nz-form-label>Dirección *:</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
-                    <input type="password" nz-input placeholder="Escribe aquí…">
+                    <input formControlName="address" type="text" nz-input placeholder="Escribe aquí…">
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Detalle de la dirección *:</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa el detalle de tu dirección!">
-                    <input type="password" nz-input placeholder="Número de casa / apto / oficina">
+                    <input type="text" nz-input placeholder="Número de casa / apto / oficina">
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
@@ -67,7 +67,11 @@
         </div>
         <div *ngIf="secondContent">
             <span class="order-form-container__sub-title">Confirma tu ubicación en el mapa</span>
-
+            <div class="mg-y-5">
+                <div class="map-container">
+                    <div id="viewport-map"></div>
+                </div>
+            </div>
         </div>
         <div *ngIf="thirdContent">
             <span class="order-form-container__sub-title mb-bottom-15">Selecciona la información de tu negocio</span>
@@ -86,28 +90,28 @@
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Tipo de vehículo</nz-form-label>
-                <nz-radio-group>
-                    <label nz-radio nzValue="A">
+                <nz-radio-group formControlName="vehicle_type">
+                    <label nz-radio nzValue="1">
                         <img src="assets/svg/bicycle-svgrepo-com.svg" alt="">
                         Bicicleta</label>
-                    <label nz-radio nzValue="B">
+                    <label nz-radio nzValue="2">
                         <img src="assets/svg/motorbike-bike-svgrepo-com.svg" alt="">
                         Moto</label>
-                    <label nz-radio nzValue="C">
+                    <label nz-radio nzValue="3">
                         <img src="assets/svg/automobile-svgrepo-com.svg" alt="">
                         Carro</label>
                 </nz-radio-group>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Forma de pago </nz-form-label>
-                <nz-radio-group>
-                    <label nz-radio nzValue="A">
+                <nz-radio-group formControlName="payment_method">
+                    <label nz-radio nzValue="1">
                         <img src="assets/svg/efectivo.svg" alt="">
                         Efectivo</label>
-                    <label nz-radio nzValue="B">
+                    <label nz-radio nzValue="2">
                         <img src="assets/svg/datafono.svg" alt="">
                         Punto de venta</label>
-                    <label nz-radio nzValue="C">
+                    <label nz-radio nzValue="3">
                         <img src="assets/svg/invoice-bill-svgrepo-com-1.svg" alt="">
                         Prepagado</label>
                 </nz-radio-group>
@@ -115,17 +119,17 @@
             <nz-form-item>
                 <nz-form-label>Total a cobrar al cliente:</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
-                    <input type="number" nz-input placeholder="Escribe aquí…">
+                    <input formControlName="total_value" type="number" nz-input placeholder="Escribe aquí…">
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Comentarios al mensajero</nz-form-label>
                 <nz-form-control>
-                    <textarea nz-input placeholder="Escribe los comentarios aquí…"
+                    <textarea formControlName="instructions" nz-input placeholder="Escribe los comentarios aquí…"
                         [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
                 </nz-form-control>
             </nz-form-item>
-            <app-order-total></app-order-total>
+            <app-order-total [order]="_orderForm.baseForm.value"></app-order-total>
         </div>
         <div *ngIf="fourthContent" class="fourth-content">
             <div>
@@ -135,8 +139,8 @@
             </div>
             <div>
                 <span class="order-form-container__title"> RESUMEN DEL PEDIDO </span>
-                <app-order-summary></app-order-summary>
-                <app-order-total></app-order-total>
+                <app-order-summary [order]="_orderForm.baseForm.value"></app-order-summary>
+                <app-order-total [order]="_orderForm.baseForm.value"></app-order-total>
             </div>
         </div>
     </form>
@@ -147,6 +151,6 @@
         [customClasses]="'negative-main-btn negative-main-btn--form main--h-40  font-16'"></app-button>
     <app-button [title]="'Siguiente'" [customClasses]="'main main--form main--h-40  font-16'" (click)="next()"
         [isLoading]="false" *ngIf="current !== 3"></app-button>
-    <app-button [title]="'Crear pedido'" [customClasses]="'main main--form main--h-40  font-16'" [isLoading]="false"
-        *ngIf="current === 3"></app-button>
+    <app-button [title]="'Crear pedido'" (click)="createOrder()" [customClasses]="'main main--form main--h-40  font-16'"
+        [isLoading]="false" *ngIf="current === 3"></app-button>
 </div>

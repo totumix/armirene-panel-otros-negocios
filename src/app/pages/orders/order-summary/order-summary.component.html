@@ -1,8 +1,8 @@
 <div class="order-summary">
     <div class="order-summary__title">
         <span>Datos del cliente:</span>
-        <p>Cristina Mejia
-            +58 0412 0207423</p>
+        <p>{{client_info.first_name}} {{client_info.last_name}}
+            {{client_info.phone}} </p>
     </div>
     <div class="order-summary__edit" (click)="clickClientDetail()">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
@@ -11,9 +11,7 @@
 <div class="order-summary">
     <div class="order-summary__title">
         <span>Dirección cliente:</span>
-        <p>Av Urdaneta. Edf Parsa. Esq De Fuerzas Armadas, Local 3 Plaza España, Caracas 1010, Distrito Capital,
-            Venezuela
-        </p>
+        <p>{{client_info.address}}</p>
     </div>
     <div class="order-summary__edit" (click)="clickClientDetail()">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
@@ -31,8 +29,12 @@
 <div class="order-summary">
     <div class="order-summary__title">
         <span>Método de pago:</span>
-        <p><img src="assets/svg/efectivo.svg" alt="">
+        <p *ngIf="payment_method == 1"><img src="assets/svg/efectivo.svg" alt="">
             Efectivo</p>
+        <p *ngIf="payment_method == 2"><img src="assets/svg/datafono.svg" alt="">
+            Punto de venta</p>
+        <p *ngIf="payment_method == 3"><img src="assets/svg/invoice-bill-svgrepo-com-1.svg" alt="">
+            Prepagado</p>
     </div>
     <div class="order-summary__edit" (click)="clickOrderDetail()">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
@@ -41,8 +43,12 @@
 <div class="order-summary">
     <div class="order-summary__title">
         <span>Tipo de vehículo</span>
-        <p><img src="assets/svg/motorbike-bike-svgrepo-com.svg" alt="">
+        <p *ngIf="vehicle_type == 1"><img src="assets/svg/bicycle-svgrepo-com.svg" alt="">
+            Bicicleta</p>
+        <p *ngIf="vehicle_type == 2"><img src="assets/svg/motorbike-bike-svgrepo-com.svg" alt="">
             Moto</p>
+        <p *ngIf="vehicle_type == 3"><img src="assets/svg/automobile-svgrepo-com.svg" alt="">
+            Carro</p>
     </div>
     <div class="order-summary__edit" (click)="clickOrderDetail()">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
@@ -51,8 +57,7 @@
 <div class="order-summary">
     <div class="order-summary__title">
         <span>Comentarios al mensajero:</span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sodales ipsum eget erat sodales, sit amet
-            rhoncus .</p>
+        <p>{{instructions}}</p>
     </div>
     <div class="order-summary__edit" (click)="clickOrderDetail()">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>

@@ -1,28 +1,80 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { catchError, from, switchMap, throwError } from 'rxjs';
+import { fromFetch } from 'rxjs/fetch';
+import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
+import { OrderVm } from 'src/app/core/view-model/order-form.vm';
+import { AuthService } from 'src/app/services/auth.service';
+import { MessagesService } from 'src/app/services/messages.service';
+import { ViewportMap } from 'src/app/shared/components/view-port-map/view-port-map';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
+import { selectDataMapInterface } from 'src/app/shared/interfaces/select-data-map.type';
 
 @Component({
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
-  styleUrls: ['./order-form.component.scss']
+  styleUrls: ['./order-form.component.scss'],
+  providers : [
+    MessagesService
+  ]
 })
 export class OrderFormComponent implements OnInit {
 
   @Input() dataForm: any;
 
-  current : number = 0;
+  current: number = 0;
   firstContent: boolean = true;
   secondContent: boolean = false;
   thirdContent: boolean = false;
   fourthContent: boolean = false;
+  map = ViewportMap.getInstance();
+  selectedData: selectDataMapInterface;
+  onGPS = false;
 
+  constructor(
+    private drawerEvent: DrawerEvent,
+    public _orderForm: BaseFormOrderService,
+    private _authService: AuthService,
+    private _vm: OrderVm,
+    private _messagesService: MessagesService
+  ) { }
 
+  ngOnInit(): void {}
 
+  getCurrentLocation() {
+    //console.clear();
+    navigator.geolocation.getCurrentPosition((position) => {
+      if (!this.selectedData?.address || this.selectedData?.address?.length < 1) {
+        this.onGPS = true;
+        this.selectedData = { ...this.selectedData, lat: position.coords.latitude, lng: position.coords.longitude }
+        this.map.init({ lat: position.coords.latitude, lng: position.coords.longitude })
+        // this.selectedData.lat = position.coords.latitude;
+        // this.selectedData.lng = position.coords.longitude;
+        // this.setPositionMarker();
+        this.resolveCoordinatesToAddress(this.selectedData);
+      }
+    });
+  }
 
-  constructor(private drawerEvent: DrawerEvent) { }
+  resolveCoordinatesToAddress({ lat, lng }) {
+    let urlInver = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=0&zoom=40&lat=';
+    urlInver += `&lat=${lat}&lon=${lng}`;
+    fromFetch(urlInver)
+      .pipe(switchMap((r: any) => from(r.json())))
+      .subscribe((json) => {
+        this._orderForm.baseForm.controls['client_info'].value.lat = JSON.parse(JSON.stringify(json)).lat
+        this._orderForm.baseForm.controls['client_info'].value.lng = JSON.parse(JSON.stringify(json)).lon
+      }, (error) => {
+        console.log(error);
+      });
+  }
 
-  ngOnInit(): void {
-    console.log(this.dataForm)
+  initMap() {
+    this.map.callbackDrop = (data) => {
+      this.selectedData.lat = data?.lat;
+      this.selectedData.lng = data?.lng;
+      this.resolveCoordinatesToAddress(this.selectedData);
+    }
+    setTimeout(() => { this.getCurrentLocation(); }, 5);
   }
 
   pre(): void {
@@ -46,6 +98,7 @@ export class OrderFormComponent implements OnInit {
         break;
       }
       case 1: {
+        this.initMap();
         this.firstContent = false;
         this.secondContent = true;
         this.thirdContent = false;
@@ -74,4 +127,14 @@ export class OrderFormComponent implements OnInit {
     }
   }
 
+  createOrder() {
+    this._vm.createOrder(this._orderForm.baseForm.value)
+      .pipe(
+        catchError(err => {
+          let { error: { message } } = err;
+          this._messagesService.showErrors(message);
+          return throwError(() => err);
+        }),
+      ).subscribe(res => console.log(res))
+  }
 }

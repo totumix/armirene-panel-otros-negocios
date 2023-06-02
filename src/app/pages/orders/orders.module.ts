@@ -16,6 +16,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { OrderTotalComponent } from './order-total/order-total.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const antdModule = [
   NzFormModule,
@@ -39,6 +40,7 @@ const antdModule = [
     CommonModule,
     OrdersRoutingModule,
     ButtonModule,
+    ReactiveFormsModule,
     PhoneModule,
     ...antdModule
   ]
