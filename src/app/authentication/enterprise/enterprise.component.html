@@ -8,6 +8,7 @@
                     encuentren fácilmente tus locales y podamos dar soporte de manera efectiva.</p>
             </div>
             <form [formGroup]="_businessForm.baseForm" class="pdd-20" nz-form nzLayout="vertical">
+                <app-messages></app-messages>
                 <nz-form-item>
                     <nz-form-label>Nombre del negocio:</nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el nombre!">
@@ -17,8 +18,9 @@
                 <nz-form-item>
                     <nz-form-label>Tipo de negocio: </nz-form-label>
                     <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
-                        <nz-select formControlName="type" id="city" nzPlaceHolder="Tipo de negocio">
-                            <nz-option nzValue="restaurant" nzLabel="Restaurant"></nz-option>
+                        <nz-select formControlName="type" id="type_business" nzPlaceHolder="Tipo de negocio">
+                            <nz-option *ngFor="let type of businessTypes" nzValue="{{type}}"
+                                nzLabel="{{type}}"></nz-option>
                         </nz-select>
                     </nz-form-control>
                 </nz-form-item>
@@ -31,8 +33,13 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>¿Cuántas sucursales tiene el negocio?</nz-form-label>
-                    <nz-form-control nzErrorTip="Porfavor ingrese la cantidad de sucursales!">
-                        <input type="number" nz-input placeholder="Cantidad de sucursales">
+                    <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+                        <nz-select [ngModelOptions]="{standalone: true}"
+                            (ngModelChange)="onChangeBusinessQuantity($event)" [(ngModel)]="businessQuantity"
+                            nzPlaceHolder="Cantidad de sucursales">
+                            <nz-option *ngFor="let quantity of businessQuantityList" nzValue="{{quantity}}"
+                                nzLabel="{{quantity}}"></nz-option>
+                        </nz-select>
                     </nz-form-control>
                 </nz-form-item>
                 <div formArrayName="branchOfficeList">
@@ -47,10 +54,10 @@
                     </div>
                 </div>
             </form>
-            <button (click)="_businessForm.addBranchOffice()">click</button>
             <div class="justify-content-center">
                 <app-button [title]="'Guardar'" [customClasses]="'main main--form main--h-40  font-16'"
-                    (clicked)="submitForm()" [isLoading]="false" [isDisabled]="!_businessForm.baseForm.valid"></app-button>
+                    (clicked)="submitForm()" [isLoading]="false"
+                    [isDisabled]="!_businessForm.baseForm.valid"></app-button>
             </div>
         </div>
     </div>

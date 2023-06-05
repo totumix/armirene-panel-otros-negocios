@@ -4,6 +4,7 @@ declare var require: any;
 export const AUTH_DATA = 'auth_data';
 export const USER_DATA = 'user_data'
 export const TEMPORAL_BUSINESS_TYPE = ['Restaurante', 'Drogueria', 'Ferreteria']
+export const TEMPORAL_BUSINESS_QUANTITY = [1, 2, 3]
 /**
  * Constante con el nombre del prefijo que se asignara al Storage del navegador.
  * @type {String}
