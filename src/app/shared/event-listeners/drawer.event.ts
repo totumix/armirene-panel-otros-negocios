@@ -7,6 +7,10 @@ import { Subject } from 'rxjs';
 
 export class DrawerEvent {
 
+  private closeDrawer = new Subject<any>();
+  closeComponent = this.closeDrawer.asObservable();
+
+
   private openDrawer = new Subject<any>();
   getComponent = this.openDrawer.asObservable();
 
@@ -19,6 +23,10 @@ export class DrawerEvent {
 
   changeWidthComponent(attributes: any) {
     this.changeWidthDrawer.next(attributes);
+  }
+
+  changeCloseComponent(attributes: any) {
+    this.closeDrawer.next(attributes);
   }
 
 }

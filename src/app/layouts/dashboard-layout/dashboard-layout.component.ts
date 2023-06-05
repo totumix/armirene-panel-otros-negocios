@@ -18,10 +18,13 @@ export class DashboardLayoutComponent implements OnInit {
   ]
   constructor(private drawerService: NzDrawerService,
     private drawerEvent: DrawerEvent,
-    private vm : DashboardLayoutVm
+    private vm: DashboardLayoutVm
   ) { }
 
   ngOnInit(): void {
+    this.drawerEvent.closeComponent.subscribe(() => {
+      this.drawerRef.close()
+    })
     this.drawerEvent.getComponent.subscribe(res => {
       this.openComponent(res)
     })
@@ -47,7 +50,7 @@ export class DashboardLayoutComponent implements OnInit {
     });
   }
 
-  logout(){
+  logout() {
     this.vm.logout();
   }
 }
