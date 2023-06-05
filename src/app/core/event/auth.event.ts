@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable} from "rxjs";
-import { AuthResponse } from "../models/user.class";
+import { AuthResponse } from "../models/auth-response.class";
 
 @Injectable({
     providedIn: 'root'

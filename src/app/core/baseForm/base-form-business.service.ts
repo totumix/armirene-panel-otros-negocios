@@ -17,7 +17,6 @@ export class BaseFormBusinessService {
             deliveryPerWeek: [null],
             branchOfficeList: this.fb.array([]),
         });
-        console.log("nuevo form")
     }
 
     public pathFormData(business: Business): void {
