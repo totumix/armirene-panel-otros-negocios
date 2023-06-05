@@ -49,6 +49,6 @@
     <a *ngIf="dataForm" (click)="deleteBranchOffice()">Eliminar sucursal</a>
     <app-button [title]="'Atrás'"
         [customClasses]="'negative-main-btn negative-main-btn--form main--h-40  font-16'"></app-button>
-    <app-button [title]="'Siguiente'" [customClasses]="'main main--form main--h-40  font-16'"
-        [isLoading]="false"></app-button>
+    <app-button (click)="saveBranchOffice()" [title]="'Siguiente'"
+        [customClasses]="'main main--form main--h-40  font-16'" [isLoading]="false"></app-button>
 </div>

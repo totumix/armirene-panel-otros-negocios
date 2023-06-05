@@ -1,5 +1,6 @@
 
 export class BranchOffice {
+    businessOwner : number;
     name: string;
     city: string;
     state: string;
@@ -10,6 +11,7 @@ export class BranchOffice {
     image: string;
     phone : string
     constructor() {
+        this.businessOwner = 19;
         this.name = '';
         this.city = '';
         this.state = '';

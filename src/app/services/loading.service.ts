@@ -11,14 +11,14 @@ export class LoadingService {
         console.log("Loading service created ...");
     }
 
-    // showLoaderUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
-    //     // return of(null)
-    //     //     .pipe(
-    //     //         tap(() => this.loadingOn()),
-    //     //         concatMap(() => obs$),
-    //     //         finalize(() => this.loadingOff())
-    //     //     );
-    // }
+    showLoaderUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
+        return of(null)
+            .pipe(
+                tap(() => this.loadingOn()),
+                concatMap(() => obs$),
+                finalize(() => this.loadingOff())
+            );
+    }
 
     loadingOn() {
         this.loadingSubject.next(true)
