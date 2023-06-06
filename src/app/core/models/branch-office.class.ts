@@ -1,5 +1,6 @@
 
 export class BranchOffice {
+    id : number;
     businessOwner : number;
     name: string;
     city: string;
