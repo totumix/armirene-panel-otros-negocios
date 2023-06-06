@@ -1,7 +1,6 @@
 import {
   Component, Input, OnChanges, Output, EventEmitter,
 } from '@angular/core';
-import { LoadingService } from 'src/app/services/loading.service';
 @Component({
   selector: 'app-button',
   templateUrl: './button.component.html',

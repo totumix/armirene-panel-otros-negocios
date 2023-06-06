@@ -28,7 +28,7 @@ export class StartViewComponent implements OnInit {
   }
 
   createBranchOffice() {
-    this._drawerEvent.changeOpenComponent({ component: BranchOfficeFormComponent })
+    this._drawerEvent.changeOpenComponent({ component: BranchOfficeFormComponent , data: new BranchOffice })
   }
 
   getBranchOfficeByBusiness() {
