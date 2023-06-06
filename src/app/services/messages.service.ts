@@ -5,6 +5,10 @@ import { filter } from 'rxjs/operators';
 @Injectable()
 export class MessagesService {
 
+    constructor() { 
+        console.log("mesaje service")
+    }
+    
     private subject = new BehaviorSubject<string[]>([]);
 
     errors$: Observable<string[]> = this.subject.asObservable()
