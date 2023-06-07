@@ -16,7 +16,6 @@ export class BranchOfficeFormVM {
     }
 
     deleteBranchOfficeByBusiness(data) {
-    
         return this._branchOfficeManager.deleteBranchOfficeByBusiness(data)
     }
 
