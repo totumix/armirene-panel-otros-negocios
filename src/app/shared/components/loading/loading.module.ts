@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { LoadingService } from 'src/app/services/loading.service';
 
-
-
 @NgModule({
   declarations: [
     SpinnerComponent

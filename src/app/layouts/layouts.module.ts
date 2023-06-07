@@ -17,6 +17,10 @@ import { RouterModule } from '@angular/router';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { LoadingModule } from '../shared/components/loading/loading.module';
+import { MessagesComponent } from '../shared/components/messages/messages.component';
+import { LoadingService } from '../services/loading.service';
+import { MessagesService } from '../services/messages.service';
 const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
 
 
@@ -38,7 +42,13 @@ const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
     ButtonModule,
     RouterModule,
     NzDrawerModule,
-    NzAvatarModule
+    NzAvatarModule,
+    LoadingModule,
+    MessagesComponent
+  ],
+  providers: [
+    LoadingService,
+    MessagesService
   ],
 })
 export class LayoutsModule { }
