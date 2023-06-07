@@ -71,8 +71,10 @@ export class BaseService {
     return this.http.put(url, body, this.httpOptions());
   }
 
-  delete(url: string) {
-    return this.http.delete(url, this.httpOptions());
+  delete(url: string, body?: any) {
+    let options = this.httpOptions();
+    options['body'] = body
+    return this.http.delete(url, options);
   }
 
   formatMoney(numberx, places, thousand, decimal) {
