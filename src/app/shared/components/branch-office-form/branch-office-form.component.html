@@ -46,9 +46,11 @@
     </div>
 </form>
 <div class="actions-container" *ngIf="showDrawerActions">
-    <a *ngIf="dataForm" (click)="deleteBranchOffice()">Eliminar sucursal</a>
-    <app-button [title]="'Atrás'"
+    <a *ngIf="dataForm.id" (click)="deleteBranchOffice()">Eliminar sucursal</a>
+    <app-button [title]="'Atrás'" (click)="closeDrawer()"
         [customClasses]="'negative-main-btn negative-main-btn--form main--h-40  font-16'"></app-button>
-    <app-button (click)="saveBranchOffice()" [title]="'Siguiente'"
+    <app-button (click)="saveBranchOffice()" [title]="'Crear'" *ngIf="!dataForm.id"
+        [customClasses]="'main main--form main--h-40  font-16'" [isLoading]="false"></app-button>
+    <app-button (click)="updateBranchOffice(dataForm)" [title]="'Editar'" *ngIf="dataForm.id"
         [customClasses]="'main main--form main--h-40  font-16'" [isLoading]="false"></app-button>
 </div>

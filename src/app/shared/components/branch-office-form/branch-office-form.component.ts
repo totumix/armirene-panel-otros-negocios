@@ -10,6 +10,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { BaseFormBusinessService } from 'src/app/core/baseForm/base-form-business.service';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from '../map/map.component';
+import { BranchOfficeFormVM } from 'src/app/core/view-model/branch-office-form.vm';
+import { DrawerEvent } from '../../event-listeners/drawer.event';
 
 const MODULES = [
   ButtonModule,
@@ -29,18 +31,18 @@ const MODULES = [
   providers: [NzModalService, BaseFormBusinessService],
   imports: [...MODULES]
 })
-export class BranchOfficeFormComponent implements OnInit, AfterViewInit {
+export class BranchOfficeFormComponent implements OnInit {
 
   @Input() form: FormGroup
   @Input() dataForm: BranchOffice;
-  @Input() index : number;
   showDrawerActions: boolean;
 
   constructor(
-    private modal: NzModalService,
-    private _branchOfficeForm: BaseFormBusinessService
+    private _modal: NzModalService,
+    private _branchOfficeForm: BaseFormBusinessService,
+    private _vm: BranchOfficeFormVM,
+    private _drawerEvent: DrawerEvent,
   ) {
-
   }
 
   ngOnInit(): void {
@@ -48,15 +50,13 @@ export class BranchOfficeFormComponent implements OnInit, AfterViewInit {
   }
 
   initForm() {
-    if (!this.form) {
+    if (this.dataForm) {
       this.form = this._branchOfficeForm.getBranchOfficeFormGroup(new BranchOffice);
+      this.form.patchValue({ ...this.dataForm })
       this.showDrawerActions = true;
     } else {
       this.showDrawerActions = false;
     }
-  }
-
-  ngAfterViewInit(): void {
   }
 
   changeCity(city: any) {
@@ -68,16 +68,37 @@ export class BranchOfficeFormComponent implements OnInit, AfterViewInit {
   }
 
   deleteBranchOffice() {
-    this.modal.confirm({
+    this._modal.confirm({
       nzTitle: '¿Estás seguro de eliminar esta sucursal?',
       nzContent: 'Si eliminas esta sucursal no podrás recuperarla',
       nzOkText: 'Aceptar',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK', this.dataForm),
+      nzOnOk: () => this.deleteBranchOfficeByBusiness(this.dataForm),
       nzCancelText: 'Cancelar',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => this.closeDrawer()
     });
   }
 
+  saveBranchOffice() {
+    this._vm.saveBranchOffice(this.form.value).subscribe(() => {
+      this.closeDrawer()
+    })
+  }
+
+  deleteBranchOfficeByBusiness(data) {
+    this._vm.deleteBranchOfficeByBusiness(data).subscribe(() => this.closeDrawer())
+  }
+
+  closeDrawer() {
+    this._drawerEvent.changeCloseComponent(true)
+  }
+
+  updateBranchOffice(data) {
+    const body = {
+      ...data,
+      ...this.form.value
+    }
+    this._vm.updateBranchOffice(body).subscribe(() => this.closeDrawer())
+  }
 }
