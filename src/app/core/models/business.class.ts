@@ -1,10 +1,12 @@
 import { BranchOffice } from "./branch-office.class";
 
 export class Business {
+    id: number;
     name: string;
     type: string;
     ownerId: number;
     deliveryPerWeek: number;
+    image : string;
     branchOfficeList: Array<BranchOffice>
     constructor() {
         this.name = '';
