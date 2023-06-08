@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         if (businessIds) {
           this._router.navigateByUrl("/dashboard/start-view")
         } else {
-          this._router.navigateByUrl("/authentication/enterprise-form")
+          this._router.navigateByUrl("/authentication/business-form")
         }
       });
   }

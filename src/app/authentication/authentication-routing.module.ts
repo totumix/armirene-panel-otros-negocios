@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { EnterpriseComponent } from './enterprise/enterprise.component';
 
 const routes: Routes = [
   {
@@ -12,10 +11,10 @@ const routes: Routes = [
     }
   },
   {
-    path: 'enterprise-form',
-    component: EnterpriseComponent,
+    path: 'business-form',
+    loadComponent: () => import('../shared/components/business-form/business-form.component').then(m => m.BusinessFormComponent),
     data: {
-      title: 'Enterprise'
+      title: 'Business'
     }
   },
 ];

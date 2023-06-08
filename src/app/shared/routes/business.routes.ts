@@ -8,5 +8,12 @@ export const Business_ROUTES: Routes = [
         data: {
             title: 'Negocios'
         }
+    },
+    {
+        path: 'business-form',
+        loadComponent: () => import('../components/business-form/business-form.component').then(m => m.BusinessFormComponent),
+        data: {
+            title: 'Crear negocio'
+        }
     }
 ];
