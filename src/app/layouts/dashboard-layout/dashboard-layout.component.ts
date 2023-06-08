@@ -13,6 +13,7 @@ export class DashboardLayoutComponent implements OnInit {
   drawerRef;
   menuOptions = [
     { label: 'Inicio', icon: 'home', route: ['start-view'] },
+    { label: 'Negocios', icon: 'wallet', route: ['business'] },
     { label: 'Pedidos', icon: 'file-done', route: ['orders'] },
     { label: 'Clientes', icon: 'user', route: ['clients'] },
   ]

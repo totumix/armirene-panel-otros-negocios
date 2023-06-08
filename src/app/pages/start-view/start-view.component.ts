@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./start-view.component.scss']
 })
 export class StartViewComponent implements OnInit {
-  listOfData: BranchOffice[] = [];
   listOfData$: Observable<BranchOffice[]>
 
   constructor(
@@ -28,7 +27,7 @@ export class StartViewComponent implements OnInit {
   }
 
   createBranchOffice() {
-    this._drawerEvent.changeOpenComponent({ component: BranchOfficeFormComponent , data: new BranchOffice })
+    this._drawerEvent.changeOpenComponent({ component: BranchOfficeFormComponent, data: new BranchOffice })
   }
 
   getBranchOfficeByBusiness() {
