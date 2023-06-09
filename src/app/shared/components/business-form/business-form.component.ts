@@ -7,13 +7,15 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { catchError, finalize, throwError } from 'rxjs';
 import { BaseFormBusinessService } from 'src/app/core/baseForm/base-form-business.service';
 import { TEMPORAL_BUSINESS_QUANTITY, TEMPORAL_BUSINESS_TYPE } from 'src/app/core/storage';
-import { EnterpriseVm } from 'src/app/core/view-model/enterprise.vm';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { ButtonModule } from '../button/button.module';
 import { MessagesComponent } from '../messages/messages.component';
 import { CommonModule } from '@angular/common';
 import { BranchOfficeFormComponent } from '../branch-office-form/branch-office-form.component';
+import { BusinessFormVm } from 'src/app/core/view-model/business-form.vm';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 const antdModule = [
   NzFormModule,
   NzInputModule,
@@ -41,19 +43,54 @@ export class BusinessFormComponent {
   public businessTypes = TEMPORAL_BUSINESS_TYPE;
   public businessQuantityList = TEMPORAL_BUSINESS_QUANTITY;
   public businessQuantity: number;
+  public businessId: number;
   constructor(
-    private _vm: EnterpriseVm,
+    private _vm: BusinessFormVm,
     public _businessForm: BaseFormBusinessService,
     private _loadingService: LoadingService,
-    private _messagesService: MessagesService
+    private _messagesService: MessagesService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private location: Location,
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.init();
+  }
+
+  init() {
+    let { snapshot: { params } } = this._activatedRoute;
+    this.businessId = Number(params['id']);
+    if (this.businessId) {
+      this.getBusinessById(this.businessId)
+    }
+  }
+
+  getBusinessById(businessId) {
+    this._vm.getBusinessById(businessId).subscribe(business => this._businessForm.pathFormData(business))
   }
 
   submitForm() {
     let { baseForm: { value } } = this._businessForm;
-    this._vm.createBusiness(value)
+    if (this.businessId) {
+      this.updateBusiness(value);
+    } else {
+      this.saveBusiness(value);
+    }
+  }
+
+  updateBusiness(value) {
+    this._vm.updateBusiness(value)
+      .pipe(
+        finalize(() => this._loadingService.loadingOff()),
+      )
+      .subscribe(res => {
+        this._router.navigateByUrl("/dashboard/business")
+      })
+  }
+
+  saveBusiness(value) {
+    this._vm.saveBusiness(value)
       .pipe(
         finalize(() => this._loadingService.loadingOff()),
         catchError(err => {
@@ -63,7 +100,7 @@ export class BusinessFormComponent {
         }),
       )
       .subscribe(res => {
-        console.log(res)
+        this._router.navigateByUrl("/dashboard/business")
       })
   }
 
@@ -76,5 +113,9 @@ export class BusinessFormComponent {
     for (let i = 0; i < this.businessQuantity; i++) {
       this._businessForm.addBranchOffice();
     }
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

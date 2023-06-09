@@ -31,7 +31,7 @@
                             placeholder="Cantidad de domicilios ">
                     </nz-form-control>
                 </nz-form-item>
-                <nz-form-item>
+                <nz-form-item *ngIf="!businessId">
                     <nz-form-label>¿Cuántas sucursales tiene el negocio?</nz-form-label>
                     <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
                         <nz-select [ngModelOptions]="{standalone: true}"
@@ -55,8 +55,11 @@
                 </div>
             </form>
             <div class="justify-content-center">
-                <app-button [title]="'Guardar'" [customClasses]="'main main--form main--h-40  font-16'"
-                    (clicked)="submitForm()" [isLoading]="false"
+                <app-button [title]="'Volver'"
+                    [customClasses]="'negative-main-btn negative-main-btn--form main--h-40 mg-right-5  font-16'"
+                    (clicked)="goBack()" [isLoading]="false"></app-button>
+                <app-button [title]="businessId ? 'Editar' : 'Guardar'"
+                    [customClasses]="'main main--form main--h-40  font-16'" (clicked)="submitForm()" [isLoading]="false"
                     [isDisabled]="!_businessForm.baseForm.valid"></app-button>
             </div>
         </div>

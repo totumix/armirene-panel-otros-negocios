@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Business } from 'src/app/core/models/business.class';
 import { BusinessVm } from 'src/app/core/view-model/business.vm';
@@ -11,7 +12,10 @@ import { BusinessVm } from 'src/app/core/view-model/business.vm';
 export class BusinessComponent {
   listOfData$: Observable<Business[]>
 
-  constructor(private _vm: BusinessVm) {
+  constructor(
+    private _vm: BusinessVm,
+    private _router: Router,
+  ) {
 
   }
 
@@ -24,10 +28,11 @@ export class BusinessComponent {
   }
 
   createBusiness() {
+    this._router.navigateByUrl("/dashboard/business/business-form")
   }
 
   getBusiness() {
-    this.listOfData$ = this._vm.returnBranchOfficeByBusiness()
+    this.listOfData$ = this._vm.returnBusiness()
   }
 
 }

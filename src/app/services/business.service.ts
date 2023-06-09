@@ -18,8 +18,14 @@ export class BusinessService {
         this.url = environment.gateway;
     }
 
-    getBusiness(businessId): Observable<Business[]> {
-        return this._baseService.get(`${this.url}/${business.business}/${business.all}/${businessId}`).pipe(
+    getBusinessList(userId): Observable<Business[]> {
+        return this._baseService.get(`${this.url}/${business.business}/${business.all}/${userId}`).pipe(
+            map(res => res['data'])
+        )
+    }
+
+    getBusinessById(businessId): Observable<Business> {
+        return this._baseService.get(`${this.url}/${business.business}/${businessId}`).pipe(
             map(res => res['data'])
         )
     }
@@ -30,11 +36,11 @@ export class BusinessService {
         )
     }
 
-    updateBusiness(branchOfficeId: number, businessId: number, changes: Partial<Business>): Observable<any> {
-        return this._baseService.post(`${this.url}/${business.business}/${business.update}/${businessId}/${branchOfficeId}`, changes)
+    updateBusiness(businessId: number, changes: Partial<Business>): Observable<any> {
+        return this._baseService.post(`${this.url}/${business.business}/${business.update}/${businessId}`, changes)
     }
 
     deleteBusiness(businessId) {
-        return this._baseService.delete(`${this.url}/${business.business}/${business.delete}/${businessId}`)
+        return this._baseService.delete(`${this.url}/${business.business}/${businessId}`)
     }
 }
