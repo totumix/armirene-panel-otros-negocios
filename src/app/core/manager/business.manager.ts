@@ -19,15 +19,15 @@ export class BusinessManager {
         private _messages: MessagesService,
         private _loading: LoadingService,
     ) {
-        this.getBusiness(Storage.getOne(USER_DATA).id);
+        this.getBusinessList(Storage.getOne(USER_DATA).id);
     }
 
     createBusiness(data: Business) {
         return this._businessService.saveBusiness(data);
     }
 
-    private getBusiness(userId: number) {
-        const loadBusiness$ = this._businessService.getBusiness(userId).pipe(
+    private getBusinessList(userId: number) {
+        const loadBusiness$ = this._businessService.getBusinessList(userId).pipe(
             catchError(err => {
                 const message = "Could not load business";
                 this._messages.showErrors(message);
@@ -46,25 +46,25 @@ export class BusinessManager {
         return this.business$
     }
 
-    saveBranchOfficeByBusiness(body: Business) {
+    saveBusiness(body: Business) {
         const businessList = this.subject.getValue();
         return this._businessService.saveBusiness(body).pipe(
             tap(business => {
-                businessList.push(business);
+                businessList.unshift(business);
                 this.subject.next(businessList);
             }),
             shareReplay()
         )
     }
 
-    deleteBranchOfficeByBusiness(businessId) {
+    deleteBusiness(businessId) {
         const businessList = this.subject.getValue();
         const index = businessList.findIndex(business => business.id == businessId);
         businessList.splice(index, 1);
         this.subject.next(businessList);
         return this._businessService.deleteBusiness(businessId).pipe(
             catchError(err => {
-                const message = "Could not delete branch office";
+                const message = "Could not delete business";
                 this._messages.showErrors(message);
                 return throwError(() => err);
             }),
@@ -72,25 +72,36 @@ export class BusinessManager {
         )
     }
 
-    // updateBranchOffice(branchOfficeId, businessId, changes: Business) {
-    //     const branchOffices = this.subject.getValue();
-    //     const index = branchOffices.findIndex(branchOffice => branchOffice.id == branchOfficeId);
-    //     const newBranchOffice: Business = {
-    //         ...branchOffices[index],
-    //         ...changes
-    //     };
-    //     const newBranchOffices: Business[] = branchOffices.slice(0);
-    //     newBranchOffices[index] = newBranchOffice;
-    //     this.subject.next(newBranchOffices);
-    //     return this._businessService.updateBusiness(branchOfficeId, businessId, changes).pipe(
-    //         catchError(err => {
-    //             const message = "Could not update branch office";
-    //             this._messages.showErrors(message);
-    //             return throwError(() => err);
-    //         }),
-    //         shareReplay()
-    //     )
+    updateBusiness(businessId, changes: Business) {
+        const businessList = this.subject.getValue();
+        const index = businessList.findIndex(business => business.id == businessId);
+        const newBusiness: Business = {
+            ...businessList[index],
+            ...changes
+        };
+        const newBusinessList: Business[] = businessList.slice(0);
+        newBusinessList[index] = newBusiness;
+        this.subject.next(newBusinessList);
+        return this._businessService.updateBusiness(businessId, changes).pipe(
+            catchError(err => {
+                const message = "Could not update business";
+                this._messages.showErrors(message);
+                return throwError(() => err);
+            }),
+            shareReplay()
+        )
 
-    // }
+    }
+
+    getBusinessById(businessId) {
+        return this._businessService.getBusinessById(businessId).pipe(
+            catchError(err => {
+                const message = "Could not get business";
+                this._messages.showErrors(message);
+                return throwError(() => err);
+            }),
+            shareReplay()
+        )
+    }
 
 }

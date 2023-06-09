@@ -1,19 +1,18 @@
 import { Injectable } from "@angular/core";
-import { BranchOfficeManager } from "../manager/branch-office.manager";
 import { BusinessManager } from "../manager/business.manager";
 
 @Injectable({
     providedIn: 'root'
 })
-export class BusinessVm {
+export class BusinessCardVm {
 
     constructor(
         private _businessManager: BusinessManager
     ) {
     }
 
-    returnBusiness() {
-        return this._businessManager.returnBusiness()
+    deleteBusiness(businessId: number) {
+        return this._businessManager.deleteBusiness(businessId)
     }
 
 }
