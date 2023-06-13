@@ -16,4 +16,8 @@ export class AuthVm {
         this._authManager.getStates().subscribe(states => Storage.setAll(STATES, states))
     }
 
+    getBusinessById(businessId){
+        return this._authManager.getBusinessById(businessId)
+    }
+
 }

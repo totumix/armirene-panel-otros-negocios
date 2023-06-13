@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { BUSINESS_DATA, Storage } from 'src/app/core/storage';
 import { DashboardLayoutVm } from 'src/app/core/view-model/dashboard-layout.vm';
 import { AuthService } from 'src/app/services/auth.service';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
@@ -13,9 +14,9 @@ export class DashboardLayoutComponent implements OnInit {
   isCollapsed = false;
   drawerRef;
   showDrawerRef = true;
+  business
   menuOptions = [
     { label: 'Inicio', icon: 'home', route: ['start-view'] },
-    // { label: 'Negocios', icon: 'wallet', route: ['business'] },
     { label: 'Pedidos', icon: 'file-done', route: ['orders'] },
     { label: 'Clientes', icon: 'user', route: ['clients'] },
   ]
@@ -26,6 +27,7 @@ export class DashboardLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.business = Storage.getAll(BUSINESS_DATA);
     this.changeRoute();
     this.drawerEvent.closeComponent.subscribe(() => {
       this.drawerRef.close()

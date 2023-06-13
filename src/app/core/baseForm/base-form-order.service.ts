@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Order } from "../models/order.class";
+import { BUSINESS_DATA, Storage } from "../storage";
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,7 @@ export class BaseFormOrderService {
 
     constructor(private fb: FormBuilder) {
         this.baseForm = this.fb.group({
-            business_id: [null],
+            business_id: [Storage.getAll(BUSINESS_DATA).id],
             business_order_id: [null],
             total_value: [null],
             user_tip: [null],

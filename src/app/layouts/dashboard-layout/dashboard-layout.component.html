@@ -26,7 +26,7 @@
         <div class="menu-sidebar__logo-container__logo">
           <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
         </div>
-        <p>Nombre del negocio
+        <p>{{business?.name}}
           <button [routerLink]="'business'" class="menu-sidebar__logo-container__change-business" nz-button nz-tooltip
             nzTooltipTitle="Cambiar negocio" nzTooltipPlacement="bottomLeft">
             <span class="u-pointer u-bold" nz-icon nzType="reload" nzTheme="outline"></span>

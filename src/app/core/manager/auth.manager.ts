@@ -6,6 +6,7 @@ import { AUTH_DATA, Storage } from "../storage";
 import { AuthEvent } from "../events/auth.event";
 import { Router } from "@angular/router";
 import { CitiesServices } from "src/app/services/cities.service";
+import { BusinessService } from "src/app/services/business.service";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,7 @@ export class AuthManager {
     constructor(
         private _authService: AuthService,
         private _citiesService: CitiesServices,
+        private _businessServices: BusinessService,
         private _authEvent: AuthEvent,
         private _router: Router) { }
 
@@ -37,5 +39,9 @@ export class AuthManager {
 
     getStates() {
         return this._citiesService.getStates()
+    }
+
+    getBusinessById(businessId) {
+        return this._businessServices.getBusinessById(businessId)
     }
 }

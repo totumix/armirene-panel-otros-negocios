@@ -1,3 +1,4 @@
+import { BUSINESS_DATA, Storage } from "../storage";
 
 export class BranchOffice {
     id : number;
@@ -12,7 +13,7 @@ export class BranchOffice {
     image: string;
     phone : string
     constructor() {
-        this.businessOwner = 19;
+        this.businessOwner = Storage.getAll(BUSINESS_DATA).id;
         this.name = '';
         this.city = '';
         this.state = '';

@@ -5,6 +5,7 @@ import { BranchOffice } from "../models/branch-office.class";
 import { MessagesService } from "src/app/services/messages.service";
 import { LoadingService } from "src/app/services/loading.service";
 import { CitiesServices } from "src/app/services/cities.service";
+import { BUSINESS_DATA, Storage } from "../storage";
 
 @Injectable({
     providedIn: 'root'
@@ -21,7 +22,7 @@ export class BranchOfficeManager {
         private _loading: LoadingService,
         private _citiesService: CitiesServices
     ) {
-        this.getBranchOfficeByBusiness(19);
+        this.getBranchOfficeByBusiness(Storage.getAll(BUSINESS_DATA).id);
     }
 
     private getBranchOfficeByBusiness(businessId: number) {

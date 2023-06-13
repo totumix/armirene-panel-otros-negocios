@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, finalize, tap, throwError } from 'rxjs';
+import { catchError, finalize, iif, of, switchMap, tap, throwError } from 'rxjs';
 import { AuthResponse } from 'src/app/core/models/auth-response.class';
-import { Storage, USER_DATA } from 'src/app/core/storage';
+import { BUSINESS_DATA, Storage, USER_DATA } from 'src/app/core/storage';
 import { AuthVm } from 'src/app/core/view-model/auth.vm';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MessagesService } from 'src/app/services/messages.service';
@@ -42,17 +42,21 @@ export class LoginComponent implements OnInit {
     this._vm.login(val)
       .pipe(
         finalize(() => this._loadingService.loadingOff()),
-        tap(() => this._vm.getStates()),
+        tap((user) => {
+          let { data } = user;
+          this._vm.getStates();
+          Storage.setAll(USER_DATA, data);
+        }),
+        switchMap((user: AuthResponse) => user.data.businessIds ? this._vm.getBusinessById(user?.data?.businessIds[0]) : of(null)),
         catchError(err => {
           let { error: { message } } = err;
           this._messagesService.showErrors(message);
           return throwError(() => err);
         }),
       )
-      .subscribe((user: AuthResponse) => {
-        let { data, data: { businessIds } } = user;
-        Storage.setAll(USER_DATA, data);
-        if (businessIds) {
+      .subscribe((business) => {
+        Storage.setAll(BUSINESS_DATA, business);
+        if (business) {
           this._router.navigateByUrl("/dashboard/start-view")
         } else {
           this._router.navigateByUrl("/authentication/business-form")

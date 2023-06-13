@@ -6,7 +6,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { catchError, finalize, throwError } from 'rxjs';
 import { BaseFormBusinessService } from 'src/app/core/baseForm/base-form-business.service';
-import { TEMPORAL_BUSINESS_QUANTITY, TEMPORAL_BUSINESS_TYPE } from 'src/app/core/storage';
+import { BUSINESS_DATA, Storage, TEMPORAL_BUSINESS_QUANTITY, TEMPORAL_BUSINESS_TYPE } from 'src/app/core/storage';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { ButtonModule } from '../button/button.module';
@@ -99,8 +99,9 @@ export class BusinessFormComponent {
           return throwError(() => err);
         }),
       )
-      .subscribe(res => {
-        this._router.navigateByUrl("/dashboard/business")
+      .subscribe(business => {
+        Storage.setAll(BUSINESS_DATA, business)
+        this._router.navigateByUrl("/dashboard/start-view")
       })
   }
 
