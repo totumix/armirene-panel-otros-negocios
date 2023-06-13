@@ -4,6 +4,7 @@ import { BranchOfficeService } from "src/app/services/branch-office.service";
 import { BranchOffice } from "../models/branch-office.class";
 import { MessagesService } from "src/app/services/messages.service";
 import { LoadingService } from "src/app/services/loading.service";
+import { CitiesServices } from "src/app/services/cities.service";
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,7 @@ export class BranchOfficeManager {
         private _branchOfficeService: BranchOfficeService,
         private _messages: MessagesService,
         private _loading: LoadingService,
+        private _citiesService: CitiesServices
     ) {
         this.getBranchOfficeByBusiness(19);
     }
@@ -90,6 +92,9 @@ export class BranchOfficeManager {
             }),
             shareReplay()
         )
+    }
 
+    getCities(stateId) {
+        return this._citiesService.getCities(stateId)
     }
 }
