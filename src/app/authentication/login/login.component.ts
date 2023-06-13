@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, finalize, throwError } from 'rxjs';
+import { catchError, finalize, tap, throwError } from 'rxjs';
 import { AuthResponse } from 'src/app/core/models/auth-response.class';
 import { Storage, USER_DATA } from 'src/app/core/storage';
 import { AuthVm } from 'src/app/core/view-model/auth.vm';
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     this._vm.login(val)
       .pipe(
         finalize(() => this._loadingService.loadingOff()),
+        tap(() => this._vm.getStates()),
         catchError(err => {
           let { error: { message } } = err;
           this._messagesService.showErrors(message);
