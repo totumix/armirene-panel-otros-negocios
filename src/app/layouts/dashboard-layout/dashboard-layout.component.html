@@ -1,7 +1,7 @@
 <nz-layout>
   <nz-header class="nz-header">
-    <div class="nz-header__logo"></div>
-    <span class="nz-header__trigger" (click)="isCollapsed = !isCollapsed">
+    <div class="nz-header__logo" [routerLink]="'start-view'"></div>
+    <span class="nz-header__trigger" (click)="isCollapsed = !isCollapsed" *ngIf="showDrawerRef">
       <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
     </span>
     <div class="nz-header__avatar">
@@ -13,19 +13,25 @@
 
     <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
+        <li nz-menu-item [routerLink]="'business'">Tus negocios</li>
         <li nz-menu-item (click)="logout()">Cerrar sesión</li>
       </ul>
     </nz-dropdown-menu>
 
   </nz-header>
   <nz-layout>
-    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="250px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
-      [nzTrigger]="null">
-      <div class="menu-sidebar__logo-container"  [ngStyle]="{'display': ( isCollapsed ? 'none' : 'flex')}">
+    <nz-sider *ngIf="showDrawerRef" class="menu-sidebar" nzCollapsible nzWidth="250px" nzBreakpoint="md"
+      [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="menu-sidebar__logo-container" [ngStyle]="{'display': ( isCollapsed ? 'none' : 'flex')}">
         <div class="menu-sidebar__logo-container__logo">
           <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
         </div>
-        <p>Nombre del negocio<br>
+        <p>Nombre del negocio
+          <button [routerLink]="'business'" class="menu-sidebar__logo-container__change-business" nz-button nz-tooltip
+            nzTooltipTitle="Cambiar negocio" nzTooltipPlacement="bottomLeft">
+            <span class="u-pointer u-bold" nz-icon nzType="reload" nzTheme="outline"></span>
+          </button>
+          <br>
           <span>Rol del usuario</span>
         </p>
       </div>

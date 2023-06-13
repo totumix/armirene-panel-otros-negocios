@@ -21,6 +21,8 @@ import { LoadingModule } from '../shared/components/loading/loading.module';
 import { MessagesComponent } from '../shared/components/messages/messages.component';
 import { LoadingService } from '../services/loading.service';
 import { MessagesService } from '../services/messages.service';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+
 const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
 
 
@@ -44,7 +46,8 @@ const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
     NzDrawerModule,
     NzAvatarModule,
     LoadingModule,
-    MessagesComponent
+    MessagesComponent,
+    NzToolTipModule
   ],
   providers: [
     LoadingService,

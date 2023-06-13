@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Event, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { DashboardLayoutVm } from 'src/app/core/view-model/dashboard-layout.vm';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,18 +12,21 @@ import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 export class DashboardLayoutComponent implements OnInit {
   isCollapsed = false;
   drawerRef;
+  showDrawerRef = true;
   menuOptions = [
     { label: 'Inicio', icon: 'home', route: ['start-view'] },
-    { label: 'Negocios', icon: 'wallet', route: ['business'] },
+    // { label: 'Negocios', icon: 'wallet', route: ['business'] },
     { label: 'Pedidos', icon: 'file-done', route: ['orders'] },
     { label: 'Clientes', icon: 'user', route: ['clients'] },
   ]
   constructor(private drawerService: NzDrawerService,
     private drawerEvent: DrawerEvent,
-    private vm: DashboardLayoutVm
+    private vm: DashboardLayoutVm,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.changeRoute();
     this.drawerEvent.closeComponent.subscribe(() => {
       this.drawerRef.close()
     })
@@ -32,6 +36,17 @@ export class DashboardLayoutComponent implements OnInit {
     this.drawerEvent.getWidthDrawer.subscribe(res => {
       this.drawerRef.nzWidth = res.width
     })
+  }
+
+  changeRoute() {
+    this.router.events.subscribe((event: Event) => {
+      if ((event instanceof NavigationStart && event.url.includes('business')) || this.router.url.includes('business')) {
+        this.showDrawerRef = false;
+      }
+      if ((event instanceof NavigationStart && !event.url.includes('business')) || !this.router.url.includes('business')) {
+        this.showDrawerRef = true;
+      }
+    });
   }
 
   openComponent({ component, data }: any): void {
