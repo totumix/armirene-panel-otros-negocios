@@ -22,6 +22,7 @@ import { MessagesComponent } from '../shared/components/messages/messages.compon
 import { LoadingService } from '../services/loading.service';
 import { MessagesService } from '../services/messages.service';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 
 const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
 
@@ -41,12 +42,12 @@ const COMPONENTS = [AuthenticationLayoutComponent, DashboardLayoutComponent]
     NzButtonModule,
     NzDropDownModule,
     NzPageHeaderModule,
+    NzProgressModule,
     ButtonModule,
     RouterModule,
     NzDrawerModule,
     NzAvatarModule,
     LoadingModule,
-    MessagesComponent,
     NzToolTipModule
   ],
   providers: [

@@ -17,7 +17,9 @@
         <li nz-menu-item (click)="logout()">Cerrar sesión</li>
       </ul>
     </nz-dropdown-menu>
-
+    <div class="nz-header__progress-bar" *ngIf="_loadingService.loading$ | async">
+      <nz-progress [nzShowInfo]="false" [nzPercent]="100" nzStatus="active"></nz-progress>
+    </div>
   </nz-header>
   <nz-layout>
     <nz-sider *ngIf="showDrawerRef" class="menu-sidebar" nzCollapsible nzWidth="250px" nzBreakpoint="md"
@@ -57,7 +59,6 @@
       </ul>
     </nz-sider>
     <nz-content class="pdd-20">
-      <app-messages></app-messages>
       <app-spinner></app-spinner>
       <router-outlet></router-outlet>
     </nz-content>

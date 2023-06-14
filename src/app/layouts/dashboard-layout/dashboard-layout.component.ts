@@ -4,6 +4,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { BUSINESS_DATA, Storage } from 'src/app/core/storage';
 import { DashboardLayoutVm } from 'src/app/core/view-model/dashboard-layout.vm';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 @Component({
   selector: 'app-dashboard-layout',
@@ -23,7 +24,8 @@ export class DashboardLayoutComponent implements OnInit {
   constructor(private drawerService: NzDrawerService,
     private drawerEvent: DrawerEvent,
     private vm: DashboardLayoutVm,
-    private router: Router
+    private router: Router,
+    public _loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
