@@ -4,7 +4,6 @@ import { BranchOfficeService } from "src/app/services/branch-office.service";
 import { BranchOffice } from "../models/branch-office.class";
 import { MessagesService } from "src/app/services/messages.service";
 import { LoadingService } from "src/app/services/loading.service";
-import { CitiesServices } from "src/app/services/cities.service";
 import { BUSINESS_DATA, Storage } from "../storage";
 
 @Injectable({
@@ -27,7 +26,7 @@ export class BranchOfficeManager {
     private getBranchOfficeByBusiness(businessId: number) {
         const loadBranchOfficeByBusiness$ = this._branchOfficeService.getBranchOfficeByBusiness(businessId).pipe(
             catchError(err => {
-                const message = "Could not load branch offices";
+                let { error: { message } } = err
                 this._messages.showErrors(message);
                 console.log(message, err);
                 return throwError(() => err);

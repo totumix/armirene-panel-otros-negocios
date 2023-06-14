@@ -29,7 +29,7 @@ export class BusinessManager {
     private getBusinessList(userId: number) {
         const loadBusiness$ = this._businessService.getBusinessList(userId).pipe(
             catchError(err => {
-                const message = "Could not load business";
+                let { error: { message } } = err;
                 this._messages.showErrors(message);
                 console.log(message, err);
                 return throwError(() => err);
