@@ -23,12 +23,11 @@ export class BranchOfficeManager {
         this.getBranchOfficeByBusiness(Storage.getAll(BUSINESS_DATA).id);
     }
 
-    private getBranchOfficeByBusiness(businessId: number) {
+    getBranchOfficeByBusiness(businessId: number) {
         const loadBranchOfficeByBusiness$ = this._branchOfficeService.getBranchOfficeByBusiness(businessId).pipe(
             catchError(err => {
                 let { error: { message } } = err
                 this._messages.showErrors(message);
-                console.log(message, err);
                 return throwError(() => err);
             }),
             tap(branchOffices => this.subject.next(branchOffices)),

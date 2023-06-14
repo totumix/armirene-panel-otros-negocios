@@ -6,6 +6,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { BusinessCardVm } from 'src/app/core/view-model/business-card.vm';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Router } from '@angular/router';
+import { BUSINESS_DATA, Storage } from 'src/app/core/storage';
 
 @Component({
   selector: 'app-business-card',
@@ -44,7 +45,13 @@ export class BusinessCardComponent {
     this._vm.deleteBusiness(businessId).subscribe()
   }
 
-  updateBusiness(business) {
+  updateBusiness(business: Business) {
     this._router.navigateByUrl(`/dashboard/business/business-form/${business.id}`)
+  }
+
+  selectBusiness(business: Business) {
+    Storage.setAll(BUSINESS_DATA, business)
+    this._router.navigateByUrl(`/dashboard/start-view`)
+    this._vm.getBranchOfficeByBusiness(business.id)
   }
 }
