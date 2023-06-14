@@ -1,0 +1,14 @@
+.cities-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    nz-form-item {
+        width: 100%;
+
+        input {
+            width: 100%;
+        }
+    }
+}

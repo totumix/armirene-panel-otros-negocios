@@ -1,5 +1,5 @@
-<form [formGroup]="parentForm">
-    <nz-form-item class="w-100">
+<form [formGroup]="parentForm" class="cities-container">
+    <nz-form-item>
         <nz-form-label>Ciudad:</nz-form-label>
         <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
             <nz-select formControlName="state" id="state" nzPlaceHolder="Ciudad" (ngModelChange)="changeState($event)">
@@ -9,7 +9,7 @@
             </nz-select>
         </nz-form-control>
     </nz-form-item>
-    <nz-form-item class="w-100">
+    <nz-form-item>
         <nz-form-label>Municipio:</nz-form-label>
         <nz-form-control nzErrorTip="Porfavor ingrese el municipio!">
             <nz-select formControlName="city" id="city" nzPlaceHolder="Municipio"
