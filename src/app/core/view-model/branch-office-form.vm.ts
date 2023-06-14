@@ -23,7 +23,4 @@ export class BranchOfficeFormVM {
         return this._branchOfficeManager.updateBranchOffice(data.id, data.businessOwner, data)
     }
 
-    getCities(stateId) {
-        return this._branchOfficeManager.getCities(stateId)
-    }
 }

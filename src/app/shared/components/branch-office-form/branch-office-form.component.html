@@ -1,25 +1,5 @@
 <form [formGroup]="form" class="pdd-20" nz-form nzLayout="vertical">
-    <nz-form-item>
-        <nz-form-label>Ciudad:</nz-form-label>
-        <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
-            <nz-select formControlName="state" id="state" nzPlaceHolder="Ciudad" (ngModelChange)="changeState($event)">
-                <ng-container *ngFor="let state of states">
-                    <nz-option [nzValue]="state.name" nzLabel="{{state.name}}"></nz-option>
-                </ng-container>
-            </nz-select>
-        </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-label>Municipio:</nz-form-label>
-        <nz-form-control nzErrorTip="Porfavor ingrese el municipio!">
-            <nz-select formControlName="city" id="city" nzPlaceHolder="Municipio"
-                (ngModelChange)="changeMunicipality($event)">
-                <ng-container *ngFor="let city of cities">
-                    <nz-option [nzValue]="city.name" nzLabel="{{city.name}}"></nz-option>
-                </ng-container>
-            </nz-select>
-        </nz-form-control>
-    </nz-form-item>
+    <app-cities-select [parentForm]="form"> </app-cities-select>
     <nz-form-item>
         <nz-form-label>Dirección:</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingresa la dirección!">

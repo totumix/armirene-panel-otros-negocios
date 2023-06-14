@@ -23,26 +23,7 @@
                 </nz-form-item>
             </div>
             <app-phone></app-phone>
-            <div class="order-form-container__row">
-                <nz-form-item>
-                    <nz-form-label>Ciudad * :</nz-form-label>
-                    <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
-                        <nz-select id="city" nzPlaceHolder="Ciudad">
-                            <nz-option nzValue="male" nzLabel="male"></nz-option>
-                            <nz-option nzValue="female" nzLabel="female"></nz-option>
-                        </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item>
-                    <nz-form-label>Municipio * :</nz-form-label>
-                    <nz-form-control nzErrorTip="Porfavor ingrese el municipio!">
-                        <nz-select id="city" nzPlaceHolder="Municipio">
-                            <nz-option nzValue="male" nzLabel="male"></nz-option>
-                            <nz-option nzValue="female" nzLabel="female"></nz-option>
-                        </nz-select>
-                    </nz-form-control>
-                </nz-form-item>
-            </div>
+            <app-cities-select [parentForm]="_orderForm.baseForm.get('client_info')"> </app-cities-select>
             <nz-form-item>
                 <nz-form-label>Dirección *:</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">

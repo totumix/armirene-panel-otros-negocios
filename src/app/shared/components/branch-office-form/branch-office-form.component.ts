@@ -13,6 +13,7 @@ import { MapComponent } from '../map/map.component';
 import { BranchOfficeFormVM } from 'src/app/core/view-model/branch-office-form.vm';
 import { DrawerEvent } from '../../event-listeners/drawer.event';
 import { STATES, Storage } from 'src/app/core/storage';
+import { CitiesSelectComponent } from '../cities-select/cities-select.component';
 
 const MODULES = [
   ButtonModule,
@@ -22,7 +23,8 @@ const MODULES = [
   NzInputModule,
   NzSelectModule,
   CommonModule,
-  MapComponent
+  MapComponent,
+  CitiesSelectComponent
 ]
 @Component({
   selector: 'app-branch-office-form',
@@ -37,8 +39,6 @@ export class BranchOfficeFormComponent implements OnInit {
   @Input() form: FormGroup
   @Input() dataForm: BranchOffice;
   public showDrawerActions: boolean;
-  public states = Storage.getAll(STATES);
-  public cities = new Array;
   constructor(
     private _modal: NzModalService,
     private _branchOfficeForm: BaseFormBusinessService,
@@ -59,15 +59,6 @@ export class BranchOfficeFormComponent implements OnInit {
     } else {
       this.showDrawerActions = false;
     }
-  }
-
-  changeState(stateName: string) {
-    let stateId = this.states.filter(state => state.name == stateName)[0].id;
-    this._vm.getCities(stateId).subscribe(cities => this.cities = cities)
-  }
-
-  changeMunicipality(municipality: any) {
-    console.log(municipality)
   }
 
   deleteBranchOffice() {

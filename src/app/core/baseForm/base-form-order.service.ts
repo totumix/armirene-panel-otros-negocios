@@ -31,7 +31,7 @@ export class BaseFormOrderService {
                 lat: [null],
                 lng: [null],
                 city: [null],
-                municipality: [null]
+                state: [null]
             }),
             country: [null],
             token: [null]

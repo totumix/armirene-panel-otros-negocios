@@ -19,8 +19,7 @@ export class BranchOfficeManager {
     constructor(
         private _branchOfficeService: BranchOfficeService,
         private _messages: MessagesService,
-        private _loading: LoadingService,
-        private _citiesService: CitiesServices
+        private _loading: LoadingService
     ) {
         this.getBranchOfficeByBusiness(Storage.getAll(BUSINESS_DATA).id);
     }
@@ -95,7 +94,4 @@ export class BranchOfficeManager {
         )
     }
 
-    getCities(stateId) {
-        return this._citiesService.getCities(stateId)
-    }
 }
