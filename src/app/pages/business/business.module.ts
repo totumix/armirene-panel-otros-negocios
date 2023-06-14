@@ -4,6 +4,7 @@ import { BusinessComponent } from './business.component';
 import { ButtonModule } from 'src/app/shared/components/button/button.module';
 import { BusinessRoutingModule } from './business-routing.module';
 import { BusinessCardComponent } from 'src/app/shared/components/business-card/business-card.component';
+import { MessagesComponent } from 'src/app/shared/components/messages/messages.component';
 
 
 
@@ -15,7 +16,8 @@ import { BusinessCardComponent } from 'src/app/shared/components/business-card/b
     CommonModule,
     ButtonModule,
     BusinessRoutingModule,
-    BusinessCardComponent
+    BusinessCardComponent,
+    MessagesComponent
   ]
 })
 export class BusinessModule { }
