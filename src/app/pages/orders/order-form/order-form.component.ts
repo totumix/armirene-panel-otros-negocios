@@ -33,7 +33,6 @@ export class OrderFormComponent implements OnInit {
   constructor(
     private drawerEvent: DrawerEvent,
     public _orderForm: BaseFormOrderService,
-    private _authService: AuthService,
     private _vm: OrderVm,
     private _messagesService: MessagesService
   ) { }

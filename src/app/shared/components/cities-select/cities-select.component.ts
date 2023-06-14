@@ -39,7 +39,7 @@ export class CitiesSelectComponent implements OnInit {
   }
 
   changeState(stateName: string) {
-    let stateId = this.states.filter(state => state.name == stateName)[0].id;
+    let stateId = this.states.filter(state => state.name == stateName)[0]?.id;
     this._vm.getCities(stateId).subscribe(cities => this.cities = cities)
   }
 
