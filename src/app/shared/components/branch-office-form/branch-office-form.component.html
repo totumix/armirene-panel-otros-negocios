@@ -3,7 +3,7 @@
     <nz-form-item>
         <nz-form-label>Dirección:</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
-            <input formControlName="address" type="password" nz-input placeholder="Dirección">
+            <input formControlName="address" type="text" nz-input placeholder="Dirección">
         </nz-form-control>
     </nz-form-item>
     <app-map></app-map>
@@ -21,7 +21,7 @@
             <input formControlName="name" type="name" nz-input placeholder="Nombre">
         </nz-form-control>
     </nz-form-item>
-    <app-phone></app-phone>
+    <app-phone [parentForm]="form"></app-phone>
     <div class="add-img-container">
         <label class="font-16 u-bold">Imagen de la fachada del negocio</label>
         <img src="../../../../assets/svg/agregar-fachada.svg" alt="">

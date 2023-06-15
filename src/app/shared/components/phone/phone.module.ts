@@ -4,11 +4,14 @@ import { PhoneComponent } from './phone.component';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ReactiveFormsModule } from '@angular/forms';
 
-const antdModule = [
+const MODULES = [
+  ReactiveFormsModule,
   NzFormModule,
   NzInputModule,
   NzSelectModule,
+  CommonModule,
 ]
 
 @NgModule({
@@ -16,10 +19,9 @@ const antdModule = [
     PhoneComponent
   ],
   imports: [
-    CommonModule,
-    ...antdModule
+    ...MODULES
   ],
-  exports:[
+  exports: [
     PhoneComponent
   ]
 })
