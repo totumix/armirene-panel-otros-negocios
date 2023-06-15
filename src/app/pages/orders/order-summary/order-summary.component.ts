@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { OrderFormComponent } from '../order-form/order-form.component';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 import { Order } from 'src/app/core/models/order.class';
+import { BranchOffice } from 'src/app/core/models/branch-office.class';
 
 @Component({
   selector: 'app-order-summary',
@@ -11,6 +12,7 @@ import { Order } from 'src/app/core/models/order.class';
 export class OrderSummaryComponent implements OnInit {
 
   @Input() order: Order;
+  @Input() branchOffice : BranchOffice;
   public client_info;
   public phone;
   public address;

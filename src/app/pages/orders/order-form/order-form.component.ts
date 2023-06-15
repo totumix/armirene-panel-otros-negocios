@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { catchError, from, switchMap, throwError } from 'rxjs';
+import { Observable, catchError, from, switchMap, throwError } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
 import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
+import { BranchOffice } from 'src/app/core/models/branch-office.class';
 import { OrderVm } from 'src/app/core/view-model/order-form.vm';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessagesService } from 'src/app/services/messages.service';
@@ -13,14 +14,15 @@ import { selectDataMapInterface } from 'src/app/shared/interfaces/select-data-ma
   selector: 'app-order-form',
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.scss'],
-  providers : [
+  providers: [
     MessagesService
   ]
 })
 export class OrderFormComponent implements OnInit {
 
   @Input() dataForm: any;
-
+  branchOfficeList$: Observable<BranchOffice[]>
+  branchOfficeSelected: BranchOffice;
   current: number = 0;
   firstContent: boolean = true;
   secondContent: boolean = false;
@@ -37,7 +39,17 @@ export class OrderFormComponent implements OnInit {
     private _messagesService: MessagesService
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.init();
+  }
+
+  init() {
+    this.getBranchOfficeByBusiness();
+  }
+
+  getBranchOfficeByBusiness() {
+    this.branchOfficeList$ = this._vm.returnBranchOfficeByBusiness()
+  }
 
   getCurrentLocation() {
     //console.clear();
@@ -135,5 +147,12 @@ export class OrderFormComponent implements OnInit {
           return throwError(() => err);
         }),
       ).subscribe(res => console.log(res))
+  }
+
+  changeBranchOffice(branchOffice) {
+    let { value } = this._orderForm.baseForm.controls['products']
+    value.forEach(element => {
+      element.store_id = branchOffice.id
+    });
   }
 }

@@ -22,7 +22,13 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <app-phone></app-phone>
+            <app-phone [parentForm]="_orderForm.baseForm.get('client_info')"></app-phone>
+            <nz-form-item>
+                <nz-form-label>Correo electrónico *:</nz-form-label>
+                <nz-form-control nzErrorTip="Por favor ingresa tu correo electrónico!">
+                    <input formControlName="email" type="text" nz-input placeholder="Correo electrónico">
+                </nz-form-control>
+            </nz-form-item>
             <app-cities-select [parentForm]="_orderForm.baseForm.get('client_info')"> </app-cities-select>
             <nz-form-item>
                 <nz-form-label>Dirección *:</nz-form-label>
@@ -56,29 +62,32 @@
         </div>
         <div *ngIf="thirdContent">
             <span class="order-form-container__sub-title mb-bottom-15">Selecciona la información de tu negocio</span>
-            <div class="justify-content-right p-relative">
+            <!-- <div  class="justify-content-right p-relative">
                 <app-button [title]="'Añadir nueva sucursal'" [subfixIcon]="'plus'" class="p-absolute"
                     [customClasses]="'negative-second-btn pdd-x-15 font-16 '" [isLoading]="false"></app-button>
-            </div>
+            </div> -->
             <nz-form-item>
                 <nz-form-label class="mg-y-5">Selecciona la sucursal * :</nz-form-label>
                 <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
-                    <nz-select id="city" nzPlaceHolder="Selecciona la surcusal">
-                        <nz-option nzValue="male" nzLabel="male"></nz-option>
-                        <nz-option nzValue="female" nzLabel="female"></nz-option>
+                    <nz-select [ngModelOptions]="{standalone: true}" [(ngModel)]="branchOfficeSelected"
+                        id="branchOffice" nzPlaceHolder="Selecciona la surcusal"
+                        (ngModelChange)="changeBranchOffice(branchOfficeSelected)">
+                        <ng-container *ngFor="let branchOffice of branchOfficeList$ | async ">
+                            <nz-option [nzValue]="branchOffice" nzLabel="{{branchOffice.name}}"></nz-option>
+                        </ng-container>
                     </nz-select>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Tipo de vehículo</nz-form-label>
                 <nz-radio-group formControlName="vehicle_type">
-                    <label nz-radio nzValue="1">
+                    <label nz-radio [nzValue]="1">
                         <img src="assets/svg/bicycle-svgrepo-com.svg" alt="">
                         Bicicleta</label>
-                    <label nz-radio nzValue="2">
+                    <label nz-radio [nzValue]="2">
                         <img src="assets/svg/motorbike-bike-svgrepo-com.svg" alt="">
                         Moto</label>
-                    <label nz-radio nzValue="3">
+                    <label nz-radio [nzValue]="3">
                         <img src="assets/svg/automobile-svgrepo-com.svg" alt="">
                         Carro</label>
                 </nz-radio-group>
@@ -86,18 +95,18 @@
             <nz-form-item>
                 <nz-form-label>Forma de pago </nz-form-label>
                 <nz-radio-group formControlName="payment_method">
-                    <label nz-radio nzValue="1">
+                    <label nz-radio [nzValue]="1">
                         <img src="assets/svg/efectivo.svg" alt="">
                         Efectivo</label>
-                    <label nz-radio nzValue="2">
+                    <label nz-radio [nzValue]="2">
                         <img src="assets/svg/datafono.svg" alt="">
                         Punto de venta</label>
-                    <label nz-radio nzValue="3">
+                    <label nz-radio [nzValue]="3">
                         <img src="assets/svg/invoice-bill-svgrepo-com-1.svg" alt="">
                         Prepagado</label>
                 </nz-radio-group>
             </nz-form-item>
-            <nz-form-item>
+            <nz-form-item *ngIf="_orderForm.baseForm.get('payment_method').value == 1">
                 <nz-form-label>Total a cobrar al cliente:</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
                     <input formControlName="total_value" type="number" nz-input placeholder="Escribe aquí…">
@@ -120,7 +129,8 @@
             </div>
             <div>
                 <span class="order-form-container__title"> RESUMEN DEL PEDIDO </span>
-                <app-order-summary [order]="_orderForm.baseForm.value"></app-order-summary>
+                <app-order-summary [order]="_orderForm.baseForm.value"
+                    [branchOffice]="branchOfficeSelected"></app-order-summary>
                 <app-order-total [order]="_orderForm.baseForm.value"></app-order-total>
             </div>
         </div>
