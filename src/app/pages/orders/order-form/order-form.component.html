@@ -119,7 +119,7 @@
                         [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
                 </nz-form-control>
             </nz-form-item>
-            <app-order-total [order]="_orderForm.baseForm.value"></app-order-total>
+            <!-- <app-order-total [order]="_orderForm.baseForm.value"></app-order-total> -->
         </div>
         <div *ngIf="fourthContent" class="fourth-content">
             <div>
@@ -128,10 +128,11 @@
                 </div>
             </div>
             <div>
+                <app-order-message></app-order-message>
                 <span class="order-form-container__title"> RESUMEN DEL PEDIDO </span>
                 <app-order-summary [order]="_orderForm.baseForm.value"
                     [branchOffice]="branchOfficeSelected"></app-order-summary>
-                <app-order-total [order]="_orderForm.baseForm.value"></app-order-total>
+                <app-order-total [order]="_orderForm.baseForm.value" *ngIf="_orderForm.baseForm.get('total_value').value"></app-order-total>
             </div>
         </div>
     </form>

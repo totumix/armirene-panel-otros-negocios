@@ -72,8 +72,8 @@ export class OrderFormComponent implements OnInit {
     fromFetch(urlInver)
       .pipe(switchMap((r: any) => from(r.json())))
       .subscribe((json) => {
-        this._orderForm.baseForm.controls['client_info'].value.lat = JSON.parse(JSON.stringify(json)).lat
-        this._orderForm.baseForm.controls['client_info'].value.lng = JSON.parse(JSON.stringify(json)).lon
+        this._orderForm.baseForm.controls['client_info'].value.lat = Number(JSON.parse(JSON.stringify(json)).lat)
+        this._orderForm.baseForm.controls['client_info'].value.lng = Number(JSON.parse(JSON.stringify(json)).lon)
       }, (error) => {
         console.log(error);
       });
@@ -139,6 +139,8 @@ export class OrderFormComponent implements OnInit {
   }
 
   createOrder() {
+    let { value: { city } } = this._orderForm.baseForm.controls['client_info'];
+    this._orderForm.baseForm.get('city')?.setValue(city)
     this._vm.createOrder(this._orderForm.baseForm.value)
       .pipe(
         catchError(err => {
@@ -146,7 +148,10 @@ export class OrderFormComponent implements OnInit {
           this._messagesService.showErrors(message);
           return throwError(() => err);
         }),
-      ).subscribe(res => console.log(res))
+      ).subscribe(res => {
+        let { message } = res;
+        this._messagesService.showErrors(message);
+      })
   }
 
   changeBranchOffice(branchOffice) {

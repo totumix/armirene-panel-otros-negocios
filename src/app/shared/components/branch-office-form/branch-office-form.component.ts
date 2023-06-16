@@ -96,4 +96,10 @@ export class BranchOfficeFormComponent implements OnInit {
     }
     this._vm.updateBranchOffice(body).subscribe(() => this.closeDrawer())
   }
+
+  getCoordinates(coordinates) {
+    let { lat, lng } = coordinates
+    this.form.get('latitude')?.setValue(lat);
+    this.form.get('length')?.setValue(lng);
+  }
 }

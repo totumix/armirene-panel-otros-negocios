@@ -18,6 +18,7 @@ import { OrderTotalComponent } from './order-total/order-total.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CitiesSelectComponent } from 'src/app/shared/components/cities-select/cities-select.component';
+import { OrderMessageComponent } from './order-message/order-message.component';
 
 const antdModule = [
   NzFormModule,
@@ -35,7 +36,8 @@ const antdModule = [
     OrderFormComponent,
     OrderCardComponent,
     OrderTotalComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    OrderMessageComponent
   ],
   imports: [
     CommonModule,

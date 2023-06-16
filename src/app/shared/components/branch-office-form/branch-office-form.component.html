@@ -6,7 +6,7 @@
             <input formControlName="address" type="text" nz-input placeholder="Dirección">
         </nz-form-control>
     </nz-form-item>
-    <app-map></app-map>
+    <app-map (sendLatLng)="getCoordinates($event)"></app-map>
     <nz-form-item>
         <nz-form-label>Indicaciones de dirección:</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingresa la dirección!">

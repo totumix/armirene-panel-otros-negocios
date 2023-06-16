@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { selectDataMapInterface } from '../../interfaces/select-data-map.type';
 import { ViewportMap } from '../view-port-map/view-port-map';
 import { fromFetch } from 'rxjs/fetch';
@@ -12,6 +12,7 @@ import { from, switchMap } from 'rxjs';
 
 })
 export class MapComponent implements OnInit, OnDestroy {
+  @Output() sendLatLng = new EventEmitter<any>();
   map = ViewportMap.getInstance();
   selectedData: selectDataMapInterface;
   onGPS = false;
@@ -49,7 +50,11 @@ export class MapComponent implements OnInit, OnDestroy {
     fromFetch(urlInver)
       .pipe(switchMap((r: any) => from(r.json())))
       .subscribe((json) => {
-        console.log(json);
+        let coordinates = {
+          lat: Number(JSON.parse(JSON.stringify(json)).lat),
+          lng: Number(JSON.parse(JSON.stringify(json)).lon)
+        }
+        this.sendLatLng.emit(coordinates);
       }, (error) => {
         console.log(error);
       });
