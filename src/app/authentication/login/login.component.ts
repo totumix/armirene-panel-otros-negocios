@@ -38,30 +38,43 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     const val = this.loginForm.value;
-    this._loadingService.loadingOn()
-    this._vm.login(val)
-      .pipe(
-        finalize(() => this._loadingService.loadingOff()),
-        tap((user) => {
-          let { data } = user;
-          this._vm.getStates();
-          Storage.setAll(USER_DATA, data);
-        }),
-        switchMap((user: AuthResponse) => user.data.businessIds ? this._vm.getBusinessById(user?.data?.businessIds[0]) : of(null)),
-        catchError(err => {
-          let { error: { message } } = err;
-          this._messagesService.showErrors(message);
-          return throwError(() => err);
-        }),
-      )
-      .subscribe((business) => {
-        Storage.setAll(BUSINESS_DATA, business);
-        if (business) {
-          this._router.navigateByUrl("/dashboard/start-view")
-        } else {
-          this._router.navigateByUrl("/authentication/business-form")
-        }
-      });
+    if (!this.loginForm.invalid) {
+      this._loadingService.loadingOn()
+      this._vm.login(val)
+        .pipe(
+          finalize(() => this._loadingService.loadingOff()),
+          tap((user) => {
+            let { data } = user;
+            this._vm.getStates();
+            Storage.setAll(USER_DATA, data);
+          }),
+          switchMap((user: AuthResponse) => user.data.businessIds ? this._vm.getBusinessById(user?.data?.businessIds[0]) : of(null)),
+          catchError(err => {
+            let { error: { message } } = err;
+            this._messagesService.showErrors(message);
+            return throwError(() => err);
+          }),
+        )
+        .subscribe((business) => {
+          Storage.setAll(BUSINESS_DATA, business);
+          if (business) {
+            this._router.navigateByUrl("/dashboard/start-view")
+          } else {
+            this._router.navigateByUrl("/authentication/business-form")
+          }
+        });
+    } else {
+      this.showFormError();
+    }
+
   }
 
+  showFormError() {
+    Object.values(this.loginForm.controls).forEach(control => {
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
+    });
+  }
 }
