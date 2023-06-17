@@ -1,6 +1,6 @@
 <form [formGroup]="parentForm" class="cities-container">
     <nz-form-item>
-        <nz-form-label>Ciudad:</nz-form-label>
+        <nz-form-label>Ciudad *</nz-form-label>
         <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
             <nz-select nzShowSearch formControlName="state" id="state" nzPlaceHolder="Ciudad"
                 (ngModelChange)="changeState($event)">
@@ -11,7 +11,7 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label>Municipio:</nz-form-label>
+        <nz-form-label>Municipio *</nz-form-label>
         <nz-form-control nzErrorTip="Porfavor ingrese el municipio!">
             <nz-select nzShowSearch formControlName="city" id="city" nzPlaceHolder="Municipio"
                 (ngModelChange)="changeMunicipality($event)">

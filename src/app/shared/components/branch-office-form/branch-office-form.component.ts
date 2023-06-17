@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
 import { ButtonModule } from 'src/app/shared/components/button/button.module';
@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 import { MapComponent } from '../map/map.component';
 import { BranchOfficeFormVM } from 'src/app/core/view-model/branch-office-form.vm';
 import { DrawerEvent } from '../../event-listeners/drawer.event';
-import { STATES, Storage } from 'src/app/core/storage';
 import { CitiesSelectComponent } from '../cities-select/cities-select.component';
 
 const MODULES = [
@@ -75,10 +74,13 @@ export class BranchOfficeFormComponent implements OnInit {
   }
 
   saveBranchOffice() {
-    console.log(this.form.value)
-    this._vm.saveBranchOffice(this.form.value).subscribe(() => {
-      this.closeDrawer()
-    })
+    if (!this.form.invalid) {
+      this._vm.saveBranchOffice(this.form.value).subscribe(() => {
+        this.closeDrawer()
+      })
+    } else {
+      this.showFormError();
+    }
   }
 
   deleteBranchOfficeByBusiness(data) {
@@ -101,5 +103,14 @@ export class BranchOfficeFormComponent implements OnInit {
     let { lat, lng } = coordinates
     this.form.get('latitude')?.setValue(lat);
     this.form.get('length')?.setValue(lng);
+  }
+
+  showFormError() {
+    Object.values(this.form.controls).forEach(control => {
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
+    });
   }
 }

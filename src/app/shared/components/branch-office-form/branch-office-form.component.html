@@ -1,14 +1,14 @@
 <form [formGroup]="form" class="pdd-20" nz-form nzLayout="vertical">
     <app-cities-select [parentForm]="form"> </app-cities-select>
     <nz-form-item>
-        <nz-form-label>Dirección:</nz-form-label>
+        <nz-form-label>Dirección *</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
-            <input formControlName="address" type="text" nz-input placeholder="Dirección">
+            <input formControlName="address" type="text" nz-input placeholder="Dirección" required>
         </nz-form-control>
     </nz-form-item>
     <app-map (sendLatLng)="getCoordinates($event)"></app-map>
     <nz-form-item>
-        <nz-form-label>Indicaciones de dirección:</nz-form-label>
+        <nz-form-label>Indicaciones de dirección</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
             <textarea formControlName="addressIndications" nz-input
                 placeholder="Autosize height with minimum and maximum number of lines"
@@ -16,7 +16,7 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
-        <nz-form-label>Nombre sucursal:</nz-form-label>
+        <nz-form-label>Nombre sucursal *</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingresa el nombre!">
             <input formControlName="name" type="name" nz-input placeholder="Nombre">
         </nz-form-control>
@@ -26,6 +26,8 @@
         <label class="font-16 u-bold">Imagen de la fachada del negocio</label>
         <img src="../../../../assets/svg/agregar-fachada.svg" alt="">
     </div>
+
+    * Campos requeridos
 </form>
 <div class="actions-container" *ngIf="showDrawerActions">
     <a *ngIf="dataForm.id" (click)="deleteBranchOffice()">Eliminar sucursal</a>
