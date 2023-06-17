@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Business } from "../models/business.class";
 import { BranchOffice } from "../models/branch-office.class";
 import { USER_DATA, Storage } from "../storage";
@@ -11,10 +11,10 @@ export class BaseFormBusinessService {
     constructor(private fb: FormBuilder) {
         this.baseForm = this.fb.group({
             id: [],
-            name: [null],
-            type: [null],
+            name: [null, Validators.required],
+            type: [null, Validators.required],
             ownerId: [Storage.getOne(USER_DATA).id],
-            deliveryPerWeek: [null],
+            deliveryPerWeek: [null, Validators.required],
             branchOfficeList: this.fb.array([]),
         });
     }
@@ -34,9 +34,20 @@ export class BaseFormBusinessService {
     }
 
     getBranchOfficeFormGroup(branchOffice: BranchOffice): FormGroup {
-        return this.fb.group({
+        let form = this.fb.group({
             ...branchOffice
         });
+        return this.setValidators(branchOffice, form)
+    }
+
+    setValidators(branchOffice: BranchOffice, form: FormGroup) {
+        Object.keys(branchOffice).forEach(key => {
+            if (key != 'image' && key != 'addressIndications') {
+                form.get(key)?.setValidators(Validators.required)
+            }
+        })
+        form.updateValueAndValidity();
+        return form
     }
 
     addBranchOffice() {
