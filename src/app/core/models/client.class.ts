@@ -1,17 +1,23 @@
 export class Client {
     id: string;
-    name: string;
-    document: string;
-    email: string;
     address: string;
+    city: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    lat: number;
+    lng: number
     phone: string;
-    orders: number;
+    state: string
     constructor() {
-        this.name = '';
-        this.document = '';
-        this.email = ''
         this.address = '';
+        this.city = '';
+        this.email = ''
+        this.first_name = '';
+        this.last_name = '';
+        this.lat = 0;
+        this.lng = 0;
         this.phone = '';
-        this.orders = 0;
+        this.state = '';
     }
 }

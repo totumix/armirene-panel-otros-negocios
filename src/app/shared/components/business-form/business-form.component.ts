@@ -101,7 +101,9 @@ export class BusinessFormComponent {
           }),
         )
         .subscribe(business => {
-          Storage.setAll(BUSINESS_DATA, business)
+          Storage.setAll(BUSINESS_DATA, business);
+          this._vm.getBranchOfficeByBusiness(business.id);
+          this._vm.getOrdersByBusiness(business.id)
           this._router.navigateByUrl("/dashboard/start-view")
         })
     } else {

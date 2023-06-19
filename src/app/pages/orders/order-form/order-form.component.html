@@ -54,7 +54,7 @@
         </div>
         <div *ngIf="secondContent">
             <span class="order-form-container__sub-title">Confirma tu ubicación en el mapa</span>
-            <app-map (sendLatLng)="getCoordinates($event)"></app-map>
+            <app-map (sendLatLng)="getCoordinates($event)" [selectedData]="form.get('client_info').value"></app-map>
         </div>
         <div *ngIf="thirdContent">
             <span class="order-form-container__sub-title mb-bottom-15">Selecciona la información de tu negocio</span>
@@ -115,7 +115,7 @@
                         [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
                 </nz-form-control>
             </nz-form-item>
-            <!-- <app-order-total [order]="_orderForm.baseForm.value"></app-order-total> -->
+            <!-- <app-order-total [order]="form.value"></app-order-total> -->
         </div>
         <div *ngIf="fourthContent" class="fourth-content">
             <div>
@@ -126,10 +126,9 @@
             <div>
                 <app-order-message></app-order-message>
                 <span class="order-form-container__title"> RESUMEN DEL PEDIDO </span>
-                <app-order-summary [order]="_orderForm.baseForm.value" [showActions]="showActions"
+                <app-order-summary [order]="form.value" [showActions]="showActions"
                     [branchOffice]="branchOfficeSelected"></app-order-summary>
-                <app-order-total [order]="_orderForm.baseForm.value"
-                    *ngIf="form.get('total_value').value"></app-order-total>
+                <app-order-total [order]="form.value" *ngIf="form.get('total_value').value"></app-order-total>
             </div>
         </div>
     </form>

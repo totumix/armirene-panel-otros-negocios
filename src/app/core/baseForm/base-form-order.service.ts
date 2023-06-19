@@ -10,48 +10,25 @@ import { environment } from "src/environments/environment";
 export class BaseFormOrderService {
     public baseForm: FormGroup;
 
-    constructor(private fb: FormBuilder) {
-        this.baseForm = this.fb.group({
-            business_id: [Storage.getAll(BUSINESS_DATA).id],
-            business_order_id: [0],
-            total_value: [0],
-            user_tip: [0],
-            incentive_value: [0],
-            delivery_value: [0],
-            vehicle_type: [null, Validators.required],
-            payment_method: [null, Validators.required],
-            city: [null, Validators.required],
-            instructions: [null],
-            products: this.fb.array([{
-                product_id: 0,
-                name: 'demo product',
-                description: 'producto demo creado para la prueba de otros negocios',
-                quantity: 0,
-                image_url: null,
-                unit_price: 0,
-                store_id: null
-            }]),
-            client_info: this.fb.group({
-                first_name: [null, Validators.required],
-                last_name: [null, Validators.required],
-                phone: [null, Validators.required],
-                email: [null, Validators.required],
-                address: [null, Validators.required],
-                lat: [null],
-                lng: [null],
-                city: [null, Validators.required],
-                state: [null, Validators.required]
-            }),
-            country: [environment.indicator],
-            token: [0]
-        });
-    }
+    constructor(private fb: FormBuilder) {}
 
     public pathFormData(order: Order): FormGroup {
         let form = this.fb.group({
-            ...order
+            ...order,
+            client_info: this.fb.group({
+                ...order.client_info
+            })
         });
-        return form;
+        this.setValidators(order.client_info, form.get('client_info') as FormGroup)
+        return this.setValidators(order, form)
+    }
+
+    setValidators(order: Order, form: FormGroup) {
+        Object.keys(order).forEach(key => {
+            form.get(key)?.setValidators(Validators.required)
+        })
+        form.updateValueAndValidity();
+        return form
     }
 
     resetForm() {

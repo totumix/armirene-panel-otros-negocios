@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of, throwError, zip } from 'rxjs';
 import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
+import { Order } from 'src/app/core/models/order.class';
 import { OrderVm } from 'src/app/core/view-model/order-form.vm';
 import { AuthService } from 'src/app/services/auth.service';
 import { MessagesService } from 'src/app/services/messages.service';
@@ -20,7 +21,8 @@ import { selectDataMapInterface } from 'src/app/shared/interfaces/select-data-ma
 })
 export class OrderFormComponent implements OnInit {
 
-  @Input() dataForm: any;
+  @Input() form: FormGroup
+  @Input() dataForm: Order;
   branchOfficeList$: Observable<BranchOffice[]>
   branchOfficeSelected: BranchOffice;
   current: number = 0;
@@ -41,6 +43,10 @@ export class OrderFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+    if (this.dataForm) {
+      this.form = this._orderForm.pathFormData(new Order);
+      this.form.patchValue({ ...this.dataForm });
+    }
   }
 
   init() {
@@ -68,11 +74,11 @@ export class OrderFormComponent implements OnInit {
   }
 
   get validClientForm() {
-    return !this._orderForm.baseForm.get('client_info')?.invalid;
+    return !this.form.get('client_info')?.invalid;
   }
 
   get validOrderForm() {
-    return !this._orderForm.baseForm.invalid;
+    return !this.form.invalid;
   }
 
   changeContent(): void {
@@ -115,8 +121,8 @@ export class OrderFormComponent implements OnInit {
   }
 
   createOrder() {
-    if (!this._orderForm.baseForm.invalid) {
-      this._vm.createOrder(this._orderForm.baseForm.value)
+    if (!this.form.invalid) {
+      this._vm.createOrder(this.form.value)
         .pipe(
           catchError(err => {
             let { error: { message } } = err;
@@ -143,7 +149,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   changeBranchOffice(branchOffice) {
-    let { value } = this._orderForm.baseForm.controls['products']
+    let { value } = this.form.controls['products']
     value.forEach(element => {
       element.store_id = branchOffice.id
     });
@@ -151,9 +157,9 @@ export class OrderFormComponent implements OnInit {
 
   getCoordinates(coordinates) {
     let { lat, lng } = coordinates
-    this._orderForm.baseForm.controls['client_info']?.get('lat')?.setValue(lat);
-    this._orderForm.baseForm.controls['client_info']?.get('lng')?.setValue(lng);
-    let { value: { city } } = this._orderForm.baseForm.controls['client_info'];
-    this._orderForm.baseForm.get('city')?.setValue(city);
+    this.form.controls['client_info']?.get('lat')?.setValue(lat);
+    this.form.controls['client_info']?.get('lng')?.setValue(lng);
+    let { value: { city } } = this.form.controls['client_info'];
+    this.form.get('city')?.setValue(city);
   }
 }
