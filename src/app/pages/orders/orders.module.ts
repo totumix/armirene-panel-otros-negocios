@@ -19,6 +19,8 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CitiesSelectComponent } from 'src/app/shared/components/cities-select/cities-select.component';
 import { OrderMessageComponent } from './order-message/order-message.component';
+import { MapComponent } from 'src/app/shared/components/map/map.component';
+import { TableModule } from 'src/app/shared/components/table/table.module';
 
 const antdModule = [
   NzFormModule,
@@ -46,7 +48,9 @@ const antdModule = [
     ReactiveFormsModule,
     PhoneModule,
     FormsModule,
+    MapComponent,
     CitiesSelectComponent,
+    TableModule,
     ...antdModule
   ]
 })
