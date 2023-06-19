@@ -7,21 +7,23 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  @Input() listOfData : any[] = [];
-  @Input() listOfColumn : any[] = [];
+  @Input() listOfData: any[] = [];
+  @Input() listOfColumn: any[] = [];
+  @Input() objectKeys: any;
   @Output() deleteItem = new EventEmitter();
   @Output() editItem = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+    this.objectKeys = Object.keys(this.objectKeys);
   }
 
-  sendDeleteItem(data : any){
+  sendDeleteItem(data: any) {
     this.deleteItem.emit(data)
   }
 
-  sendEditItem(data : any){
+  sendEditItem(data: any) {
     this.editItem.emit(data)
   }
 }
