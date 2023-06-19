@@ -17,7 +17,7 @@
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Tipo de negocio: </nz-form-label>
-                    <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+                    <nz-form-control nzErrorTip="Porfavor ingrese el tipo!">
                         <nz-select formControlName="type" id="type_business" nzPlaceHolder="Tipo de negocio">
                             <nz-option *ngFor="let type of businessTypes" nzValue="{{type}}"
                                 nzLabel="{{type}}"></nz-option>
@@ -31,9 +31,9 @@
                             placeholder="Cantidad de domicilios ">
                     </nz-form-control>
                 </nz-form-item>
-                <nz-form-item *ngIf="!businessId">
+                <!-- <nz-form-item *ngIf="!businessId">
                     <nz-form-label>¿Cuántas sucursales tiene el negocio?</nz-form-label>
-                    <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+                    <nz-form-control>
                         <nz-select [ngModelOptions]="{standalone: true}"
                             (ngModelChange)="onChangeBusinessQuantity($event)" [(ngModel)]="businessQuantity"
                             nzPlaceHolder="Cantidad de sucursales">
@@ -41,8 +41,8 @@
                                 nzLabel="{{quantity}}"></nz-option>
                         </nz-select>
                     </nz-form-control>
-                </nz-form-item>
-                <div formArrayName="branchOfficeList">
+                </nz-form-item> -->
+                <!-- <div formArrayName="branchOfficeList">
                     <div class="branch-office-form-container"
                         *ngFor="let branchOffice of _businessForm.branchOfficeList.controls; let i = index">
                         <div class="branch-office-form-container__title">
@@ -52,15 +52,15 @@
                             <app-branch-office-form [form]="branchOffice"></app-branch-office-form>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </form>
             <div class="justify-content-center">
                 <app-button [title]="'Volver'"
                     [customClasses]="'negative-main-btn negative-main-btn--form main--h-40 mg-right-5  font-16'"
                     (clicked)="goBack()" [isLoading]="false"></app-button>
                 <app-button [title]="businessId ? 'Editar' : 'Guardar'"
-                    [customClasses]="'main main--form main--h-40  font-16'" (clicked)="submitForm()" [isLoading]="false"
-                    [isDisabled]="!_businessForm.baseForm.valid"></app-button>
+                    [customClasses]="'main main--form main--h-40  font-16'" (click)="submitForm()"
+                    [isLoading]="false"></app-button>
             </div>
         </div>
     </div>

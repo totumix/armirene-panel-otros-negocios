@@ -90,19 +90,23 @@ export class BusinessFormComponent {
   }
 
   saveBusiness(value) {
-    this._vm.saveBusiness(value)
-      .pipe(
-        finalize(() => this._loadingService.loadingOff()),
-        catchError(err => {
-          let { error: { message } } = err;
-          this._messagesService.showErrors(message ? message : 'Error en la petición');
-          return throwError(() => err);
-        }),
-      )
-      .subscribe(business => {
-        Storage.setAll(BUSINESS_DATA, business)
-        this._router.navigateByUrl("/dashboard/start-view")
-      })
+    if (!this._businessForm.baseForm.invalid) {
+      this._vm.saveBusiness(value)
+        .pipe(
+          finalize(() => this._loadingService.loadingOff()),
+          catchError(err => {
+            let { error: { message } } = err;
+            this._messagesService.showErrors(message ? message : 'Error en la petición');
+            return throwError(() => err);
+          }),
+        )
+        .subscribe(business => {
+          Storage.setAll(BUSINESS_DATA, business)
+          this._router.navigateByUrl("/dashboard/start-view")
+        })
+    } else {
+      this.showFormError();
+    }
   }
 
   onChangeBusinessQuantity(quantity) {
@@ -114,6 +118,15 @@ export class BusinessFormComponent {
     for (let i = 0; i < this.businessQuantity; i++) {
       this._businessForm.addBranchOffice();
     }
+  }
+
+  showFormError() {
+    Object.values(this._businessForm.baseForm.controls).forEach(control => {
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
+    });
   }
 
   goBack() {
