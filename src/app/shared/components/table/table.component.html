@@ -1,11 +1,10 @@
 <nz-table #sortTable [nzData]="listOfData" nzTableLayout="fixed">
     <thead>
-        <tr style="border-radius: 30px;">
-            <th style="background-color: #0581ae; color: white; " *ngFor="let column of listOfColumn"
-                [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
+        <tr>
+            <th *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">
                 {{ column.title }}
             </th>
-            <th style="background-color: #0581ae; color: white;  "></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -15,8 +14,12 @@
             </td>
             <td>
                 <div style="display: flex; justify-content: space-around; ">
-                    <span style="font-size: 20px;" nz-icon nzType="edit" (click)="sendEditItem(data)"></span>
-                    <span style="font-size: 20px;" nz-icon nzType="delete" (click)="sendDeleteItem(data)"></span>
+                    <ng-container *ngFor="let action of actions">
+                        <span class="u-pointer font-20" *ngIf="action.show" nzTooltipTitle="{{action.tooltipText}}"
+                            nzTooltipPlacement="bottomLeft" nz-tooltip nz-icon nzType="{{action.icon}}"
+                            (click)="sendEventItem(action.type,data)"></span>
+                    </ng-container>
+
                 </div>
             </td>
         </tr>

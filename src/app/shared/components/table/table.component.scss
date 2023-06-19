@@ -1,10 +1,18 @@
 ::ng-deep {
-    .ant-table-column-sorter{
+    .ant-table-column-sorter {
         color: white;
     }
 }
 
-td{
+tr {
+    border-radius: 3rem;
+    th {
+        background-color: #0581ae;
+        color: white;
+    }
+}
+
+td {
     overflow: hidden;
     text-overflow: ellipsis;
 }
