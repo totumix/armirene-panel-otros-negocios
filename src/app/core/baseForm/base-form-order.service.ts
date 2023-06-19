@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, FormGroupDirective, Validators } from "@angular/forms";
 import { Order } from "../models/order.class";
 import { BUSINESS_DATA, Storage } from "../storage";
 import { environment } from "src/environments/environment";
@@ -47,10 +47,11 @@ export class BaseFormOrderService {
         });
     }
 
-    public pathFormData(order: Order): void {
-        this.baseForm.patchValue({
+    public pathFormData(order: Order): FormGroup {
+        let form = this.fb.group({
             ...order
         });
+        return form;
     }
 
     resetForm() {

@@ -5,39 +5,39 @@
         <nz-step></nz-step>
         <nz-step></nz-step>
     </nz-steps>
-    <form [formGroup]="_orderForm.baseForm" nz-form nzLayout="vertical">
+    <form [formGroup]="form" nz-form nzLayout="vertical">
         <div formGroupName="client_info" *ngIf="firstContent">
             <span class="order-form-container__sub-title">Completa los datos del cliente</span>
             <div class="order-form-container__row">
                 <nz-form-item>
-                    <nz-form-label>Nombre * </nz-form-label>
+                    <nz-form-label>Nombre <span id="required">*</span> </nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el nombre del cliente!">
                         <input formControlName="first_name" type="text" nz-input placeholder="Escribe aquí…">
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
-                    <nz-form-label>Apellido * </nz-form-label>
+                    <nz-form-label>Apellido <span id="required">*</span> </nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el apellido del cliente!">
                         <input formControlName="last_name" type="text" nz-input placeholder="Escribe aquí…">
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <app-phone [parentForm]="_orderForm.baseForm.get('client_info')"></app-phone>
+            <app-phone [parentForm]="form.get('client_info')"></app-phone>
             <nz-form-item>
-                <nz-form-label>Correo electrónico *</nz-form-label>
+                <nz-form-label>Correo electrónico <span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor el  correo electrónico!">
                     <input formControlName="email" type="text" nz-input placeholder="Correo electrónico">
                 </nz-form-control>
             </nz-form-item>
-            <app-cities-select [parentForm]="_orderForm.baseForm.get('client_info')"> </app-cities-select>
+            <app-cities-select [parentForm]="form.get('client_info')"> </app-cities-select>
             <nz-form-item>
-                <nz-form-label>Dirección *</nz-form-label>
+                <nz-form-label>Dirección <span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
                     <input formControlName="address" type="text" nz-input placeholder="Escribe aquí…">
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label>Detalle de la dirección *</nz-form-label>
+                <nz-form-label>Detalle de la dirección<span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa el detalle de tu dirección!">
                     <input type="text" nz-input placeholder="Número de casa / apto / oficina">
                 </nz-form-control>
@@ -63,7 +63,7 @@
                     [customClasses]="'negative-second-btn pdd-x-15 font-16 '" [isLoading]="false"></app-button>
             </div> -->
             <nz-form-item>
-                <nz-form-label class="mg-y-5">Selecciona la sucursal * </nz-form-label>
+                <nz-form-label class="mg-y-5">Selecciona la sucursal <span id="required">*</span> </nz-form-label>
                 <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
                     <nz-select [ngModelOptions]="{standalone: true}" [(ngModel)]="branchOfficeSelected"
                         id="branchOffice" nzPlaceHolder="Selecciona la surcusal"
@@ -75,7 +75,7 @@
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label>Tipo de vehículo</nz-form-label>
+                <nz-form-label>Tipo de vehículo <span id="required">*</span></nz-form-label>
                 <nz-radio-group formControlName="vehicle_type">
                     <label nz-radio [nzValue]="1">
                         <img src="assets/svg/bicycle-svgrepo-com.svg" alt="">
@@ -89,7 +89,7 @@
                 </nz-radio-group>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label>Forma de pago </nz-form-label>
+                <nz-form-label>Forma de pago <span id="required">*</span></nz-form-label>
                 <nz-radio-group formControlName="payment_method">
                     <label nz-radio [nzValue]="1">
                         <img src="assets/svg/efectivo.svg" alt="">
@@ -102,14 +102,14 @@
                         Prepagado</label>
                 </nz-radio-group>
             </nz-form-item>
-            <nz-form-item *ngIf="_orderForm.baseForm.get('payment_method').value == 1">
+            <nz-form-item *ngIf="form.get('payment_method').value == 1">
                 <nz-form-label>Total a cobrar al cliente</nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
                     <input formControlName="total_value" type="number" nz-input placeholder="Escribe aquí…">
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-label>Comentarios al mensajero</nz-form-label>
+                <nz-form-label>Comentarios al mensajero<span id="required">*</span></nz-form-label>
                 <nz-form-control>
                     <textarea formControlName="instructions" nz-input placeholder="Escribe los comentarios aquí…"
                         [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
@@ -129,7 +129,7 @@
                 <app-order-summary [order]="_orderForm.baseForm.value" [showActions]="showActions"
                     [branchOffice]="branchOfficeSelected"></app-order-summary>
                 <app-order-total [order]="_orderForm.baseForm.value"
-                    *ngIf="_orderForm.baseForm.get('total_value').value"></app-order-total>
+                    *ngIf="form.get('total_value').value"></app-order-total>
             </div>
         </div>
     </form>
