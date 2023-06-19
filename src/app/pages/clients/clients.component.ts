@@ -46,20 +46,31 @@ export class ClientsComponent implements OnInit {
     this.listOfData = list;
   }
 
-  showDeleteConfirm(item): void {
+  getTableActions(item): void {
+    let { type, data } = item;
+    if (type == 'edit') {
+      this.editClient(data);
+    }
+    if (type == 'delete') {
+      this.deleteClient(data);
+    }
+  }
+
+  editClient(data) {
+    this.drawerEvent.changeOpenComponent({ component: ClientFormComponent, data: data })
+  }
+
+
+  deleteClient(data) {
     this.modal.confirm({
       nzTitle: '¿Estás seguro de eliminar este cliente?',
       nzContent: 'Si eliminas este cliente no podrás recuperarlo',
       nzOkText: 'Aceptar',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK', item),
+      nzOnOk: () => console.log('OK', data),
       nzCancelText: 'Cancelar',
       nzOnCancel: () => console.log('Cancel')
     });
-  }
-
-  editClient(item): void {
-    this.drawerEvent.changeOpenComponent({ component: ClientFormComponent, data: item })
   }
 }
