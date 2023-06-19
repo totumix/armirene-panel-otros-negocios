@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Client } from 'src/app/shared/interfaces/client.type';
+import { Client } from 'src/app/core/models/client.class';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 import { ClientFormComponent } from './client-form/client-form.component';
@@ -43,7 +43,8 @@ export class ClientsComponent implements OnInit {
       priority: false
     }
   ];
-  listOfData: Client[] =
+  clientModelList: Client = new Client;
+  listOfData: Client[] = 
     [{ "id": "1", "name": "Aubrette MacKilroe", "document": "DU119BZ", "email": "amackilroe0@github.com", "address": "Apt 1225", "phone": "917-291-7177", "orders": 75 },
     { "id": "2", "name": "Clarette Driffill", "document": "0X9G3ZZ", "email": "cdriffill1@lycos.com", "address": "Room 1944", "phone": "923-935-5396", "orders": 4 },
     { "id": "3", "name": "Lizzie Zebedee", "document": "B51", "email": "lzebedee2@oaic.gov.au", "address": "Apt 419", "phone": "819-458-3365", "orders": 45 },
@@ -89,6 +90,6 @@ export class ClientsComponent implements OnInit {
   }
 
   editClient(item): void {
-    this.drawerEvent.changeOpenComponent({ component: ClientFormComponent , data : item })
+    this.drawerEvent.changeOpenComponent({ component: ClientFormComponent, data: item })
   }
 }

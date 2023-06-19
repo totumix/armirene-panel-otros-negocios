@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Client } from 'src/app/shared/interfaces/client.type';
+import { Client } from 'src/app/core/models/client.class';
 
 @Component({
   selector: 'app-client-form',

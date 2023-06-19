@@ -16,9 +16,8 @@
     </div>
     <div class="row mg-y-30">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <app-table [listOfColumn]="listOfColumn" 
-                       [listOfData]="listOfData" 
-                       (deleteItem)="showDeleteConfirm($event)" (editItem)="editClient($event)" ></app-table>
+            <app-table [objectKeys]="clientModelList" [listOfColumn]="listOfColumn" [listOfData]="listOfData"
+                (deleteItem)="showDeleteConfirm($event)" (editItem)="editClient($event)"></app-table>
         </div>
     </div>
 </div>
