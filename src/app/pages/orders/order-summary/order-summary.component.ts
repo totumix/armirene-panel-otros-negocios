@@ -12,7 +12,8 @@ import { BranchOffice } from 'src/app/core/models/branch-office.class';
 export class OrderSummaryComponent implements OnInit {
 
   @Input() order: Order;
-  @Input() branchOffice : BranchOffice;
+  @Input() branchOffice: BranchOffice;
+  @Input() showActions: boolean = true;
   public client_info;
   public phone;
   public address;

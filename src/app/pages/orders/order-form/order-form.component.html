@@ -126,7 +126,7 @@
             <div>
                 <app-order-message></app-order-message>
                 <span class="order-form-container__title"> RESUMEN DEL PEDIDO </span>
-                <app-order-summary [order]="_orderForm.baseForm.value"
+                <app-order-summary [order]="_orderForm.baseForm.value" [showActions]="showActions"
                     [branchOffice]="branchOfficeSelected"></app-order-summary>
                 <app-order-total [order]="_orderForm.baseForm.value"
                     *ngIf="_orderForm.baseForm.get('total_value').value"></app-order-total>
@@ -135,7 +135,7 @@
     </form>
 </div>
 
-<div class="actions-container" [ngClass]="current === 3 ? 'actions-container--order-summary' : ''">
+<div class="actions-container" *ngIf="showActions" [ngClass]="current === 3 ? 'actions-container--order-summary' : ''">
     <app-button [title]="'Atrás'" (click)="pre()"
         [customClasses]="'negative-main-btn negative-main-btn--form main--h-40  font-16'"></app-button>
     <app-button [title]="'Siguiente'" [customClasses]="'main main--form main--h-40  font-16'" (click)="next()"

@@ -31,7 +31,7 @@ export class OrderFormComponent implements OnInit {
   map = ViewportMap.getInstance();
   selectedData: selectDataMapInterface;
   onGPS = false;
-
+  showActions: boolean = true;
   constructor(
     private drawerEvent: DrawerEvent,
     public _orderForm: BaseFormOrderService,
@@ -125,6 +125,7 @@ export class OrderFormComponent implements OnInit {
           }),
         ).subscribe(res => {
           let { message } = res;
+          this.showActions = false;
           this._messagesService.showErrors(message);
         })
     } else {

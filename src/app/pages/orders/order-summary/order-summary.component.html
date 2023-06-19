@@ -4,7 +4,7 @@
         <p>{{client_info.first_name}} {{client_info.last_name}}
             {{client_info.phone}} </p>
     </div>
-    <div class="order-summary__edit" (click)="clickClientDetail()">
+    <div class="order-summary__edit" (click)="clickClientDetail()" *ngIf="showActions">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
     </div>
 </div>
@@ -13,7 +13,7 @@
         <span>Dirección cliente:</span>
         <p>{{client_info.address}}</p>
     </div>
-    <div class="order-summary__edit" (click)="clickClientDetail()">
+    <div class="order-summary__edit" (click)="clickClientDetail()" *ngIf="showActions">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
     </div>
 </div>
@@ -22,7 +22,7 @@
         <span>Información de negocio:</span>
         <p>{{branchOffice?.name}}</p>
     </div>
-    <div class="order-summary__edit" (click)="clickOrderDetail()">
+    <div class="order-summary__edit" (click)="clickOrderDetail()" *ngIf="showActions">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
     </div>
 </div>
@@ -36,7 +36,7 @@
         <p *ngIf="payment_method == 3"><img src="assets/svg/invoice-bill-svgrepo-com-1.svg" alt="">
             Prepagado</p>
     </div>
-    <div class="order-summary__edit" (click)="clickOrderDetail()">
+    <div class="order-summary__edit" (click)="clickOrderDetail()" *ngIf="showActions">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
     </div>
 </div>
@@ -50,7 +50,7 @@
         <p *ngIf="vehicle_type == 3"><img src="assets/svg/automobile-svgrepo-com.svg" alt="">
             Carro</p>
     </div>
-    <div class="order-summary__edit" (click)="clickOrderDetail()">
+    <div class="order-summary__edit" (click)="clickOrderDetail()" *ngIf="showActions">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
     </div>
 </div>
@@ -59,7 +59,7 @@
         <span>Comentarios al mensajero:</span>
         <p>{{instructions}}</p>
     </div>
-    <div class="order-summary__edit" (click)="clickOrderDetail()">
+    <div class="order-summary__edit" (click)="clickOrderDetail()" *ngIf="showActions">
         Editar <span nz-icon nzType="edit" nzTheme="outline"></span>
     </div>
 </div>
