@@ -3,6 +3,7 @@ import { Client } from 'src/app/core/models/client.class';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 import { ClientFormComponent } from './client-form/client-form.component';
+import { CLIENT_TABLE } from 'src/app/core/tables-info';
 
 @Component({
   selector: 'app-clients',
@@ -11,40 +12,9 @@ import { ClientFormComponent } from './client-form/client-form.component';
   providers: [NzModalService]
 })
 export class ClientsComponent implements OnInit {
-  listOfColumn = [
-    {
-      title: 'Nombre cliente',
-      compare: (a: Client, b: Client) => a.name.localeCompare(b.name),
-      priority: false
-    },
-    {
-      title: 'Documento',
-      compare: (a: Client, b: Client) => a.document.localeCompare(b.document),
-      priority: false
-    },
-    {
-      title: 'Correo electrónico',
-      compare: (a: Client, b: Client) => a.email.localeCompare(b.email),
-      priority: false
-    },
-    {
-      title: 'Dirección',
-      compare: (a: Client, b: Client) => a.address.localeCompare(b.address),
-      priority: false
-    },
-    {
-      title: 'Teléfono',
-      compare: (a: Client, b: Client) => a.phone.localeCompare(b.phone),
-      priority: false
-    },
-    {
-      title: '# Pedidos',
-      compare: (a: Client, b: Client) => a.orders - b.orders,
-      priority: false
-    }
-  ];
+  listOfColumn = CLIENT_TABLE.columns;
   clientModelList: Client = new Client;
-  listOfData: Client[] = 
+  listOfData: Client[] =
     [{ "id": "1", "name": "Aubrette MacKilroe", "document": "DU119BZ", "email": "amackilroe0@github.com", "address": "Apt 1225", "phone": "917-291-7177", "orders": 75 },
     { "id": "2", "name": "Clarette Driffill", "document": "0X9G3ZZ", "email": "cdriffill1@lycos.com", "address": "Room 1944", "phone": "923-935-5396", "orders": 4 },
     { "id": "3", "name": "Lizzie Zebedee", "document": "B51", "email": "lzebedee2@oaic.gov.au", "address": "Apt 419", "phone": "819-458-3365", "orders": 45 },
