@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Order } from "../models/order.class";
 import { BUSINESS_DATA, Storage } from "../storage";
 import { environment } from "src/environments/environment";
@@ -18,9 +18,9 @@ export class BaseFormOrderService {
             user_tip: [0],
             incentive_value: [0],
             delivery_value: [0],
-            vehicle_type: [null],
-            payment_method: [null],
-            city: [null],
+            vehicle_type: [null, Validators.required],
+            payment_method: [null, Validators.required],
+            city: [null, Validators.required],
             instructions: [null],
             products: this.fb.array([{
                 product_id: 0,
@@ -32,15 +32,15 @@ export class BaseFormOrderService {
                 store_id: null
             }]),
             client_info: this.fb.group({
-                first_name: [null],
-                last_name: [null],
-                phone: [null],
-                email: [null],
-                address: [null],
+                first_name: [null, Validators.required],
+                last_name: [null, Validators.required],
+                phone: [null, Validators.required],
+                email: [null, Validators.required],
+                address: [null, Validators.required],
                 lat: [null],
                 lng: [null],
-                city: [null],
-                state: [null]
+                city: [null, Validators.required],
+                state: [null, Validators.required]
             }),
             country: [environment.indicator],
             token: [0]

@@ -56,16 +56,3 @@
         padding: 0;
     }
 }
-
-.map-container {
-    position: relative;
-    height: 30rem;
-    width: 100%;
-
-    #viewport-map {
-        width: 100%;
-        min-height: 25rem;
-        height: calc(100vh - 50rem);
-        transition: all 0.5s ease;
-    }
-}

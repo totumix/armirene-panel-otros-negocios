@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, catchError, from, switchMap, throwError } from 'rxjs';
-import { fromFetch } from 'rxjs/fetch';
+import { FormGroup } from '@angular/forms';
+import { Observable, catchError, throwError } from 'rxjs';
 import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
 import { OrderVm } from 'src/app/core/view-model/order-form.vm';
@@ -51,51 +51,28 @@ export class OrderFormComponent implements OnInit {
     this.branchOfficeList$ = this._vm.returnBranchOfficeByBusiness()
   }
 
-  getCurrentLocation() {
-    //console.clear();
-    navigator.geolocation.getCurrentPosition((position) => {
-      if (!this.selectedData?.address || this.selectedData?.address?.length < 1) {
-        this.onGPS = true;
-        this.selectedData = { ...this.selectedData, lat: position.coords.latitude, lng: position.coords.longitude }
-        this.map.init({ lat: position.coords.latitude, lng: position.coords.longitude })
-        // this.selectedData.lat = position.coords.latitude;
-        // this.selectedData.lng = position.coords.longitude;
-        // this.setPositionMarker();
-        this.resolveCoordinatesToAddress(this.selectedData);
-      }
-    });
-  }
-
-  resolveCoordinatesToAddress({ lat, lng }) {
-    let urlInver = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=0&zoom=40&lat=';
-    urlInver += `&lat=${lat}&lon=${lng}`;
-    fromFetch(urlInver)
-      .pipe(switchMap((r: any) => from(r.json())))
-      .subscribe((json) => {
-        this._orderForm.baseForm.controls['client_info'].value.lat = Number(JSON.parse(JSON.stringify(json)).lat)
-        this._orderForm.baseForm.controls['client_info'].value.lng = Number(JSON.parse(JSON.stringify(json)).lon)
-      }, (error) => {
-        console.log(error);
-      });
-  }
-
-  initMap() {
-    this.map.callbackDrop = (data) => {
-      this.selectedData.lat = data?.lat;
-      this.selectedData.lng = data?.lng;
-      this.resolveCoordinatesToAddress(this.selectedData);
-    }
-    setTimeout(() => { this.getCurrentLocation(); }, 5);
-  }
-
   pre(): void {
     this.current -= 1;
     this.changeContent();
   }
 
   next(): void {
-    this.current += 1;
-    this.changeContent();
+    if (this.validClientForm && this.current != 2) {
+      this.current += 1;
+      this.changeContent();
+    }
+    if (this.validOrderForm && this.current == 2) {
+      this.current += 1;
+      this.changeContent();
+    }
+  }
+
+  get validClientForm() {
+    return !this._orderForm.baseForm.get('client_info')?.invalid;
+  }
+
+  get validOrderForm() {
+    return !this._orderForm.baseForm.invalid;
   }
 
   changeContent(): void {
@@ -109,7 +86,6 @@ export class OrderFormComponent implements OnInit {
         break;
       }
       case 1: {
-        this.initMap();
         this.firstContent = false;
         this.secondContent = true;
         this.thirdContent = false;
@@ -139,19 +115,30 @@ export class OrderFormComponent implements OnInit {
   }
 
   createOrder() {
-    let { value: { city } } = this._orderForm.baseForm.controls['client_info'];
-    this._orderForm.baseForm.get('city')?.setValue(city)
-    this._vm.createOrder(this._orderForm.baseForm.value)
-      .pipe(
-        catchError(err => {
-          let { error: { message } } = err;
+    if (!this._orderForm.baseForm.invalid) {
+      this._vm.createOrder(this._orderForm.baseForm.value)
+        .pipe(
+          catchError(err => {
+            let { error: { message } } = err;
+            this._messagesService.showErrors(message);
+            return throwError(() => err);
+          }),
+        ).subscribe(res => {
+          let { message } = res;
           this._messagesService.showErrors(message);
-          return throwError(() => err);
-        }),
-      ).subscribe(res => {
-        let { message } = res;
-        this._messagesService.showErrors(message);
-      })
+        })
+    } else {
+      this.showFormError(this._orderForm.baseForm);
+    }
+  }
+
+  showFormError(form: FormGroup) {
+    Object.values(form.controls).forEach(control => {
+      if (control.invalid) {
+        control.markAsDirty();
+        control.updateValueAndValidity({ onlySelf: true });
+      }
+    });
   }
 
   changeBranchOffice(branchOffice) {
@@ -159,5 +146,13 @@ export class OrderFormComponent implements OnInit {
     value.forEach(element => {
       element.store_id = branchOffice.id
     });
+  }
+
+  getCoordinates(coordinates) {
+    let { lat, lng } = coordinates
+    this._orderForm.baseForm.controls['client_info']?.get('lat')?.setValue(lat);
+    this._orderForm.baseForm.controls['client_info']?.get('lng')?.setValue(lng);
+    let { value: { city } } = this._orderForm.baseForm.controls['client_info'];
+    this._orderForm.baseForm.get('city')?.setValue(city);
   }
 }
