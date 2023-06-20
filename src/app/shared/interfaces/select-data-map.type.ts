@@ -8,8 +8,8 @@ export interface selectDataMapInterface {
     placeId: string,
     cityId: any,
     assignedStore: number,
-    latitude: number,
-    length: number,
+    lat: number,
+    lng: number,
     deliveryType: string
     idAddress?: any,
 }

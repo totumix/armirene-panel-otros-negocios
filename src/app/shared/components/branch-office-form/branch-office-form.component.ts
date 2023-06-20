@@ -101,8 +101,8 @@ export class BranchOfficeFormComponent implements OnInit {
 
   getCoordinates(coordinates) {
     let { lat, lng } = coordinates
-    this.form.get('latitude')?.setValue(lat);
-    this.form.get('length')?.setValue(lng);
+    this.form.get('lat')?.setValue(lat);
+    this.form.get('lng')?.setValue(lng);
   }
 
   showFormError() {
