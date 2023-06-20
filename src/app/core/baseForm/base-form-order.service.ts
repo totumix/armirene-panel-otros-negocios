@@ -10,7 +10,7 @@ import { environment } from "src/environments/environment";
 export class BaseFormOrderService {
     public baseForm: FormGroup;
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder) { }
 
     public pathFormData(order: Order): FormGroup {
         let form = this.fb.group({

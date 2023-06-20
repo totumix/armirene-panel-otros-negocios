@@ -8,7 +8,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class PhoneComponent implements OnInit {
 
-  @Input() parentForm : FormGroup;
+  @Input() parentForm: FormGroup;
+  @Input() ifDisable: boolean = false;
 
   constructor() { }
 

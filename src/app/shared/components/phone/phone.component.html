@@ -20,7 +20,7 @@
     <nz-form-item>
         <nz-form-label>Télefono <span id="required">*</span> </nz-form-label>
         <nz-form-control class="w-100" nzErrorTip="Por favor ingresa el télefono!">
-            <input formControlName="phone" nz-input placeholder="teléfono">
+            <input [readonly]="ifDisable" formControlName="phone" nz-input placeholder="teléfono" type="number">
         </nz-form-control>
     </nz-form-item>
 </div>

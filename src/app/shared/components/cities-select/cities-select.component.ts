@@ -22,6 +22,7 @@ const MODULES = [
 })
 export class CitiesSelectComponent implements OnInit {
   @Input() parentForm: any;
+  @Input() ifDisable: boolean = false;
   states = Storage.getAll(STATES);
   public cities = new Array;
 

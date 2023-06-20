@@ -4,6 +4,7 @@ import { Client } from "./client.class";
 import { environment } from "src/environments/environment";
 
 export class Order {
+    orderId: number;
     business_id: number;
     business_order_id: number;
     total_value: number;

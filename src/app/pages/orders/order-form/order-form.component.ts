@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, catchError, forkJoin, map, of, throwError, zip } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
 import { Order } from 'src/app/core/models/order.class';
 import { OrderVm } from 'src/app/core/view-model/order-form.vm';
-import { AuthService } from 'src/app/services/auth.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { ViewportMap } from 'src/app/shared/components/view-port-map/view-port-map';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
@@ -34,11 +33,13 @@ export class OrderFormComponent implements OnInit {
   selectedData: selectDataMapInterface;
   onGPS = false;
   showActions: boolean = true;
+  orderId;
   constructor(
     private drawerEvent: DrawerEvent,
     public _orderForm: BaseFormOrderService,
     private _vm: OrderVm,
-    private _messagesService: MessagesService
+    private _messagesService: MessagesService,
+    private _drawerEvent: DrawerEvent,
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +47,7 @@ export class OrderFormComponent implements OnInit {
     if (this.dataForm) {
       this.form = this._orderForm.pathFormData(new Order);
       this.form.patchValue({ ...this.dataForm });
+      this.orderId = this.dataForm.orderId;
     }
   }
 
@@ -115,7 +117,7 @@ export class OrderFormComponent implements OnInit {
         break;
       }
       default: {
-        console.log("error")
+        this.closeDrawer();
       }
     }
   }
@@ -161,5 +163,9 @@ export class OrderFormComponent implements OnInit {
     this.form.controls['client_info']?.get('lng')?.setValue(lng);
     let { value: { city } } = this.form.controls['client_info'];
     this.form.get('city')?.setValue(city);
+  }
+
+  closeDrawer() {
+    this._drawerEvent.changeCloseComponent(true)
   }
 }

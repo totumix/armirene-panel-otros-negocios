@@ -1,5 +1,7 @@
 <div class="order-form-container">
-    <span *ngIf="!fourthContent" class="order-form-container__title">CREAR PEDIDO</span>
+    <span *ngIf="!fourthContent" class="order-form-container__title">
+        {{orderId ? 'Detalles del pedido' : 'CREAR PEDIDO'}}
+    </span>
     <nz-steps [nzCurrent]="current" [ngStyle]=" {'width' : fourthContent ? '15%' : '30%'}">
         <nz-step></nz-step>
         <nz-step></nz-step>
@@ -7,45 +9,53 @@
     </nz-steps>
     <form [formGroup]="form" nz-form nzLayout="vertical">
         <div formGroupName="client_info" *ngIf="firstContent">
-            <span class="order-form-container__sub-title">Completa los datos del cliente</span>
+            <span class="order-form-container__sub-title">
+                {{orderId ? 'Datos del cliente' : 'Completa los datos del cliente'}}
+            </span>
             <div class="order-form-container__row">
                 <nz-form-item>
                     <nz-form-label>Nombre <span id="required">*</span> </nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el nombre del cliente!">
-                        <input formControlName="first_name" type="text" nz-input placeholder="Escribe aquí…">
+                        <input [readonly]=" orderId ? true : false" formControlName="first_name" type="text" nz-input
+                            placeholder="Escribe aquí…">
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-label>Apellido <span id="required">*</span> </nz-form-label>
                     <nz-form-control nzErrorTip="Por favor ingresa el apellido del cliente!">
-                        <input formControlName="last_name" type="text" nz-input placeholder="Escribe aquí…">
+                        <input [readonly]=" orderId ? true : false" formControlName="last_name" type="text" nz-input
+                            placeholder="Escribe aquí…">
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <app-phone [parentForm]="form.get('client_info')"></app-phone>
+            <app-phone [parentForm]="form.get('client_info')" [ifDisable]="orderId ? true : false"></app-phone>
             <nz-form-item>
                 <nz-form-label>Correo electrónico <span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor el  correo electrónico!">
-                    <input formControlName="email" type="text" nz-input placeholder="Correo electrónico">
+                    <input [readonly]=" orderId ? true : false" formControlName="email" type="text" nz-input
+                        placeholder="Correo electrónico">
                 </nz-form-control>
             </nz-form-item>
-            <app-cities-select [parentForm]="form.get('client_info')"> </app-cities-select>
+            <app-cities-select [parentForm]="form.get('client_info')" [ifDisable]="orderId ? true : false">
+            </app-cities-select>
             <nz-form-item>
                 <nz-form-label>Dirección <span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
-                    <input formControlName="address" type="text" nz-input placeholder="Escribe aquí…">
+                    <input [readonly]=" orderId ? true : false" formControlName="address" type="text" nz-input
+                        placeholder="Escribe aquí…">
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Detalle de la dirección<span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa el detalle de tu dirección!">
-                    <input type="text" nz-input placeholder="Número de casa / apto / oficina">
+                    <input [readonly]=" orderId ? true : false" type="text" nz-input
+                        placeholder="Número de casa / apto / oficina">
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Indicaciones de dirección</nz-form-label>
                 <nz-form-control>
-                    <textarea nz-input
+                    <textarea [readonly]=" orderId ? true : false" nz-input
                         placeholder="Escribe aquí las instrucciones o comentarios para ayudar al domiciliario…"
                         [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
                 </nz-form-control>

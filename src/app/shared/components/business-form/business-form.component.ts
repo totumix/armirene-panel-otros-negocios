@@ -51,7 +51,7 @@ export class BusinessFormComponent {
     private _messagesService: MessagesService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    private location: Location,
+    private _location: Location,
   ) { }
 
   ngOnInit() {
@@ -132,6 +132,6 @@ export class BusinessFormComponent {
   }
 
   goBack() {
-    this.location.back();
+    this._location.back();
   }
 }
