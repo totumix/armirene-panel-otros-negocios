@@ -24,10 +24,10 @@ export class BranchOfficeManager {
     }
 
     getBranchOfficeByBusiness(businessId: number) {
+        this.subject.next([])
         const loadBranchOfficeByBusiness$ = this._branchOfficeService.getBranchOfficeByBusiness(businessId).pipe(
             catchError(err => {
                 let { error: { message } } = err
-                this.subject.next([])
                 this._messages.showErrors(message);
                 return throwError(() => err);
             }),

@@ -31,7 +31,6 @@ export class BusinessManager {
             catchError(err => {
                 let { error: { message } } = err;
                 this._messages.showErrors(message);
-                console.log(message, err);
                 return throwError(() => err);
             }),
             tap(businessList => this.subject.next(businessList)),
