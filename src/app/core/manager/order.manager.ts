@@ -23,8 +23,12 @@ export class OrderManager {
         this.getOrderByBusiness(Storage.getAll(BUSINESS_DATA).id);
     }
 
-    createOrder(data: Order) {
-        return this._orderService.createOrder(data);
+
+    saveOrder(body: Order) {
+        return this._orderService.saveOrder(body).pipe(
+            tap(() => this.getOrderByBusiness(Storage.getAll(BUSINESS_DATA).id)),
+            shareReplay()
+        )
     }
 
     getOrderByBusiness(businessId: number) {
@@ -35,7 +39,7 @@ export class OrderManager {
                 this._messages.showErrors(message);
                 return throwError(() => err);
             }),
-            tap(orders => {this.subject.next(orders); console.log(orders , "order manager")}),
+            tap(orders => this.subject.next(orders)),
             shareReplay()
         );
 

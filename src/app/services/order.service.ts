@@ -16,11 +16,11 @@ export class OrderService {
         this.url = environment.gateway;
     }
 
-    createOrder(data: Order): Observable<any> {
+    saveOrder(data: Order): Observable<any> {
         return this._baseService.post(`${this.url}/${order.order}/${order.create}`, data)
     }
 
-    getOrdersByBusiness(businessId) : Observable<any> {
+    getOrdersByBusiness(businessId): Observable<any> {
         return this._baseService.get(`${this.url}/${order.order}/${order.all}/${businessId}`).pipe(
             map(res => res['data'])
         )

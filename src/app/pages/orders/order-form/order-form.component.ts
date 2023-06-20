@@ -4,7 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
 import { Order } from 'src/app/core/models/order.class';
-import { OrderVm } from 'src/app/core/view-model/order-form.vm';
+import { OrderFormVm } from 'src/app/core/view-model/order-form.vm';
 import { MessagesService } from 'src/app/services/messages.service';
 import { ViewportMap } from 'src/app/shared/components/view-port-map/view-port-map';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
@@ -37,22 +37,34 @@ export class OrderFormComponent implements OnInit {
   constructor(
     private drawerEvent: DrawerEvent,
     public _orderForm: BaseFormOrderService,
-    private _vm: OrderVm,
+    private _vm: OrderFormVm,
     private _messagesService: MessagesService,
     private _drawerEvent: DrawerEvent,
   ) { }
 
   ngOnInit(): void {
     this.init();
-    if (this.dataForm) {
-      this.form = this._orderForm.pathFormData(new Order);
-      this.form.patchValue({ ...this.dataForm });
-      this.orderId = this.dataForm.orderId;
-    }
   }
 
   init() {
     this.getBranchOfficeByBusiness();
+    this.initForm();
+    this.goDetailsForm();
+  }
+
+  initForm() {
+    this.form = this._orderForm.pathFormData(new Order);
+    this.form.patchValue({ ...this.dataForm });
+    console.log(this.form.value)
+  }
+
+  goDetailsForm() {
+    this.orderId = this.dataForm.orderId;
+    if (this.orderId) {
+      this.current = 3;
+      this.showActions = false;
+      this.changeContent();
+    }
   }
 
   getBranchOfficeByBusiness() {
@@ -124,7 +136,7 @@ export class OrderFormComponent implements OnInit {
 
   createOrder() {
     if (!this.form.invalid) {
-      this._vm.createOrder(this.form.value)
+      this._vm.saveOrder(this.form.value)
         .pipe(
           catchError(err => {
             let { error: { message } } = err;
@@ -151,6 +163,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   changeBranchOffice(branchOffice) {
+    console.log(branchOffice)
     let { value } = this.form.controls['products']
     value.forEach(element => {
       element.store_id = branchOffice.id

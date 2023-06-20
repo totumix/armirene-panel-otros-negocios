@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 import { OrdersVm } from 'src/app/core/view-model/orders.vm';
-import { Observable, forkJoin, map, of, zip } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ORDER_TABLE } from 'src/app/core/tables-info';
 import { Order } from 'src/app/core/models/order.class';

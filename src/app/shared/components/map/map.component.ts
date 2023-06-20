@@ -34,7 +34,6 @@ export class MapComponent implements OnInit, OnDestroy {
   getCurrentLocation() {
     //console.clear();
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log("position", position, "selected data", this.selectedData)
       if (this.selectedData.lat == 0) {
         this.onGPS = true;
         this.selectedData = { ...this.selectedData, lat: position.coords.latitude, lng: position.coords.longitude }

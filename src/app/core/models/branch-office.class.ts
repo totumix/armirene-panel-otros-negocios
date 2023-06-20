@@ -8,8 +8,8 @@ export class BranchOffice {
     state: string;
     address: string;
     addressIndications: string;
-    latitude: number;
-    length: number;
+    lat: number;
+    lng: number;
     image: string;
     phone : string
     constructor() {
@@ -19,8 +19,8 @@ export class BranchOffice {
         this.state = '';
         this.address = '';
         this.addressIndications = '';
-        this.latitude = 0;
-        this.length = 0;
+        this.lat = 0;
+        this.lng = 0;
         this.image = '';
         this.phone = ''
     }

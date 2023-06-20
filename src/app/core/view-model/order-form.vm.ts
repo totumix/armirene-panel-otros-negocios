@@ -6,14 +6,14 @@ import { BranchOfficeManager } from "../manager/branch-office.manager";
 @Injectable({
     providedIn: 'root'
 })
-export class OrderVm {
-    
+export class OrderFormVm {
+
     constructor(
         private _orderManager: OrderManager,
         private _branchOfficeManager: BranchOfficeManager) { }
 
-    createOrder(data: Order) {
-        return this._orderManager.createOrder(data)
+    saveOrder(data: Order) {
+        return this._orderManager.saveOrder(data)
     }
 
     returnBranchOfficeByBusiness() {

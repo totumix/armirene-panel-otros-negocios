@@ -21,7 +21,8 @@ export class Order {
     token: number;
     state: string;
     constructor() {
-        this.business_id = Storage.getAll(BUSINESS_DATA).id;;
+        this.orderId = 0;
+        this.business_id = Storage.getAll(BUSINESS_DATA).id;
         this.business_order_id = 0;
         this.total_value = 0;
         this.user_tip = 0;
