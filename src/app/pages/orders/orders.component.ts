@@ -42,7 +42,7 @@ export class OrdersComponent implements OnInit {
   getTableActions(item): void {
     let { type, data } = item;
     if (type == 'cancel') {
-      this.cancelOrder(data);
+      this.cancelOrderModal(data);
     }
     if (type == 'show') {
       this.showClient(data)
@@ -50,17 +50,21 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  cancelOrder(data) {
+  cancelOrderModal(data) {
     this.modal.confirm({
       nzTitle: '¿Estás seguro de cancelar esta order?',
       nzContent: 'Si cancelas  esta orden no podrás recuperarlo',
       nzOkText: 'Aceptar',
       nzOkType: 'primary',
       nzOkDanger: true,
-      nzOnOk: () => console.log('OK', data),
+      nzOnOk: () => this.cancelOrder(data),
       nzCancelText: 'Cancelar',
       nzOnCancel: () => console.log('Cancel')
     });
+  }
+
+  cancelOrder({ orderId }) {
+    this._vm.cancelOrder(orderId).subscribe()
   }
 
   createOrder() {

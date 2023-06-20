@@ -51,4 +51,24 @@ export class OrderManager {
         return this.order$
     }
 
+    cancelOrder(orderId: number) {
+        const orders = this.subject.getValue();
+        const index = orders.findIndex(order => order.orderId == orderId);
+        const newOrder: Order = {
+            ...orders[index],
+            state: 'CANCELADA'
+        };
+        const newOrders: Order[] = orders.slice(0);
+        newOrders[index] = newOrder;
+        this.subject.next(newOrders)
+        return this._orderService.cancelOrder(orderId).pipe(
+            catchError(err => {
+                const message = "Could not cancel order";
+                this._messages.showErrors(message);
+                return throwError(() => err);
+            }),
+            shareReplay()
+        )
+    }
+
 }

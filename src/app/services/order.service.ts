@@ -26,4 +26,8 @@ export class OrderService {
         )
     }
 
+    cancelOrder(orderId: number): Observable<any> {
+        return this._baseService.get(`${this.url}/${order.order}/${order.cancel}/${orderId}`)
+    }
+
 }
