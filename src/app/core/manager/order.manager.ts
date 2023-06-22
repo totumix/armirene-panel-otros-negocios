@@ -20,7 +20,7 @@ export class OrderManager {
         private _messages: MessagesService,
         private _loading: LoadingService
     ) {
-        this.getOrderByBusiness(Storage.getAll(BUSINESS_DATA).id);
+        this.getOrderByBusiness(Storage.getAll(BUSINESS_DATA)?.id);
     }
 
 

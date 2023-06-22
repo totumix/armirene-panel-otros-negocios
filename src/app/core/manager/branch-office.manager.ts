@@ -20,7 +20,7 @@ export class BranchOfficeManager {
         private _messages: MessagesService,
         private _loading: LoadingService
     ) {
-        this.getBranchOfficeByBusiness(Storage.getAll(BUSINESS_DATA).id);
+        this.getBranchOfficeByBusiness(Storage.getAll(BUSINESS_DATA)?.id);
     }
 
     getBranchOfficeByBusiness(businessId: number) {
