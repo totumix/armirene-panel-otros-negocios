@@ -6,9 +6,11 @@
 
     nz-form-item {
         width: 100%;
+    }
+}
 
-        input {
-            width: 100%;
-        }
+::ng-deep {
+    .ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector input {
+        height: 100%;
     }
 }
