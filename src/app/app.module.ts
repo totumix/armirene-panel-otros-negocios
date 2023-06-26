@@ -8,6 +8,9 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutsModule } from './layouts/layouts.module';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './ngrx/reducers/app.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 registerLocaleData(en);
 
@@ -18,7 +21,12 @@ registerLocaleData(en);
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LayoutsModule
+    LayoutsModule,
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      autoPause: true,
+    }),
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
