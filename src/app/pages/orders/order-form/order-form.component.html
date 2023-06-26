@@ -38,13 +38,14 @@
             </nz-form-item>
             <app-cities-select [parentForm]="form.get('client_info')" [ifDisable]="orderId ? true : false">
             </app-cities-select>
-            <nz-form-item>
+            <app-adress-autocomplete [parentForm]="form.get('client_info')"></app-adress-autocomplete>
+            <!-- <nz-form-item>
                 <nz-form-label>Dirección <span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
                     <input [readonly]=" orderId ? true : false" formControlName="address" type="text" nz-input
                         placeholder="Escribe aquí…">
                 </nz-form-control>
-            </nz-form-item>
+            </nz-form-item> -->
             <nz-form-item>
                 <nz-form-label>Detalle de la dirección<span id="required">*</span></nz-form-label>
                 <nz-form-control nzErrorTip="Por favor ingresa el detalle de tu dirección!">
@@ -60,7 +61,7 @@
                         [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
                 </nz-form-control>
             </nz-form-item>
-            <span>*Campos obligatorios</span>
+            <span><span id="required">*</span>Campos obligatorios</span>
         </div>
         <div *ngIf="secondContent">
             <span class="order-form-container__sub-title">Confirma tu ubicación en el mapa</span>
@@ -93,9 +94,9 @@
                     <label nz-radio [nzValue]="2">
                         <img src="assets/svg/motorbike-bike-svgrepo-com.svg" alt="">
                         Moto</label>
-                    <label nz-radio [nzValue]="3">
+                    <!-- <label nz-radio [nzValue]="3">
                         <img src="assets/svg/automobile-svgrepo-com.svg" alt="">
-                        Carro</label>
+                        Carro</label> -->
                 </nz-radio-group>
             </nz-form-item>
             <nz-form-item>
@@ -107,9 +108,9 @@
                     <label nz-radio [nzValue]="2">
                         <img src="assets/svg/datafono.svg" alt="">
                         Punto de venta</label>
-                    <label nz-radio [nzValue]="3">
+                    <!-- <label nz-radio [nzValue]="3">
                         <img src="assets/svg/invoice-bill-svgrepo-com-1.svg" alt="">
-                        Prepagado</label>
+                        Prepagado</label> -->
                 </nz-radio-group>
             </nz-form-item>
             <nz-form-item *ngIf="form.get('payment_method').value == 1">
@@ -144,7 +145,8 @@
     </form>
 </div>
 
-<div class="actions-container" *ngIf="showActions" [ngClass]="current === 3 ? 'actions-container--order-summary' : ''">
+<div class="actions-container" *ngIf="showActions"
+    [ngClass]="current === 3 ? 'actions-container--order-summary p-absolute right-0' : '' || (current === 1 || current == 2)? 'p-absolute' : ''">
     <app-button [title]="'Atrás'" (click)="pre()"
         [customClasses]="'negative-main-btn negative-main-btn--form main--h-40  font-16'"></app-button>
     <app-button [title]="'Siguiente'" [customClasses]="'main main--form main--h-40  font-16'" (click)="next()"

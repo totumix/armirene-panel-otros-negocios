@@ -22,8 +22,14 @@ $size40: 4rem;
 $size50: 5rem;
 
 
-#required{
+#required {
   color: red;
+}
+
+@for $i from 0 through 10 {
+  .right-#{ $i * 5} {
+    right: $i * 0.5rem !important;
+  }
 }
 
 .font {
@@ -266,7 +272,7 @@ $size50: 5rem;
 
 //POSITION
 .p-absolute {
-  position: absolute;
+  position: absolute !important;
 }
 
 .p-relative {
@@ -366,21 +372,23 @@ $size50: 5rem;
 
 //FORM
 
-.actions-container{
-  display: flex; 
-  align-items: center; 
-  justify-content: space-around; 
-  position: sticky; 
-  bottom: 0; 
-  background-color: #f8f8f8 ; 
-  height: 8rem; 
+.actions-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: sticky;
+  bottom: 0;
+  background-color: #f8f8f8;
+  height: 8rem;
   width: 100%;
-  a{
-      color: black;
-      text-decoration: underline;
+
+  a {
+    color: black;
+    text-decoration: underline;
   }
-  &--order-summary{
-    width: 50%; 
+
+  &--order-summary {
+    width: 50%;
     float: right;
   }
 }
