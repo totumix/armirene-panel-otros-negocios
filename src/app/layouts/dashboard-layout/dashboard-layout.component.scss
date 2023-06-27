@@ -3,7 +3,9 @@
   padding: 0 2rem;
   box-shadow: 0 0.2rem 0.04rem 0 rgba(0, 0, 0, 0.12);
   z-index: 2;
-  position: relative;
+  position: fixed;
+  width: 100%;
+
   &__logo {
     width: 13rem;
     height: 4rem;
@@ -25,11 +27,11 @@
     color: #1890ff;
   }
 
-  &__progress-bar{
+  &__progress-bar {
     position: absolute;
-     bottom: -3.8rem;  
-     right: 0; 
-     left: 0; 
+    bottom: -3.8rem;
+    right: 0;
+    left: 0;
   }
 
   &__avatar {
@@ -43,7 +45,7 @@
 
 
 .menu-sidebar {
-  position: relative;
+  position: fixed;
   z-index: 10;
   min-height: 100vh;
   box-shadow: 0.2rem 0 0.6rem rgba(0, 21, 41, .35);
@@ -64,7 +66,7 @@
       width: 9rem;
     }
 
-    &__change-business{
+    &__change-business {
       background-color: transparent;
       border: none;
     }
@@ -89,4 +91,13 @@
       }
     }
   }
+}
+
+.layout-content{
+  padding-top: 6.4rem
+}
+
+.content {
+  padding: 2rem 0;
+  height: 100vh
 }

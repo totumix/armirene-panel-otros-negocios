@@ -73,4 +73,8 @@ export class DashboardLayoutComponent implements OnInit {
   logout() {
     this.vm.logout();
   }
+
+  onActivate(event) {
+    window.scroll(0, 0);
+  }
 }

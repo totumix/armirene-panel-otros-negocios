@@ -21,7 +21,7 @@
       <nz-progress [nzShowInfo]="false" [nzPercent]="100" nzStatus="active"></nz-progress>
     </div>
   </nz-header>
-  <nz-layout>
+  <nz-layout class="layout-content">
     <nz-sider *ngIf="showDrawerRef" class="menu-sidebar" nzCollapsible nzWidth="250px" nzBreakpoint="md"
       [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
       <div class="menu-sidebar__logo-container" [ngStyle]="{'display': ( isCollapsed ? 'none' : 'flex')}">
@@ -58,9 +58,9 @@
         </li>
       </ul>
     </nz-sider>
-    <nz-content class="pdd-20">
+    <nz-content class="content" [ngStyle]="{'padding-left': ( isCollapsed ? '9rem' : '25rem')}">
       <app-spinner></app-spinner>
-      <router-outlet></router-outlet>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
     </nz-content>
   </nz-layout>
 </nz-layout>
