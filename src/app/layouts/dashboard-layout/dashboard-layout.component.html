@@ -32,10 +32,6 @@
           <ng-container *ngIf="business$ | async as businessSelected">
             {{businessSelected.name}}
           </ng-container>
-          <button [routerLink]="'business'" class="menu-sidebar__logo-container__change-business" nz-button nz-tooltip
-            nzTooltipTitle="Cambiar negocio" nzTooltipPlacement="bottomLeft">
-            <span class="u-pointer u-bold" nz-icon nzType="reload" nzTheme="outline"></span>
-          </button>
           <br>
           <span>Rol del usuario</span>
         </p>

@@ -1,10 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, catchError, filter, tap, throwError } from 'rxjs';
+import { Observable, catchError, filter, finalize, tap, throwError } from 'rxjs';
 import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
 import { Order } from 'src/app/core/models/order.class';
 import { OrderFormVm } from 'src/app/core/view-model/order-form.vm';
+import { LoadingService } from 'src/app/services/loading.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { ViewportMap } from 'src/app/shared/components/view-port-map/view-port-map';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
@@ -15,7 +16,8 @@ import { selectDataMapInterface } from 'src/app/shared/interfaces/select-data-ma
   templateUrl: './order-form.component.html',
   styleUrls: ['./order-form.component.scss'],
   providers: [
-    MessagesService
+    MessagesService,
+    LoadingService
   ]
 })
 export class OrderFormComponent implements OnInit {
@@ -40,6 +42,7 @@ export class OrderFormComponent implements OnInit {
     private _vm: OrderFormVm,
     private _messagesService: MessagesService,
     private _drawerEvent: DrawerEvent,
+    private _loadingService: LoadingService,
   ) { }
 
   ngOnInit(): void {
@@ -140,8 +143,10 @@ export class OrderFormComponent implements OnInit {
 
   createOrder() {
     if (!this.form.invalid) {
+      this._loadingService.loadingOn()
       this._vm.saveOrder(this.form.value)
         .pipe(
+          finalize(() => this._loadingService.loadingOff()),
           catchError(err => {
             let { error: { message } } = err;
             this._messagesService.showErrors(message);
