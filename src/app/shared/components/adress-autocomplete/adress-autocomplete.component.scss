@@ -2,9 +2,8 @@ input {
     border: 0.1rem solid #ccc;
     border-radius: 0.2rem;
     padding: 0 0.5rem;
-    color: #ccc;
 }
 
-input::placeholder {
+::placeholder {
     color: #ccc;
 }
