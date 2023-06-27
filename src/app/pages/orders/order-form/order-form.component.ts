@@ -162,7 +162,6 @@ export class OrderFormComponent implements OnInit {
   }
 
   changeBranchOffice(branchOffice) {
-    console.log(branchOffice)
     let { value } = this.form.controls['products']
     value.forEach(element => {
       element.store_id = branchOffice.id

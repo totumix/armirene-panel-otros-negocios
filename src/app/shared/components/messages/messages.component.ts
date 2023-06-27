@@ -19,16 +19,13 @@ export class MessagesComponent implements OnInit {
   errors$: Observable<string[]>;
 
 
-  constructor(public messagesService: MessagesService) {
-    console.log("Created messages component");
-  }
+  constructor(public messagesService: MessagesService) {}
 
   ngOnInit() {
     this.errors$ = this.messagesService.errors$
       .pipe(
         tap(() => this.showMessages = true)
       );
-    console.log(this.showMessages, "mostrar mensajes")
   }
 
   onClose() {

@@ -71,7 +71,6 @@ export class MapComponent implements OnInit, OnDestroy {
           lat: Number(JSON.parse(JSON.stringify(json)).lat),
           lng: Number(JSON.parse(JSON.stringify(json)).lon)
         }
-        console.log(coordinates, "coordinates resolve")
         this.sendLatLng.emit(coordinates);
       }, (error) => {
         console.log(error);
