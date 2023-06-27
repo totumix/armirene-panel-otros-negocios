@@ -55,7 +55,6 @@ export class OrderFormComponent implements OnInit {
   initForm() {
     this.form = this._orderForm.pathFormData(new Order);
     this.form.patchValue({ ...this.dataForm });
-    console.log(this.form.value)
   }
 
   goDetailsForm() {

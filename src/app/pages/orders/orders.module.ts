@@ -21,6 +21,7 @@ import { CitiesSelectComponent } from 'src/app/shared/components/cities-select/c
 import { OrderMessageComponent } from './order-message/order-message.component';
 import { MapComponent } from 'src/app/shared/components/map/map.component';
 import { TableModule } from 'src/app/shared/components/table/table.module';
+import { AdressAutocompleteComponent } from 'src/app/shared/components/adress-autocomplete/adress-autocomplete.component';
 
 const antdModule = [
   NzFormModule,
@@ -50,6 +51,7 @@ const antdModule = [
     FormsModule,
     MapComponent,
     CitiesSelectComponent,
+    AdressAutocompleteComponent,
     TableModule,
     ...antdModule
   ]

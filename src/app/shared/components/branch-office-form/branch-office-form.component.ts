@@ -13,6 +13,7 @@ import { MapComponent } from '../map/map.component';
 import { BranchOfficeFormVM } from 'src/app/core/view-model/branch-office-form.vm';
 import { DrawerEvent } from '../../event-listeners/drawer.event';
 import { CitiesSelectComponent } from '../cities-select/cities-select.component';
+import { AdressAutocompleteComponent } from '../adress-autocomplete/adress-autocomplete.component';
 
 const MODULES = [
   ButtonModule,
@@ -23,7 +24,8 @@ const MODULES = [
   NzSelectModule,
   CommonModule,
   MapComponent,
-  CitiesSelectComponent
+  CitiesSelectComponent,
+  AdressAutocompleteComponent
 ]
 @Component({
   selector: 'app-branch-office-form',

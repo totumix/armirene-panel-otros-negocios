@@ -1,0 +1,5 @@
+<form [formGroup]="parentForm">
+    <label>Dirección <span id="required">*</span> </label>
+    <input class="w-100 mg-y-5" formControlName="address" ngx-google-places-autocomplete [options]='options'
+        #placesRef="ngx-places" placeholder="Dirección" (onAddressChange)="handleAddressChange($event)" />
+</form>
