@@ -31,8 +31,9 @@
             <app-phone [parentForm]="form.get('client_info')" [ifDisable]="orderId ? true : false"></app-phone>
             <nz-form-item>
                 <nz-form-label>Correo electrónico <span id="required">*</span></nz-form-label>
-                <nz-form-control nzErrorTip="Por favor el  correo electrónico!">
-                    <input [readonly]=" orderId ? true : false" formControlName="email" type="text" nz-input
+                <nz-form-control
+                    [nzErrorTip]="form.get('client_info').controls['email'].hasError('pattern') ? 'Ingrese un correo electrónico valido' : 'Por favor ingresa el correo electrónico'">
+                    <input [readonly]=" orderId ? true : false" formControlName="email" type="email" nz-input
                         placeholder="Correo electrónico">
                 </nz-form-control>
             </nz-form-item>

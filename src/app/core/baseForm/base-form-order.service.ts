@@ -9,6 +9,7 @@ import { environment } from "src/environments/environment";
 })
 export class BaseFormOrderService {
     public baseForm: FormGroup;
+    private emailPattern: any = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     constructor(private fb: FormBuilder) { }
 
@@ -25,7 +26,10 @@ export class BaseFormOrderService {
 
     setValidators(order: Order, form: FormGroup) {
         Object.keys(order).forEach(key => {
-            form.get(key)?.setValidators(Validators.required)
+            form.get(key)?.setValidators(Validators.required);
+            if (key == 'email') {
+                form.get(key)?.setValidators(Validators.pattern(this.emailPattern));
+            }
         })
         form.updateValueAndValidity();
         return form
