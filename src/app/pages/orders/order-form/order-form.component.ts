@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, filter, tap, throwError } from 'rxjs';
 import { BaseFormOrderService } from 'src/app/core/baseForm/base-form-order.service';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
 import { Order } from 'src/app/core/models/order.class';
@@ -54,7 +54,7 @@ export class OrderFormComponent implements OnInit {
 
   initForm() {
     this.form = this._orderForm.pathFormData(new Order);
-    this.form.patchValue({ ...this.dataForm });
+    this.form.patchValue({ ...this.dataForm, storeId: Number(this.dataForm.storeId) });
   }
 
   goDetailsForm() {
@@ -63,6 +63,9 @@ export class OrderFormComponent implements OnInit {
       this.current = 3;
       this.showActions = false;
       this.changeContent();
+      this.branchOfficeList$.pipe(
+        tap(branchOfficeList => this.branchOfficeSelected = branchOfficeList.filter(branchOffice => branchOffice.id == this.dataForm.storeId)[0]),
+      ).subscribe()
     }
   }
 
@@ -76,7 +79,9 @@ export class OrderFormComponent implements OnInit {
   }
 
   next(): void {
+    console.log(this.form.value)
     if (this.validClientForm && this.current != 2) {
+      this.setCity();
       this.current += 1;
       this.changeContent();
     }
@@ -172,6 +177,9 @@ export class OrderFormComponent implements OnInit {
     let { lat, lng } = coordinates
     this.form.controls['client_info']?.get('lat')?.setValue(lat);
     this.form.controls['client_info']?.get('lng')?.setValue(lng);
+  }
+
+  setCity() {
     let { value: { city } } = this.form.controls['client_info'];
     this.form.get('city')?.setValue(city);
   }

@@ -20,6 +20,7 @@ export class Order {
     country: string;
     token: number;
     state: string;
+    storeId: number
     constructor() {
         this.orderId = 0;
         this.business_id = Storage.getAll(BUSINESS_DATA).id;
@@ -47,12 +48,13 @@ export class Order {
             address: '',
             first_name: '',
             last_name: '',
-            lat : 0,
-            lng : 0,
+            lat: 0,
+            lng: 0,
             phone: '',
             state: '',
         };
         this.country = environment.indicator;
         this.token = 0;
+        this.storeId = 0;
     }
 }

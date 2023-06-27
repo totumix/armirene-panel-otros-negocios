@@ -26,7 +26,9 @@ export class BaseFormOrderService {
 
     setValidators(order: Order, form: FormGroup) {
         Object.keys(order).forEach(key => {
-            form.get(key)?.setValidators(Validators.required);
+            if (key != 'storeId') {
+                form.get(key)?.setValidators(Validators.required);
+            }
             if (key == 'email') {
                 form.get(key)?.setValidators(Validators.pattern(this.emailPattern));
             }

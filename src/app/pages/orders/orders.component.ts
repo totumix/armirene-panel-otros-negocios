@@ -45,7 +45,7 @@ export class OrdersComponent implements OnInit {
       this.cancelOrderModal(data);
     }
     if (type == 'show') {
-      this.showClient(data)
+      this.showOrder(data)
     }
   }
 
@@ -87,7 +87,7 @@ export class OrdersComponent implements OnInit {
   }
 
 
-  showClient(item): void {
+  showOrder(item): void {
     this.drawerEvent.changeOpenComponent({ component: OrderFormComponent, data: item })
   }
 
