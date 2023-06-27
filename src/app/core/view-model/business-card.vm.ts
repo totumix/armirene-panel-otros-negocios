@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BusinessManager } from "../manager/business.manager";
 import { BranchOfficeManager } from "../manager/branch-office.manager";
 import { OrderManager } from "../manager/order.manager";
+import { Business } from "../models/business.class";
 
 @Injectable({
     providedIn: 'root'
@@ -27,4 +28,7 @@ export class BusinessCardVm {
         return this._orderManager.getOrderByBusiness(businessId)
     }
 
+    selectBusiness(business: Business) {
+        this._businessManager.selectBusiness(business)
+    }
 }

@@ -37,7 +37,9 @@ export class BusinessService {
     }
 
     updateBusiness(businessId: number, changes: Partial<Business>): Observable<any> {
-        return this._baseService.post(`${this.url}/${business.business}/${business.update}/${businessId}`, changes)
+        return this._baseService.post(`${this.url}/${business.business}/${business.update}/${businessId}`, changes).pipe(
+            map(res => res['data'])
+        )
     }
 
     deleteBusiness(businessId) {

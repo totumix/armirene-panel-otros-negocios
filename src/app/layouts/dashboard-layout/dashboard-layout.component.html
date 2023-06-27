@@ -28,7 +28,10 @@
         <div class="menu-sidebar__logo-container__logo">
           <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
         </div>
-        <p>{{business?.name}}
+        <p>
+          <ng-container *ngIf="business$ | async as businessSelected">
+            {{businessSelected.name}}
+          </ng-container>
           <button [routerLink]="'business'" class="menu-sidebar__logo-container__change-business" nz-button nz-tooltip
             nzTooltipTitle="Cambiar negocio" nzTooltipPlacement="bottomLeft">
             <span class="u-pointer u-bold" nz-icon nzType="reload" nzTheme="outline"></span>

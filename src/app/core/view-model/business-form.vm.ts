@@ -19,6 +19,10 @@ export class BusinessFormVm {
         return this._businessManager.saveBusiness(data)
     }
 
+    selectBusiness(business: Business) {
+        this._businessManager.selectBusiness(business)
+    }
+
     updateBusiness(data: Business) {
         return this._businessManager.updateBusiness(data.id, data)
     }

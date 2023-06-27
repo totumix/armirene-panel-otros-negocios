@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { Observable, of } from 'rxjs';
+import { Business } from 'src/app/core/models/business.class';
 import { BUSINESS_DATA, Storage } from 'src/app/core/storage';
 import { DashboardLayoutVm } from 'src/app/core/view-model/dashboard-layout.vm';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,7 +17,7 @@ export class DashboardLayoutComponent implements OnInit {
   isCollapsed = false;
   drawerRef;
   showDrawerRef = true;
-  business
+  business$: Observable<Business>
   menuOptions = [
     { label: 'Inicio', icon: 'home', route: ['start-view'] },
     { label: 'Pedidos', icon: 'file-done', route: ['orders'] },
@@ -29,7 +31,8 @@ export class DashboardLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.business = Storage.getAll(BUSINESS_DATA);
+    this.vm.selectBusiness(Storage.getAll(BUSINESS_DATA));
+    this.business$ = this.vm.returnBusinessSelected();
     this.changeRoute();
     this.drawerEvent.closeComponent.subscribe(() => {
       this.drawerRef.close()

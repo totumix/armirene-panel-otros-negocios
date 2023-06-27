@@ -51,6 +51,7 @@ export class BusinessCardComponent {
 
   selectBusiness(business: Business) {
     Storage.setAll(BUSINESS_DATA, business)
+    this._vm.selectBusiness(business);
     this._router.navigateByUrl(`/dashboard/start-view`)
     this._vm.getBranchOfficeByBusiness(business.id);
     this._vm.getOrdersByBusiness(business.id)

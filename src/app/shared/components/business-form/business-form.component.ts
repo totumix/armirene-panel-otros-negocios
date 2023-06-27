@@ -84,7 +84,8 @@ export class BusinessFormComponent {
       .pipe(
         finalize(() => this._loadingService.loadingOff()),
       )
-      .subscribe(res => {
+      .subscribe(business => {
+        this._vm.selectBusiness(business)
         this._router.navigateByUrl("/dashboard/business")
       })
   }
@@ -102,6 +103,7 @@ export class BusinessFormComponent {
         )
         .subscribe(business => {
           Storage.setAll(BUSINESS_DATA, business);
+          this._vm.selectBusiness(business)
           this._vm.getBranchOfficeByBusiness(business.id);
           this._vm.getOrdersByBusiness(business.id)
           this._router.navigateByUrl("/dashboard/start-view")
