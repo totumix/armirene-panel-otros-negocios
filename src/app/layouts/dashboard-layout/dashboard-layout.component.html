@@ -1,6 +1,7 @@
 <nz-layout>
   <nz-header class="nz-header">
-    <div class="nz-header__logo" [routerLink]="'start-view'"></div>
+    <!-- <div class="nz-header__logo" [routerLink]="'start-view'"></div> -->
+    <div class="nz-header__logo"></div>
     <span class="nz-header__trigger" (click)="isCollapsed = !isCollapsed" *ngIf="showDrawerRef">
       <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
     </span>

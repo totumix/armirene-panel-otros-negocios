@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         .subscribe((business) => {
           Storage.setAll(BUSINESS_DATA, business);
           if (business) {
-            this._router.navigateByUrl("/dashboard/start-view")
+            this._router.navigateByUrl("/dashboard/business")
           } else {
             this._router.navigateByUrl("/authentication/business-form")
           }
