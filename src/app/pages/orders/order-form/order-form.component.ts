@@ -82,15 +82,25 @@ export class OrderFormComponent implements OnInit {
   }
 
   next(): void {
-    console.log(this.form.value)
     if (this.validClientForm && this.current != 2) {
       this.setCity();
       this.current += 1;
       this.changeContent();
     }
+
+    if (!this.validOrderForm && this.current == 0) {
+      console.log("entra aqui")
+      this.showFormError(this.form.controls['client_info'] as FormGroup)
+    }
+
     if (this.validOrderForm && this.current == 2) {
       this.current += 1;
       this.changeContent();
+    }
+
+    if (!this.validOrderForm && this.current == 2) {
+      console.log("entra aqui ", this.current)
+      this.showFormError(this.form)
     }
   }
 
@@ -163,7 +173,7 @@ export class OrderFormComponent implements OnInit {
   }
 
   showFormError(form: FormGroup) {
-    Object.values(form.controls).forEach(control => {
+    Object.values(form?.controls).forEach(control => {
       if (control.invalid) {
         control.markAsDirty();
         control.updateValueAndValidity({ onlySelf: true });

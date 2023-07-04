@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { saveLatLng } from 'src/app/ngrx/actions/map.actions';
 import { AppState } from 'src/app/ngrx/reducers/app.reducer';
@@ -16,7 +18,9 @@ import { environment } from 'src/environments/environment';
     CommonModule,
     FormsModule,
     GooglePlaceModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzFormModule,
+    NzInputModule
   ]
 })
 export class AdressAutocompleteComponent {

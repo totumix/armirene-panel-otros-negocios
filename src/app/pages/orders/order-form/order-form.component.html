@@ -48,8 +48,8 @@
                 </nz-form-control>
             </nz-form-item> -->
             <nz-form-item>
-                <nz-form-label>Detalle de la dirección<span id="required">*</span></nz-form-label>
-                <nz-form-control nzErrorTip="Por favor ingresa el detalle de tu dirección!">
+                <nz-form-label>Detalle de la dirección</nz-form-label>
+                <nz-form-control>
                     <input [readonly]=" orderId ? true : false" type="text" nz-input
                         placeholder="Número de casa / apto / oficina">
                 </nz-form-control>
@@ -76,7 +76,7 @@
             </div> -->
             <nz-form-item>
                 <nz-form-label class="mg-y-5">Selecciona la sucursal <span id="required">*</span> </nz-form-label>
-                <nz-form-control nzErrorTip="Porfavor ingrese la ciudad!">
+                <nz-form-control>
                     <nz-select [ngModelOptions]="{standalone: true}" [(ngModel)]="branchOfficeSelected"
                         id="branchOffice" nzPlaceHolder="Selecciona la surcusal"
                         (ngModelChange)="changeBranchOffice(branchOfficeSelected)">
@@ -122,7 +122,7 @@
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Comentarios al mensajero<span id="required">*</span></nz-form-label>
-                <nz-form-control>
+                <nz-form-control nzErrorTip="Por favor ingresa comentarios para el mensajero!">
                     <textarea formControlName="instructions" nz-input placeholder="Escribe los comentarios aquí…"
                         [nzAutosize]="{ minRows: 5, maxRows: 5 }"></textarea>
                 </nz-form-control>

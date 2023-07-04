@@ -30,7 +30,7 @@ export class BaseFormOrderService {
                 form.get(key)?.setValidators(Validators.required);
             }
             if (key == 'email') {
-                form.get(key)?.setValidators(Validators.pattern(this.emailPattern));
+                form.get(key)?.setValidators([Validators.pattern(this.emailPattern), Validators.required]);
             }
         })
         form.updateValueAndValidity();
