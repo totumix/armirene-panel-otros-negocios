@@ -67,7 +67,9 @@ export class OrderFormComponent implements OnInit {
       this.showActions = false;
       this.changeContent();
       this.branchOfficeList$.pipe(
-        tap(branchOfficeList => this.branchOfficeSelected = branchOfficeList.filter(branchOffice => branchOffice.id == this.dataForm.storeId)[0]),
+        tap(branchOfficeList => {
+          this.branchOfficeSelected = branchOfficeList.filter(branchOffice => branchOffice.id == this.dataForm.storeId)[0]
+        }),
       ).subscribe()
     }
   }
@@ -180,10 +182,12 @@ export class OrderFormComponent implements OnInit {
   }
 
   changeBranchOffice(branchOffice) {
+    let { id } = branchOffice;
     let { value } = this.form.controls['products']
     value.forEach(element => {
-      element.store_id = branchOffice.id
+      element.store_id = id
     });
+    this.form.get('storeId')?.setValue(id)
   }
 
   getCoordinates(coordinates) {

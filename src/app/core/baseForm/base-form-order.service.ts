@@ -32,6 +32,9 @@ export class BaseFormOrderService {
             if (key == 'email') {
                 form.get(key)?.setValidators([Validators.pattern(this.emailPattern), Validators.required]);
             }
+            if (key == 'vehicle_type' || key == 'storeId' || key == 'payment_method') {
+                form.get(key)?.setValidators(Validators.min(1));
+            }
         })
         form.updateValueAndValidity();
         return form

@@ -85,10 +85,13 @@
                         </ng-container>
                     </nz-select>
                 </nz-form-control>
+                <div class="pdd-top-10" id="required" *ngIf="form.controls['storeId'].hasError('min')">
+                    Por favor ingresa la sucursal!
+                </div>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Tipo de vehículo <span id="required">*</span></nz-form-label>
-                <nz-radio-group formControlName="vehicle_type">
+                <nz-radio-group formControlName="vehicle_type" nzErrorTip="Por favor ingresa el tipo de vehiculo!">
                     <label nz-radio [nzValue]="1">
                         <img src="assets/svg/bicycle-svgrepo-com.svg" alt="">
                         Bicicleta</label>
@@ -99,10 +102,13 @@
                         <img src="assets/svg/automobile-svgrepo-com.svg" alt="">
                         Carro</label> -->
                 </nz-radio-group>
+                <div class="pdd-top-10" id="required" *ngIf="form.controls['vehicle_type'].hasError('min')">
+                    Por favor ingresa el tipo de vehiculo!!
+                </div>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Forma de pago <span id="required">*</span></nz-form-label>
-                <nz-radio-group formControlName="payment_method">
+                <nz-radio-group formControlName="payment_method" nzErrorTip="Por favor ingresa el metodo de pago!">
                     <label nz-radio [nzValue]="1">
                         <img src="assets/svg/efectivo.svg" alt="">
                         Efectivo</label>
@@ -113,10 +119,13 @@
                         <img src="assets/svg/invoice-bill-svgrepo-com-1.svg" alt="">
                         Prepagado</label> -->
                 </nz-radio-group>
+                <div class="pdd-top-10" id="required" *ngIf="form.controls['payment_method'].hasError('min')">
+                    Por favor ingresa el metodo de pago!
+                </div>
             </nz-form-item>
             <nz-form-item *ngIf="form.get('payment_method').value == 1">
                 <nz-form-label>Total a cobrar al cliente</nz-form-label>
-                <nz-form-control nzErrorTip="Por favor ingresa la dirección!">
+                <nz-form-control>
                     <input formControlName="total_value" type="number" nz-input placeholder="Escribe aquí…">
                 </nz-form-control>
             </nz-form-item>
