@@ -89,7 +89,6 @@ export class OrderFormComponent implements OnInit {
     }
 
     if (!this.validOrderForm && this.current == 0) {
-      console.log("entra aqui")
       this.showFormError(this.form.controls['client_info'] as FormGroup)
     }
 
@@ -99,7 +98,6 @@ export class OrderFormComponent implements OnInit {
     }
 
     if (!this.validOrderForm && this.current == 2) {
-      console.log("entra aqui ", this.current)
       this.showFormError(this.form)
     }
   }
