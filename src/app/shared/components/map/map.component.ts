@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { selectDataMapInterface } from '../../interfaces/select-data-map.type';
 import { ViewportMap } from '../view-port-map/view-port-map';
 import { fromFetch } from 'rxjs/fetch';

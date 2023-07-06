@@ -85,7 +85,7 @@ export class ViewportMap {
     }
 
     setView({ lat, lng }, zoom = 16) {
-        this.mapL.setView({ lat, lng }, zoom);
+        this.mapL?.setView({ lat, lng }, zoom);
     }
 
     invalidateSize(sw = true) { this.invalidateSize(sw); }
