@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BusinessManager } from 'src/app/core/manager/business.manager';
@@ -9,7 +9,7 @@ import { BusinessVm } from 'src/app/core/view-model/business.vm';
   selector: 'app-business',
   templateUrl: './business.component.html',
   styleUrls: ['./business.component.scss'],
-  providers: [BusinessVm, BusinessManager]
+  changeDetection : ChangeDetectionStrategy.OnPush,
 })
 export class BusinessComponent {
   listOfData$: Observable<Business[]>

@@ -15,7 +15,6 @@ export class AuthManager {
     constructor(
         private _authService: AuthService,
         private _citiesService: CitiesServices,
-        private _businessServices: BusinessService,
         private _authEvent: AuthEvent,
         private _router: Router) { }
 
@@ -41,7 +40,4 @@ export class AuthManager {
         return this._citiesService.getStates()
     }
 
-    getBusinessById(businessId) {
-        return this._businessServices.getBusinessById(businessId)
-    }
 }

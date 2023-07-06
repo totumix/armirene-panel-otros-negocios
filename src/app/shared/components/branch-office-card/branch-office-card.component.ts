@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { BranchOfficeFormComponent } from 'src/app/shared/components/branch-office-form/branch-office-form.component';
 import { DrawerEvent } from '../../event-listeners/drawer.event';
 import { BranchOffice } from 'src/app/core/models/branch-office.class';
@@ -6,7 +6,8 @@ import { BranchOffice } from 'src/app/core/models/branch-office.class';
 @Component({
   selector: 'app-branch-office-card',
   templateUrl: './branch-office-card.component.html',
-  styleUrls: ['./branch-office-card.component.scss']
+  styleUrls: ['./branch-office-card.component.scss'],
+  changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class BranchOfficeCardComponent implements OnInit {
   @Input() branchOffice: BranchOffice;

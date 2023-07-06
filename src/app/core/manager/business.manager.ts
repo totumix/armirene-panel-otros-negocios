@@ -28,7 +28,7 @@ export class BusinessManager {
         return this._businessService.saveBusiness(data);
     }
 
-    private getBusinessList(userId: number) {
+    getBusinessList(userId: number) {
         const loadBusiness$ = this._businessService.getBusinessList(userId).pipe(
             catchError(err => {
                 let { error: { message } } = err;
