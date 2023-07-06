@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, Output, EventEmitter, Input } from '@angu
 import { selectDataMapInterface } from '../../interfaces/select-data-map.type';
 import { ViewportMap } from '../view-port-map/view-port-map';
 import { fromFetch } from 'rxjs/fetch';
-import { from, switchMap } from 'rxjs';
+import { Subscription, from, switchMap } from 'rxjs';
 import { AppState } from 'src/app/ngrx/reducers/app.reducer';
 import { Store } from '@ngrx/store';
 import { saveLatLng } from 'src/app/ngrx/actions/map.actions';
@@ -19,12 +19,13 @@ export class MapComponent implements OnInit, OnDestroy {
   map = ViewportMap.getInstance();
   @Input() selectedData: selectDataMapInterface;
   onGPS = false;
+  mapSubscription: Subscription;
 
   constructor(private _store: Store<AppState>) { }
 
   ngOnInit() {
 
-    this._store.select('map').subscribe(res => {
+    this.mapSubscription = this._store.select('map').subscribe(res => {
       let { latLng, latLng: { lat, lng } } = res;
       if (lat) {
         this.selectedData.lat = lat;
@@ -79,7 +80,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.onGPS = false;
-    let latLng = { lat: 0, lng: 0 };
-    this._store.dispatch(saveLatLng({ latLng }))
+    this.mapSubscription.unsubscribe();
   }
 }
