@@ -16,7 +16,7 @@ export class Order {
     city: string;
     instructions: string;
     products: Array<any>;
-    client_info: any;
+    client_info: Client;
     country: string;
     token: number;
     state: string;
@@ -52,6 +52,7 @@ export class Order {
             lng: 0,
             phone: '',
             state: '',
+            dni: ''
         };
         this.country = environment.indicator;
         this.token = 0;

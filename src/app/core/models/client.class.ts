@@ -1,5 +1,4 @@
 export class Client {
-    id: string;
     address: string;
     city: string;
     email: string;
@@ -8,7 +7,8 @@ export class Client {
     lat: number;
     lng: number
     phone: string;
-    state: string
+    state: string;
+    dni: string;
     constructor() {
         this.address = '';
         this.city = '';
@@ -19,5 +19,6 @@ export class Client {
         this.lng = 0;
         this.phone = '';
         this.state = '';
+        this.dni = '';
     }
 }

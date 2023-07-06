@@ -24,14 +24,16 @@ export class BaseFormOrderService {
         return this.setValidators(order, form)
     }
 
-    setValidators(order: Order, form: FormGroup) {
+    setValidators(order: any, form: FormGroup) {
+        
         Object.keys(order).forEach(key => {
-            if (key != 'storeId') {
-                form.get(key)?.setValidators(Validators.required);
-            }
+
+            form.get(key)?.setValidators(Validators.required);
+
             if (key == 'email') {
                 form.get(key)?.setValidators([Validators.pattern(this.emailPattern), Validators.required]);
             }
+
             if (key == 'vehicle_type' || key == 'storeId' || key == 'payment_method') {
                 form.get(key)?.setValidators(Validators.min(1));
             }

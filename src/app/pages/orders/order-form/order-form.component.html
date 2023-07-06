@@ -12,6 +12,12 @@
             <span class="order-form-container__sub-title">
                 {{orderId ? 'Datos del cliente' : 'Completa los datos del cliente'}}
             </span>
+            <nz-form-item>
+                <nz-form-label>Número de documento <span id="required">*</span> </nz-form-label>
+                <nz-form-control nzErrorTip="Por favor ingresa el número de documento!">
+                    <input formControlName="dni" type="number" nz-input placeholder="Escribe aquí…">
+                </nz-form-control>
+            </nz-form-item>
             <div class="order-form-container__row">
                 <nz-form-item>
                     <nz-form-label>Nombre <span id="required">*</span> </nz-form-label>
