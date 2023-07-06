@@ -7,7 +7,7 @@ import { BranchOffice } from 'src/app/core/models/branch-office.class';
   selector: 'app-branch-office-card',
   templateUrl: './branch-office-card.component.html',
   styleUrls: ['./branch-office-card.component.scss'],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  // changeDetection : ChangeDetectionStrategy.OnPush
 })
 export class BranchOfficeCardComponent implements OnInit {
   @Input() branchOffice: BranchOffice;

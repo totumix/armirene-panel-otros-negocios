@@ -10,7 +10,7 @@ import { map } from "rxjs";
 export class AuthVm {
     constructor(
         private _authManager: AuthManager,
-        private _businessManager: BusinessManager) { }
+    ) { }
 
     login(data) {
         return this._authManager.login(data).pipe(
@@ -23,11 +23,11 @@ export class AuthVm {
     }
 
     getBusinessById(businessId) {
-        return this._businessManager.getBusinessById(businessId)
+        return this._authManager.getBusinessById(businessId)
     }
 
     getBusinessList(userId) {
-        return this._businessManager.getBusinessList(userId)
+        return this._authManager.getBusinessList(userId)
     }
 
 }

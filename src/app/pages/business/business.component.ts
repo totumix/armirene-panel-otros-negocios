@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { BusinessManager } from 'src/app/core/manager/business.manager';
 import { Business } from 'src/app/core/models/business.class';
 import { BusinessVm } from 'src/app/core/view-model/business.vm';
 
