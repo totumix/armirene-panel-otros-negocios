@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Event, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Event, NavigationStart, Router } from '@angular/router';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
-import { Observable, of } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Business } from 'src/app/core/models/business.class';
 import { BUSINESS_DATA, Storage } from 'src/app/core/storage';
 import { DashboardLayoutVm } from 'src/app/core/view-model/dashboard-layout.vm';
-import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { DrawerEvent } from 'src/app/shared/event-listeners/drawer.event';
 @Component({
   selector: 'app-dashboard-layout',
   templateUrl: './dashboard-layout.component.html',
-  styleUrls: ['./dashboard-layout.component.scss']
+  styleUrls: ['./dashboard-layout.component.scss'],
 })
-export class DashboardLayoutComponent implements OnInit {
+export class DashboardLayoutComponent implements OnInit, OnDestroy {
   isCollapsed = false;
   drawerRef;
   showDrawerRef = true;
@@ -23,6 +22,10 @@ export class DashboardLayoutComponent implements OnInit {
     { label: 'Pedidos', icon: 'file-done', route: ['orders'] },
     { label: 'Clientes', icon: 'user', route: ['clients'] },
   ]
+  closeDrawerSubscription: Subscription;
+  openDrawerSubscription: Subscription;
+  widthDrawerSubscription: Subscription;
+
   constructor(private drawerService: NzDrawerService,
     private drawerEvent: DrawerEvent,
     private vm: DashboardLayoutVm,
@@ -34,13 +37,18 @@ export class DashboardLayoutComponent implements OnInit {
     this.vm.selectBusiness(Storage.getAll(BUSINESS_DATA));
     this.business$ = this.vm.returnBusinessSelected();
     this.changeRoute();
-    this.drawerEvent.closeComponent.subscribe(() => {
+    this.drawerEvents();
+  }
+
+  drawerEvents() {
+    let { closeComponent, getComponent, getWidthDrawer } = this.drawerEvent;
+    this.closeDrawerSubscription = closeComponent.subscribe(() => {
       this.drawerRef.close()
     })
-    this.drawerEvent.getComponent.subscribe(res => {
+    this.openDrawerSubscription = getComponent.subscribe(res => {
       this.openComponent(res)
     })
-    this.drawerEvent.getWidthDrawer.subscribe(res => {
+    this.widthDrawerSubscription = getWidthDrawer.subscribe(res => {
       this.drawerRef.nzWidth = res.width
     })
   }
@@ -79,5 +87,11 @@ export class DashboardLayoutComponent implements OnInit {
 
   onActivate(event) {
     window.scroll(0, 0);
+  }
+
+  ngOnDestroy() {
+    this.openDrawerSubscription.unsubscribe();
+    this.closeDrawerSubscription.unsubscribe();
+    this.widthDrawerSubscription.unsubscribe();
   }
 }
