@@ -14,6 +14,9 @@ import { BranchOfficeFormVM } from 'src/app/core/view-model/branch-office-form.v
 import { DrawerEvent } from '../../event-listeners/drawer.event';
 import { CitiesSelectComponent } from '../cities-select/cities-select.component';
 import { AdressAutocompleteComponent } from '../adress-autocomplete/adress-autocomplete.component';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/ngrx/reducers/app.reducer';
+import { saveLatLng } from 'src/app/ngrx/actions/map.actions';
 
 const MODULES = [
   ButtonModule,
@@ -45,6 +48,7 @@ export class BranchOfficeFormComponent implements OnInit {
     private _branchOfficeForm: BaseFormBusinessService,
     private _vm: BranchOfficeFormVM,
     private _drawerEvent: DrawerEvent,
+    private _store: Store<AppState>
   ) {
   }
 
@@ -114,5 +118,10 @@ export class BranchOfficeFormComponent implements OnInit {
         control.updateValueAndValidity({ onlySelf: true });
       }
     });
+  }
+
+  ngOnDestroy() {
+    let latLng = {};
+    this._store.dispatch(saveLatLng({ latLng }))
   }
 }
